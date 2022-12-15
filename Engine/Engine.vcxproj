@@ -151,10 +151,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Tester.h" />
+    <ClInclude Include="src\Graphics.h" />
+    <ClInclude Include="src\graphics\components\display\Window.h" />
+    <ClInclude Include="src\graphics\callbacks\WindowListener.h" />
+    <ClInclude Include="src\graphics\settings\WindowSettings.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Tester.cpp" />
+    <ClCompile Include="src\graphics\callbacks\WindowListener.cpp" />
+    <ClCompile Include="src\graphics\components\display\Window.cpp" />
+    <ClCompile Include="src\graphics\settings\WindowSettings.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
