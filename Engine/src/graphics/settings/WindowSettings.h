@@ -16,7 +16,9 @@ namespace Display {
 		~WindowSettings();
 
 		void reset();
-		void init();
+		void loadHints();
+		void apply();
+		void uninit();
 		void setContext(GLFWwindow* _context);
 
 		void restore();
@@ -39,6 +41,7 @@ namespace Display {
 		void setFullScreen(bool _isFullScreen);
 		void setAlwaysOnTop(bool _isAlwaysOnTop);
 		void setVSyncEnabled(bool _isVSyncEnabled);
+		void setDynamicUpdate(bool _isDynamicUpdate);
 		
 		std::string getTitle();
 
@@ -58,6 +61,7 @@ namespace Display {
 		bool isFullScreen();
 		bool isAlwaysOnTop();
 		bool isVSyncEnabled();
+		bool isDynamicUpdate();
 
 		bool& hasResized();
 
@@ -81,6 +85,7 @@ namespace Display {
 		bool is_FullScreen;
 		bool is_AlwaysOnTop;
 		bool is_VSyncEnabled;
+		bool is_DynamicUpdate;
 		
 		bool has_Resized;
 		bool hasInitialized;

@@ -4,6 +4,10 @@
 
 struct GLFWwindow;
 
+namespace Listener {
+	class WindowListener;
+}
+
 namespace Display {
 	class WindowSettings;
 
@@ -23,9 +27,15 @@ namespace Display {
 		void processFrames();
 		void renderDisplay();
 		void render(int);
+
+		WindowSettings& getSettings();
+		Listener::WindowListener& getWindowListener();
+
 	//private:
 		GLFWwindow* winPtr;
 		WindowSettings* settings;
+
+		Listener::WindowListener* windowListener;
 
 		bool initGLEW();
 		bool initGLFW();

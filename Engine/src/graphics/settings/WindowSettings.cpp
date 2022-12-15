@@ -22,6 +22,7 @@ WindowSettings::WindowSettings(const WindowSettings& settings)
 	is_FullScreen	(settings.is_FullScreen),
 	is_AlwaysOnTop	(settings.is_AlwaysOnTop),
 	is_VSyncEnabled	(settings.is_VSyncEnabled),
+	is_DynamicUpdate(settings.is_DynamicUpdate),
 	has_Resized		(settings.has_Resized),
 	hasInitialized	(settings.hasInitialized),
 	is_Maximized	(settings.is_Maximized),
@@ -57,11 +58,19 @@ void WindowSettings::reset() {
 	setFullScreen(false);
 	setAlwaysOnTop(false);
 	setVSyncEnabled(false);
+	setDynamicUpdate(false);
 }
 
-void WindowSettings::init() {
-	if (hasInitialized) return;
+void WindowSettings::uninit() {
+	hasInitialized = false;
+}
+
+void WindowSettings::apply() {
 	hasInitialized = true;
+}
+
+void WindowSettings::loadHints() {
+	if (hasInitialized) return;
 
 	glfwDefaultWindowHints();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -196,6 +205,10 @@ void WindowSettings::setVSyncEnabled(bool _isVSyncEnabled) {
 	this->is_VSyncEnabled = _isVSyncEnabled;
 }
 
+void WindowSettings::setDynamicUpdate(bool _isDynamicUpdate) {
+	this->is_DynamicUpdate = _isDynamicUpdate;
+}
+
 void WindowSettings::centerWindow() {
 	if (is_Maximized) return;
 	if (!hasInitialized) return;
@@ -270,6 +283,11 @@ bool WindowSettings::isVSyncEnabled() {
 	return is_VSyncEnabled;
 }
 
+bool WindowSettings::isDynamicUpdate() {
+	return is_DynamicUpdate;
+}
+
 bool& WindowSettings::hasResized() {
 	return has_Resized;
 }
+

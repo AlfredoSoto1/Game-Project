@@ -8,22 +8,25 @@
 #include <iostream>
 
 #include "graphics/settings/WindowSettings.h"
+#include "graphics/callbacks/WindowListener.h"
 
 using namespace std;
 using namespace Display;
+using namespace Listener;
 
 Window::Window(const WindowSettings& settings) {
 	this->winPtr = nullptr;
+	this->windowListener = nullptr;
 	this->settings = new WindowSettings(settings);
 }
 
-Window::Window(const string& title, unsigned int width, unsigned int height) 
-{
-	winPtr = nullptr;
-	settings = new WindowSettings();
-	
-	settings->setTitle(title);
-	settings->setSize(width, height);
+Window::Window(const string& title, unsigned int width, unsigned int height) {
+	this->winPtr = nullptr;
+	this->windowListener = nullptr;
+	this->settings = new WindowSettings();
+
+	this->settings->setTitle(title);
+	this->settings->setSize(width, height);
 }
 
 Window::~Window() {
@@ -36,6 +39,14 @@ void Window::close() {
 
 void Window::focus() {
 	if(winPtr) glfwFocusWindow(winPtr);
+}
+
+WindowSettings& Window::getSettings() {
+	return *settings;
+}
+
+WindowListener& Window::getWindowListener() {
+	return *windowListener;
 }
 
 void Window::processFrames() {
@@ -74,7 +85,7 @@ void Window::render(int isOnCallback) {
 
 void Window::renderDisplay() {
 	//glfwSetWindowUserPointer(window, this);
-	//this->windowListener = new listener::WindowListener(this);
+	this->windowListener = new WindowListener(this);
 	//this->mouseListener = new listener::MouseListener(this);
 	//this->keyListener = new listener::KeyListener(this);
 
@@ -82,13 +93,13 @@ void Window::renderDisplay() {
 		init();*/
 
 	while (!glfwWindowShouldClose(winPtr)) {
-		render(0);
+		render(false);
 	}
 
 	//if (dispose != nullptr)
 	//	dispose();
 
-	//delete windowListener;
+	delete windowListener;
 	//delete mouseListener;
 	//delete keyListener;
 
@@ -133,7 +144,8 @@ void Window::initWindow() {
 	//Initiates GLFW - returns false if it couldn't initiate
 	if (!initGLFW()) return;
 
-	settings->init();
+	settings->loadHints();
+	settings->apply();
 
 	winPtr = glfwCreateWindow(settings->getWidth(), settings->getHeight(), settings->getTitle().c_str(), settings->isFullScreen() ? settings->getCurrentMonitor() : NULL, NULL);
 	if (!winPtr) {
