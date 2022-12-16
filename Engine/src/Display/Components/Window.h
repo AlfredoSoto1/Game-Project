@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <vector>
 
 struct GLFWwindow;
 
@@ -10,11 +9,12 @@ namespace Listener {
 }
 
 namespace Settings {
+	class MouseSettings;
 	class WindowSettings;
 }
 
-namespace Graphics {
-	class Scene;
+namespace StageUtils {
+	class Stage;
 }
 
 namespace Display {
@@ -26,29 +26,34 @@ namespace Display {
 
 		operator GLFWwindow* ();
 
+		void start();
 		void close();
 		void focus();
 
-		void loadScene(Graphics::Scene* _scene);
+		void attach(StageUtils::Stage* _stage);
 
-		//temp
-		void processFrames();
-		void renderDisplay();
-		void render(int);
+		void pollEvents(int _isOnCallback);
 
+		StageUtils::Stage& getStage();
 		Settings::WindowSettings& getSettings();
+		Settings::MouseSettings& getMouseSettings();
 		Listener::WindowListener& getWindowListener();
 
 	private:
 		GLFWwindow* winPtr;
 
 		Settings::WindowSettings* settings;
+		Settings::MouseSettings* mouseSettings;
 		Listener::WindowListener* windowListener;
 
-		std::vector<Graphics::Scene*> scnenes;
+		StageUtils::Stage* stage;
+
+		bool hadStageCreated;
 
 		bool initGLEW();
 		bool initGLFW();
-		void initWindow();
+
+		void runLoop();
+		void finish();
 	};
 }

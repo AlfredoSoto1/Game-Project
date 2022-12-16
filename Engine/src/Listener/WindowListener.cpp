@@ -5,9 +5,11 @@
 
 #include "Settings/WindowSettings.h"
 #include "Display/Components/Window.h"
+#include "Display/Graphics/SceneUtils/Stage.h"
 
 using namespace Display;
 using namespace Listener;
+using namespace StageUtils;
 
 WindowListener::WindowListener(Window* window) {
 	glfwSetWindowUserPointer(*window, window);
@@ -18,7 +20,7 @@ WindowListener::WindowListener(Window* window) {
 		window.getSettings().setPosition(xpos, ypos);
 		window.getSettings().apply();
 		if (window.getSettings().isDynamicUpdate()) {
-			window.render(true);
+			window.pollEvents(GL_TRUE);
 		}
 	};
 
@@ -56,7 +58,7 @@ WindowListener::WindowListener(Window* window) {
 	auto refreshCallback = [](GLFWwindow* winPtr) {
 		Window& window = *static_cast<Window*>(glfwGetWindowUserPointer(winPtr));
 		if (window.getSettings().isDynamicUpdate())
-			window.render(true);
+			window.pollEvents(GL_TRUE);
 	};
 
 	//sets the corresponding callback to GLFW

@@ -152,17 +152,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Display\Components\Window.h" />
-    <ClInclude Include="src\Display\Graphics\Scene.h" />
-    <ClInclude Include="src\Display\Graphics\SceneManager.h" />
-    <ClInclude Include="src\Listener\Listener.h" />
+    <ClInclude Include="src\Display\Graphics\RenderUtils\Renderable.h" />
+    <ClInclude Include="src\Display\Graphics\SceneUtils\Camera.h" />
+    <ClInclude Include="src\Display\Graphics\SceneUtils\Scene.h" />
+    <ClInclude Include="src\Display\Graphics\SceneUtils\Stage.h" />
+    <ClInclude Include="src\Listener\MouseCallback.h" />
+    <ClInclude Include="src\Listener\MouseListener.h" />
     <ClInclude Include="src\Listener\WindowListener.h" />
-    <ClInclude Include="src\Display\Graphics\RenderProgram.h" />
+    <ClInclude Include="src\Display\Graphics\RenderUtils\RenderProgram.h" />
+    <ClInclude Include="src\Settings\MouseSettings.h" />
     <ClInclude Include="src\Settings\WindowSettings.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Display\Graphics\Scene.cpp" />
+    <ClCompile Include="src\Display\Graphics\SceneUtils\Scene.cpp" />
+    <ClCompile Include="src\Display\Graphics\SceneUtils\Stage.cpp" />
+    <ClCompile Include="src\Listener\MouseCallback.cpp" />
+    <ClCompile Include="src\Listener\MouseListener.cpp" />
     <ClCompile Include="src\Listener\WindowListener.cpp" />
     <ClCompile Include="src\Display\Components\Window.cpp" />
+    <ClCompile Include="src\Settings\MouseSettings.cpp" />
     <ClCompile Include="src\Settings\WindowSettings.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

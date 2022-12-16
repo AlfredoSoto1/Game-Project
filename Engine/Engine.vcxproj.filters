@@ -24,16 +24,28 @@
     <ClInclude Include="src\Listener\WindowListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Display\Graphics\RenderProgram.h">
+    <ClInclude Include="src\Display\Graphics\RenderUtils\RenderProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Display\Graphics\Scene.h">
+    <ClInclude Include="src\Display\Graphics\SceneUtils\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Display\Graphics\SceneManager.h">
+    <ClInclude Include="src\Display\Graphics\SceneUtils\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Listener\Listener.h">
+    <ClInclude Include="src\Display\Graphics\RenderUtils\Renderable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Display\Graphics\SceneUtils\Stage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Listener\MouseListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Listener\MouseCallback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Settings\MouseSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,7 +59,19 @@
     <ClCompile Include="src\Listener\WindowListener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Display\Graphics\Scene.cpp">
+    <ClCompile Include="src\Display\Graphics\SceneUtils\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Display\Graphics\SceneUtils\Stage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Listener\MouseListener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Listener\MouseCallback.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Settings\MouseSettings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

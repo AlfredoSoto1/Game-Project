@@ -6,22 +6,30 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-#include "Settings/WindowSettings.h"
+#include "Settings/MouseSettings.h"
 #include "Listener/WindowListener.h"
+
+#include "Settings/WindowSettings.h"
+#include "Display/Graphics/SceneUtils/Stage.h"
 
 using namespace std;
 using namespace Display;
 using namespace Settings;
 using namespace Listener;
+using namespace StageUtils;
 
 Window::Window(const WindowSettings& _settings) {
+	this->stage = nullptr;
 	this->winPtr = nullptr;
+	this->mouseSettings = nullptr;
 	this->windowListener = nullptr;
 	this->settings = new WindowSettings(_settings);
 }
 
 Window::Window(const string& _title, unsigned int _width, unsigned int _height) {
+	this->stage = nullptr;
 	this->winPtr = nullptr;
+	this->mouseSettings = nullptr;
 	this->windowListener = nullptr;
 	this->settings = new WindowSettings();
 
@@ -41,75 +49,24 @@ void Window::focus() {
 	if(winPtr) glfwFocusWindow(winPtr);
 }
 
-void Window::loadScene(Graphics::Scene* _scene) {
+void Window::attach(StageUtils::Stage* _stage) {
+	this->stage = _stage;
+}
 
+StageUtils::Stage& Window::getStage() {
+	return *stage;
 }
 
 WindowSettings& Window::getSettings() {
 	return *settings;
 }
 
+MouseSettings& Window::getMouseSettings() {
+	return *mouseSettings;
+}
+
 WindowListener& Window::getWindowListener() {
 	return *windowListener;
-}
-
-void Window::processFrames() {
-	//Current thread sleeps here to get targeted FPS
-	//if (!vsyncEnabled && targetFrames != UNLIMITED_FPS) {
-	//	while (glfwGetTime() < lastTime + 1.0 / targetFrames);
-	//	lastTime += 1.0 / targetFrames;
-	//}
-	////Calculates FPS
-	//frames++;
-	//if (glfwGetTime() * 1000.0 > lastRefresh + 1000.0) {
-	//	std::cout << "FPS: " << frames << std::endl;
-	//	frames = 0;
-	//	lastRefresh = glfwGetTime() * 1000.0;
-	//}
-
-	//double currentTime = glfwGetTime();
-	//timeDifference = (currentTime - lastTimeDifference);
-	//lastTimeDifference = currentTime;
-}
-
-void Window::render(int isOnCallback) {
-	if (settings->hasResized())
-		glViewport(0, 0, settings->getWidth(), settings->getHeight());
-
-	//if (update != nullptr)
-	//	update();
-
-	glfwSwapBuffers(winPtr);
-	settings->hasResized() = false;
-
-	if (!isOnCallback)
-		glfwPollEvents();
-	//processFrames();
-}
-
-void Window::renderDisplay() {
-	//glfwSetWindowUserPointer(window, this);
-	this->windowListener = new WindowListener(this);
-	//this->mouseListener = new listener::MouseListener(this);
-	//this->keyListener = new listener::KeyListener(this);
-
-	/*if (init != nullptr)
-		init();*/
-
-	while (!glfwWindowShouldClose(winPtr)) {
-		render(false);
-	}
-
-	//if (dispose != nullptr)
-	//	dispose();
-
-	delete windowListener;
-	//delete mouseListener;
-	//delete keyListener;
-
-	glfwDestroyWindow(winPtr);
-	//isRunning = false;
-	glfwTerminate();
 }
 
 //definition of error callback
@@ -141,7 +98,7 @@ bool Window::initGLFW() {
 	return true;
 }
 
-void Window::initWindow() {
+void Window::start() {
 	//setting error callback
 	glfwSetErrorCallback(&error_callback);
 
@@ -158,20 +115,66 @@ void Window::initWindow() {
 		return;
 	}
 
+	//set settings context and prefferences
 	settings->setContext(winPtr);
 	settings->centerWindow();
 
 	//create Display context
 	glfwMakeContextCurrent(winPtr);
-
-	//glfwSwapInterval(1);
-	//glfwSwapInterval(0);
 	glfwShowWindow(winPtr);
 
 	//Initiates GLEW - returns false if it couldn't initiate
 	if (!initGLEW()) return;
 	glViewport(0, 0, settings->getWidth(), settings->getHeight());
 
-	renderDisplay();
+	//setup listeners
+	this->mouseSettings = new MouseSettings(this);
+	this->windowListener = new WindowListener(this);
+
+	//mouseListener
+
+	runLoop();
+}
+
+void Window::runLoop() {
+
+	hadStageCreated = stage != nullptr;
+	if (!hadStageCreated)
+		stage = new Stage();
+
+	stage->init(settings);
+	while (!glfwWindowShouldClose(winPtr)) {
+		stage->update();
+		pollEvents(GL_FALSE);
+	}
+	finish();
+}
+
+void Window::pollEvents(int _isOnCallback) {
+	if (settings->hasResized())
+		glViewport(0, 0, settings->getWidth(), settings->getHeight());
+
+	stage->render();
+	
+	glfwSwapBuffers(winPtr);
+	settings->hasResized() = false;
+
+	if (!_isOnCallback)
+		glfwPollEvents();
+
+	stage->postRender();
+}
+
+void Window::finish() {
+	stage->dispose();
+
+	if(!hadStageCreated)
+		delete stage;
+
+	delete mouseSettings;
+	delete windowListener;
+
+	glfwDestroyWindow(winPtr);
+	glfwTerminate();
 }
 
