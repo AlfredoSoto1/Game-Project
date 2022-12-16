@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-using namespace Display;
+using namespace Settings;
 
 WindowSettings::WindowSettings(const WindowSettings& settings) 
 	:

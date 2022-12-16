@@ -3,8 +3,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-#include "graphics/settings/WindowSettings.h"
-#include "graphics/components/display/Window.h"
+#include "Settings/WindowSettings.h"
+#include "Display/Components/Window.h"
 
 using namespace Display;
 using namespace Listener;

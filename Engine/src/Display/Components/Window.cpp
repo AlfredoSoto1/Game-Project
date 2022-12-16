@@ -4,29 +4,29 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-
 #include <iostream>
 
-#include "graphics/settings/WindowSettings.h"
-#include "graphics/callbacks/WindowListener.h"
+#include "Settings/WindowSettings.h"
+#include "Listener/WindowListener.h"
 
 using namespace std;
 using namespace Display;
+using namespace Settings;
 using namespace Listener;
 
-Window::Window(const WindowSettings& settings) {
+Window::Window(const WindowSettings& _settings) {
 	this->winPtr = nullptr;
 	this->windowListener = nullptr;
-	this->settings = new WindowSettings(settings);
+	this->settings = new WindowSettings(_settings);
 }
 
-Window::Window(const string& title, unsigned int width, unsigned int height) {
+Window::Window(const string& _title, unsigned int _width, unsigned int _height) {
 	this->winPtr = nullptr;
 	this->windowListener = nullptr;
 	this->settings = new WindowSettings();
 
-	this->settings->setTitle(title);
-	this->settings->setSize(width, height);
+	this->settings->setTitle(_title);
+	this->settings->setSize(_width, _height);
 }
 
 Window::~Window() {
@@ -39,6 +39,10 @@ void Window::close() {
 
 void Window::focus() {
 	if(winPtr) glfwFocusWindow(winPtr);
+}
+
+void Window::loadScene(Graphics::Scene* _scene) {
+
 }
 
 WindowSettings& Window::getSettings() {

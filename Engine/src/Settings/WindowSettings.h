@@ -8,7 +8,7 @@
 struct GLFWmonitor;
 struct GLFWwindow;
 
-namespace Display {
+namespace Settings {
 	class WindowSettings {
 	public:
 		WindowSettings();
