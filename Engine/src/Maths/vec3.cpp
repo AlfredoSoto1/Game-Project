@@ -21,6 +21,10 @@ vec3::vec3(const vec3& vector) : vec(vector) {
 
 }
 
+float vec3::operator*(const vec3& vector) const {
+	return vec::operator*(vector);
+}
+
 vec3 vec3::operator - () {
 	vec<3U, float> cpy = vec::operator-();
 	return *(vec3*)(&cpy);

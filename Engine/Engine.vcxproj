@@ -159,6 +159,7 @@
     <ClInclude Include="src\Callbacks\MouseCallback.h" />
     <ClInclude Include="src\Callbacks\WindowCallback.h" />
     <ClInclude Include="src\Display\Graphics\RenderUtils\RenderProgram.h" />
+    <ClInclude Include="src\Maths\Operation.h" />
     <ClInclude Include="src\Maths\vec.h" />
     <ClInclude Include="src\Maths\vec2.h" />
     <ClInclude Include="src\Maths\vec3.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="src\Callbacks\MouseCallback.cpp" />
     <ClCompile Include="src\Callbacks\WindowCallback.cpp" />
     <ClCompile Include="src\Display\Components\Window.cpp" />
+    <ClCompile Include="src\Maths\Operation.cpp" />
     <ClCompile Include="src\Maths\vec2.cpp" />
     <ClCompile Include="src\Maths\vec3.cpp" />
     <ClCompile Include="src\Maths\vec4.cpp" />

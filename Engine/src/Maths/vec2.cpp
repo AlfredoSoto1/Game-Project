@@ -24,6 +24,10 @@ vec2 vec2::operator - () {
 	return *(vec2*)(&cpy);
 }
 
+float vec2::operator*(const vec2& vector) const {
+	return vec::operator*(vector);
+}
+
 vec2 vec2::operator + (const vec2& vector) const {
 	vec<2U, float> cpy = vec::operator+(vector);
 	return *(vec2*)(&cpy);

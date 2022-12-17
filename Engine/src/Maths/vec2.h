@@ -13,6 +13,8 @@ namespace Maths {
 
 		vec2 operator - ();
 
+		float operator * (const vec2& vector) const;
+
 		vec2 operator + (const vec2& vector) const;
 		vec2 operator - (const vec2& vector) const;
 		vec2 operator * (const float factor) const;

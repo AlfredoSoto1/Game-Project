@@ -17,9 +17,10 @@ using namespace Maths;
 int main() {
 
 	vec2 v1(4.0);
-	vec3 v2(5.0);
+	vec2 v2(5.0);
 
-	cout << v2[0] << endl;
+	vec2 b = v1 + v2;
+	cout << v2 * v1 << endl;
 
 
 	//Display::Window win("First Display", 1280, 720);
