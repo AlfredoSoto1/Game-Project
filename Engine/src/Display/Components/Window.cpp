@@ -7,38 +7,49 @@
 #include <iostream>
 
 #include "Settings/MouseSettings.h"
-#include "Listener/WindowListener.h"
-
 #include "Settings/WindowSettings.h"
+
+#include "Callbacks/MouseCallback.h"
+#include "Callbacks/WindowCallback.h"
+
 #include "Display/Graphics/SceneUtils/Stage.h"
 
 using namespace std;
 using namespace Display;
 using namespace Settings;
-using namespace Listener;
+using namespace Callback;
 using namespace StageUtils;
 
-Window::Window(const WindowSettings& _settings) {
+Window::Window(const WindowSettings&& _settings) {
+	this->hadStageCreated = false;
 	this->stage = nullptr;
 	this->winPtr = nullptr;
 	this->mouseSettings = nullptr;
-	this->windowListener = nullptr;
-	this->settings = new WindowSettings(_settings);
+	this->mouseSettings = new MouseSettings();
+	this->windowSettings = new WindowSettings(_settings);
+
+	this->mouseCallback = nullptr;
+	this->windowCallback = nullptr;
 }
 
 Window::Window(const string& _title, unsigned int _width, unsigned int _height) {
+	this->hadStageCreated = false;
 	this->stage = nullptr;
 	this->winPtr = nullptr;
 	this->mouseSettings = nullptr;
-	this->windowListener = nullptr;
-	this->settings = new WindowSettings();
+	this->mouseSettings = new MouseSettings();
+	this->windowSettings = new WindowSettings();
 
-	this->settings->setTitle(_title);
-	this->settings->setSize(_width, _height);
+	this->mouseCallback = nullptr;
+	this->windowCallback = nullptr;
+
+	this->windowSettings->setTitle(_title);
+	this->windowSettings->setSize(_width, _height);
 }
 
 Window::~Window() {
-	delete settings;
+	delete mouseSettings;
+	delete windowSettings;
 }
 
 void Window::close() {
@@ -57,17 +68,22 @@ StageUtils::Stage& Window::getStage() {
 	return *stage;
 }
 
-WindowSettings& Window::getSettings() {
-	return *settings;
+WindowSettings& Window::getWindowSettings() {
+	return *windowSettings;
 }
 
 MouseSettings& Window::getMouseSettings() {
 	return *mouseSettings;
 }
 
-WindowListener& Window::getWindowListener() {
-	return *windowListener;
+Callback::MouseCallback& Window::getMouseCallback() {
+	return *mouseCallback;
 }
+
+Callback::WindowCallback& Window::getWindowCallback() {
+	return *windowCallback;
+}
+
 
 //definition of error callback
 void error_callback(int error, const char* description) {
@@ -105,10 +121,13 @@ void Window::start() {
 	//Initiates GLFW - returns false if it couldn't initiate
 	if (!initGLFW()) return;
 
-	settings->loadHints();
-	settings->apply();
+	windowSettings->loadHints();
+	windowSettings->apply();
 
-	winPtr = glfwCreateWindow(settings->getWidth(), settings->getHeight(), settings->getTitle().c_str(), settings->isFullScreen() ? settings->getCurrentMonitor() : NULL, NULL);
+	winPtr = glfwCreateWindow(
+		windowSettings->getWidth(), windowSettings->getHeight(),
+		windowSettings->getTitle().c_str(),
+		windowSettings->isFullScreen() ? windowSettings->getCurrentMonitor() : NULL, NULL);
 	if (!winPtr) {
 		cout << "Failed to create GLFW window." << endl;
 		glfwTerminate();
@@ -116,8 +135,8 @@ void Window::start() {
 	}
 
 	//set settings context and prefferences
-	settings->setContext(winPtr);
-	settings->centerWindow();
+	windowSettings->setContext(winPtr);
+	windowSettings->centerWindow();
 
 	//create Display context
 	glfwMakeContextCurrent(winPtr);
@@ -125,13 +144,11 @@ void Window::start() {
 
 	//Initiates GLEW - returns false if it couldn't initiate
 	if (!initGLEW()) return;
-	glViewport(0, 0, settings->getWidth(), settings->getHeight());
+	glViewport(0, 0, windowSettings->getWidth(), windowSettings->getHeight());
 
-	//setup listeners
-	this->mouseSettings = new MouseSettings(this);
-	this->windowListener = new WindowListener(this);
-
-	//mouseListener
+	//setup callbacks
+	mouseCallback = new MouseCallback(this);
+	windowCallback = new WindowCallback(this);
 
 	runLoop();
 }
@@ -142,7 +159,7 @@ void Window::runLoop() {
 	if (!hadStageCreated)
 		stage = new Stage();
 
-	stage->init(settings);
+	stage->init(windowSettings);
 	while (!glfwWindowShouldClose(winPtr)) {
 		stage->update();
 		pollEvents(GL_FALSE);
@@ -151,13 +168,13 @@ void Window::runLoop() {
 }
 
 void Window::pollEvents(int _isOnCallback) {
-	if (settings->hasResized())
-		glViewport(0, 0, settings->getWidth(), settings->getHeight());
+	if (windowSettings->hasResized())
+		glViewport(0, 0, windowSettings->getWidth(), windowSettings->getHeight());
 
 	stage->render();
 	
 	glfwSwapBuffers(winPtr);
-	settings->hasResized() = false;
+	windowSettings->hasResized() = false;
 
 	if (!_isOnCallback)
 		glfwPollEvents();
@@ -171,8 +188,8 @@ void Window::finish() {
 	if(!hadStageCreated)
 		delete stage;
 
-	delete mouseSettings;
-	delete windowListener;
+	delete mouseCallback;
+	delete windowCallback;
 
 	glfwDestroyWindow(winPtr);
 	glfwTerminate();

@@ -4,13 +4,14 @@
 
 struct GLFWwindow;
 
-namespace Listener {
-	class WindowListener;
-}
-
 namespace Settings {
 	class MouseSettings;
 	class WindowSettings;
+}
+
+namespace Callback {
+	class MouseCallback;
+	class WindowCallback;
 }
 
 namespace StageUtils {
@@ -20,7 +21,7 @@ namespace StageUtils {
 namespace Display {
 	class Window {
 	public:
-		Window(const Settings::WindowSettings& _settings);
+		Window(const Settings::WindowSettings&& _settings);
 		Window(const std::string& _title, unsigned int _width, unsigned int _height);
 		~Window();
 
@@ -35,16 +36,21 @@ namespace Display {
 		void pollEvents(int _isOnCallback);
 
 		StageUtils::Stage& getStage();
-		Settings::WindowSettings& getSettings();
+
 		Settings::MouseSettings& getMouseSettings();
-		Listener::WindowListener& getWindowListener();
+		Settings::WindowSettings& getWindowSettings();
+
+		Callback::MouseCallback& getMouseCallback();
+		Callback::WindowCallback& getWindowCallback();
 
 	private:
 		GLFWwindow* winPtr;
 
-		Settings::WindowSettings* settings;
 		Settings::MouseSettings* mouseSettings;
-		Listener::WindowListener* windowListener;
+		Settings::WindowSettings* windowSettings;
+
+		Callback::MouseCallback* mouseCallback;
+		Callback::WindowCallback* windowCallback;
 
 		StageUtils::Stage* stage;
 

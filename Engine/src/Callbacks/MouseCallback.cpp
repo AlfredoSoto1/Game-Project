@@ -17,15 +17,13 @@ using namespace Settings;
 
 MouseCallback::MouseCallback(Display::Window* window) {
 	glfwSetWindowUserPointer(*window, window);
-	//auto dropCallback = [](GLFWwindow* _window, int _pathCount, const char** _paths) {
-	//	//FIXME
-	//	//display::Window& windowDisplay = *static_cast<display::Window*>(glfwGetWindowUserPointer(_window));
-	//	//windowDisplay.mouseListener->pathCount = _pathCount;
-	//	//windowDisplay.mouseListener->droppedPaths = _paths;
-	//};
+	auto dropCallback = [](GLFWwindow* winPtr, int _pathCount, const char** _paths) {
+		Window& window = TO_WINDOW(winPtr);
+		window.getMouseSettings().setDropPath(_pathCount, _paths);
+	};
 
 	auto enterCallback = [](GLFWwindow* winPtr, int isInside) {
-		//Window* window = TO_WINDOW(winPtr);
+		Window& window = TO_WINDOW(winPtr);
 
 	};
 
@@ -44,16 +42,12 @@ MouseCallback::MouseCallback(Display::Window* window) {
 
 		window.getMouseSettings().setMousePosition(xpos, ypos);
 		window.getMouseSettings().setMousePositionNormalized(
-			(xpos * 2.0) / window.getSettings().getWidth() - 1.0,
-			-(ypos * 2.0) / window.getSettings().getHeight() + 1.0
+			(xpos * 2.0) / window.getWindowSettings().getWidth() - 1.0,
+			-(ypos * 2.0) / window.getWindowSettings().getHeight() + 1.0
 		);
 	};
 
-	//convert via operator overload Display to GLFWwindpw pointer
-	//GLFWwindow* window = *(graphics::Display*)displayPtr;
-
-	//sets the corresponding callback to GLFW
-	//glfwSetDropCallback(window, dropCallback);
+	glfwSetDropCallback(*window, dropCallback);
 	glfwSetScrollCallback(*window, scrollCallback);
 	glfwSetCursorEnterCallback(*window, enterCallback);
 	glfwSetMouseButtonCallback(*window, clickCallback);

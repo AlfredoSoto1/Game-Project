@@ -2,14 +2,12 @@
 
 #include <GLFW/glfw3.h>
 
-#include "Listener/MouseCallback.h"
-#include "Display/Components/Window.h"
+#include "Callbacks/MouseCallback.h"
 
 using namespace Settings;
-using namespace Display;
 using namespace Callback;
 
-MouseSettings::MouseSettings(Window* _window) {
+MouseSettings::MouseSettings() {
 	xPosition = 0.0;
 	yPosition = 0.0;
 
@@ -19,17 +17,14 @@ MouseSettings::MouseSettings(Window* _window) {
 	yScroll = 0.0;
 	xScroll = 0.0;
 
-	callback = new MouseCallback(_window);
+	paths = nullptr;
+	pathCount = 0;
+
 	mouseButtons = new bool[GLFW_MOUSE_BUTTON_LAST];
 }
 
 MouseSettings::~MouseSettings() {
 	delete mouseButtons;
-	delete callback;
-}
-
-Callback::MouseCallback& MouseSettings::getCallback() {
-	return *callback;
 }
 
 double MouseSettings::getX() {
@@ -58,6 +53,13 @@ bool* MouseSettings::getButtons() {
 	return mouseButtons;
 }
 
+const char** MouseSettings::getDropPath() {
+	return paths;
+}
+unsigned int MouseSettings::getPathCount() {
+	return pathCount;
+}
+
 void MouseSettings::setScrollOffset(double _xOffset, double _yOffset) {
 	this->xScroll = _xOffset;
 	this->yScroll = _yOffset;
@@ -71,4 +73,9 @@ void MouseSettings::setMousePosition(double x, double y) {
 void MouseSettings::setMousePositionNormalized(double x, double y) {
 	this->xPositionNormalized = x;
 	this->yPositionNormalized = y;
+}
+
+void MouseSettings::setDropPath(unsigned int _pathCount, const char** _paths) {
+	this->paths = _paths;
+	this->pathCount = _pathCount;
 }

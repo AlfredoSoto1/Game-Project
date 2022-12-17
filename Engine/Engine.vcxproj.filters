@@ -21,7 +21,7 @@
     <ClInclude Include="src\Settings\WindowSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Listener\WindowListener.h">
+    <ClInclude Include="src\Callbacks\WindowCallback.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Display\Graphics\RenderUtils\RenderProgram.h">
@@ -39,10 +39,7 @@
     <ClInclude Include="src\Display\Graphics\SceneUtils\Stage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Listener\MouseListener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Listener\MouseCallback.h">
+    <ClInclude Include="src\Callbacks\MouseCallback.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Settings\MouseSettings.h">
@@ -56,7 +53,7 @@
     <ClCompile Include="src\Settings\WindowSettings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Listener\WindowListener.cpp">
+    <ClCompile Include="src\Callbacks\WindowCallback.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Display\Graphics\SceneUtils\Scene.cpp">
@@ -65,10 +62,7 @@
     <ClCompile Include="src\Display\Graphics\SceneUtils\Stage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Listener\MouseListener.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Listener\MouseCallback.cpp">
+    <ClCompile Include="src\Callbacks\MouseCallback.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Settings\MouseSettings.cpp">
