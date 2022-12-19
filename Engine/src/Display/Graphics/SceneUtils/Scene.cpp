@@ -1,6 +1,8 @@
 #include "Scene.h"
 
-using namespace StageUtils;
+#include "SceneManager.h"
+
+using namespace SceneUtils;
 
 Scene::Scene() {
 	
@@ -10,18 +12,11 @@ Scene::~Scene() {
 
 }
 
-void Scene::init() {
-
+SceneManager& Scene::getSceneManager() {
+	return *sceneManager;
 }
 
-void Scene::render() {
-
+void Scene::setSceneManager(SceneManager* _sceneManager) {
+	this->sceneManager = _sceneManager;
 }
 
-void Scene::update() {
-
-}
-
-void Scene::dispose() {
-
-}

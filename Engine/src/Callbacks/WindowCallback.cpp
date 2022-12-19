@@ -5,11 +5,9 @@
 
 #include "Settings/WindowSettings.h"
 #include "Display/Components/Window.h"
-#include "Display/Graphics/SceneUtils/Stage.h"
 
 using namespace Display;
 using namespace Callback;
-using namespace StageUtils;
 
 WindowCallback::WindowCallback(Window* window) {
 	glfwSetWindowUserPointer(*window, window);

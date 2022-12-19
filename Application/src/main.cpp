@@ -1,36 +1,52 @@
-
-
 #define GLEW_STATIC
+
+#include <GL/glew.h>
 
 #include <iostream>
 using namespace std;
 
+#include "Settings/WindowSettings.h"
+
 #include "Display/Components/Window.h"
+#include "Display/Graphics/SceneUtils/Scene.h"
+#include "Display/Graphics/SceneUtils/SceneManager.h"
 
-#include "Display/Graphics/SceneUtils/Stage.h"
+using namespace SceneUtils;
 
-#include "Maths/vec2.h"
-#include "Maths/vec3.h"
-using namespace Maths;
+class TestScene : public Scene {
+public:
+	TestScene() 
+		: Scene() 
+	{
 
+	}
+
+	void load() {
+	}
+
+	void render() {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+	}
+
+	void update() {
+	}
+
+	void unload() {
+	}
+
+	void dispose() {
+	}
+
+};
 
 int main() {
 
-	vec2 v1(4.0);
-	vec2 v2(5.0);
+	Display::Window win("First Display", 1280, 720);
+	
+	TestScene* scene1 = new TestScene();
 
-	vec2 b = v1 + v2;
-	cout << v2 * v1 << endl;
+	win.getSceneManager().addScene(scene1);
 
-
-	//Display::Window win("First Display", 1280, 720);
-
-	//
-	//StageUtils::Stage* stage = new StageUtils::Stage();
-	////stage->addScene(RenderTest());
-
-	//win.attach(stage);
-	//win.start();
-
-	//delete stage;
+	win.start();
 }

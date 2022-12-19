@@ -1,72 +1,91 @@
 #include "vec4.h"
+#include "vec2.h"
+#include "vec3.h"
 
 using namespace Maths;
 
-
-vec4::vec4() : vec() {
+vec4::vec4(const vec4& vector)
+	: x(vector.x), y(vector.y), z(vector.z), w(vector.w)
+{
+}
+vec4::vec4(const vec3& vector, float w)
+	: x(vector.x), y(vector.y), z(vector.z), w(w)
+{
+}
+vec4::vec4(const vec2& vector, float z, float w)
+	: x(vector.x), y(vector.y), z(z), w(w)
+{
+}
+vec4::vec4(float x, float y, float z, float w)
+	: x(x), y(y), z(z), w(w)
+{
+}
+vec4::vec4(float xyzw)
+	: x(xyzw), y(xyzw), z(xyzw), w(xyzw)
+{
 }
 
-vec4::vec4(float xyzw) : vec() {
-	component[0] = xyzw;
-	component[1] = xyzw;
-	component[2] = xyzw;
-	component[3] = xyzw;
-}
-
-vec4::vec4(float x, float y, float z, float w) : vec() {
-	component[0] = x;
-	component[1] = y;
-	component[2] = z;
-	component[3] = w;
-}
-
-vec4::vec4(const vec4& vector) : vec(vector) {
-
+float& vec4::operator [] (unsigned int index) {
+	return *((float*)this + index);
 }
 
 vec4 vec4::operator - () {
-	vec<4U, float> cpy = vec::operator-();
-	return *(vec4*)(&cpy);
-}
-
-float vec4::operator*(const vec4& vector) const {
-	return vec::operator*(vector);
+	return vec4(-x, -y, -z, -w);
 }
 
 vec4 vec4::operator + (const vec4& vector) const {
-	vec<4U, float> cpy = vec::operator+(vector);
-	return *(vec4*)(&cpy);
+	return vec4(x + vector.x, y + vector.y, z + vector.z, w + vector.w);
 }
+
 vec4 vec4::operator - (const vec4& vector) const {
-	vec<4U, float> cpy = vec::operator-(vector);
-	return *(vec4*)(&cpy);
+	return vec4(x - vector.x, y - vector.y, z - vector.z, w - vector.w);
 }
+
 vec4 vec4::operator * (const float factor) const {
-	vec<4U, float> cpy = vec::operator*(factor);
-	return *(vec4*)(&cpy);
+	return vec4(x * factor, y * factor, z * factor, w * factor);
 }
 
 vec4 vec4::operator / (const float factor) const {
-	vec<4U, float> cpy = vec::operator/(factor);
-	return *(vec4*)(&cpy);
+	return vec4(x / factor, y / factor, z / factor, w / factor);
+}
+
+float vec4::operator * (const vec4& vector) const {
+	return x * vector.x + y * vector.y + z * vector.z + w * vector.w;
 }
 
 vec4& vec4::operator += (const vec4& vector) {
-	vec::operator+=(vector);
+	x = x + vector.x;
+	y = y + vector.y;
+	z = z + vector.z;
+	w = w + vector.w;
 	return *this;
 }
-
 vec4& vec4::operator -= (const vec4& vector) {
-	vec::operator-=(vector);
+	x = x - vector.x;
+	y = y - vector.y;
+	z = z - vector.z;
+	w = w - vector.w;
 	return *this;
 }
-
 vec4& vec4::operator *= (const float factor) {
-	vec::operator*=(factor);
+	for (int i = 0; i < 4; i++)
+		(*this)[i] *= factor;
+	return *this;
+}
+vec4& vec4::operator /= (const float factor) {
+	for (int i = 0; i < 4; i++)
+		(*this)[i] /= factor;
 	return *this;
 }
 
-vec4& vec4::operator /= (const float factor) {
-	vec::operator/=(factor);
-	return *this;
+bool vec4::operator == (const float value) {
+	return value == x && value == y && value == z && value == w;
+}
+
+bool vec4::operator == (const vec4& vector) {
+	return vector.x == x && vector.y == y && vector.z == z && vector.w == w;
+}
+
+bool vec4::operator != (const vec4& vector) {
+	return !(*this == vector);
 }

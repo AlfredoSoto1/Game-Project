@@ -1,19 +1,28 @@
 #pragma once
 
-namespace StageUtils {
+namespace SceneUtils {
+
+	class SceneManager;
+
 	class Scene {
 	public:
 		Scene();
 		virtual ~Scene();
 
-		//virtual void init()		= 0;
-		//virtual void render()	= 0;
-		//virtual void update()	= 0;
-		//virtual void dispose()	= 0;
+		virtual void load()		= 0;
+		virtual void render()	= 0;
+		virtual void update()	= 0;
+		virtual void unload()	= 0;
+		virtual void dispose()	= 0;
 
-		void init();
-		void render();
-		void update();
-		void dispose();
+		SceneManager& getSceneManager();
+
+	private:
+		friend class SceneManager;
+
+		SceneManager* sceneManager;
+
+		void setSceneManager(SceneManager* _sceneManager);
+
 	};
 }

@@ -37,6 +37,10 @@ namespace Maths {
 			return result;
 		}
 
+		vec operator | (const vec& vector) const {
+			return vector;
+		}
+
 		vec operator + (const vec& vector) const {
 			vec<E_COUNT, E_TYPE> out;
 			for (int i = 0; i < E_COUNT; i++)

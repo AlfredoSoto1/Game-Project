@@ -14,8 +14,8 @@ namespace Callback {
 	class WindowCallback;
 }
 
-namespace StageUtils {
-	class Stage;
+namespace SceneUtils {
+	class SceneManager;
 }
 
 namespace Display {
@@ -31,11 +31,7 @@ namespace Display {
 		void close();
 		void focus();
 
-		void attach(StageUtils::Stage* _stage);
-
-		void pollEvents(int _isOnCallback);
-
-		StageUtils::Stage& getStage();
+		SceneUtils::SceneManager& getSceneManager();
 
 		Settings::MouseSettings& getMouseSettings();
 		Settings::WindowSettings& getWindowSettings();
@@ -44,6 +40,8 @@ namespace Display {
 		Callback::WindowCallback& getWindowCallback();
 
 	private:
+		friend class Callback::WindowCallback;
+
 		GLFWwindow* winPtr;
 
 		Settings::MouseSettings* mouseSettings;
@@ -52,12 +50,12 @@ namespace Display {
 		Callback::MouseCallback* mouseCallback;
 		Callback::WindowCallback* windowCallback;
 
-		StageUtils::Stage* stage;
-
-		bool hadStageCreated;
+		SceneUtils::SceneManager* sceneManager;
 
 		bool initGLEW();
 		bool initGLFW();
+
+		void pollEvents(int _isOnCallback);
 
 		void runLoop();
 		void finish();
