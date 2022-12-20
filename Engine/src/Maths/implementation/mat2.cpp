@@ -1,6 +1,6 @@
-#include "mat4.h"
+#include "Maths/mat2.h"
 
-#include "vec4.h"
+#include "Maths/vec2.h"
 
 using namespace Maths;
 
@@ -10,37 +10,35 @@ using namespace Maths;
 #define DIV  3
 #define mMUL 4
 
-mat4::mat4(float value) {
+mat2::mat2(float value) {
 	for (int i = 0; i < row * col; i++)
 		matrix[i] = value;
 }
 
-mat4::mat4(float* matrixValues) {
+mat2::mat2(float* matrixValues) {
 	for (int i = 0; i < row * col; i++)
 		matrix[i] = matrixValues[i];
 }
 
-float& mat4::operator [] (unsigned int index) {
+float& mat2::operator [] (unsigned int index) {
 	return matrix[index];
 }
 
-float& mat4::operator () (unsigned int row, unsigned int col) {
-	return matrix[row + col * this->row];
+float& mat2::operator () (unsigned int row, unsigned int col) {
+	return matrix[row + col * this->col];
 }
 
-mat4::operator float* () {
+mat2::operator float* () {
 	return matrix;
 }
 
-vec4 mat4::operator * (const vec4& vector) {
-	float x = matrix[0] * vector.x + matrix[1] * vector.y + matrix[2] * vector.z + matrix[3] * vector.w;
-	float y = matrix[4] * vector.x + matrix[5] * vector.y + matrix[6] * vector.z + matrix[7] * vector.w;
-	float z = matrix[8] * vector.x + matrix[9] * vector.y + matrix[10] * vector.z + matrix[11] * vector.w;
-	float w = matrix[12] * vector.x + matrix[13] * vector.y + matrix[14] * vector.z + matrix[15] * vector.w;
-	return vec4(x, y, z, w);
+vec2 mat2::operator * (const vec2& vector) {
+	float x = matrix[0] * vector.x + matrix[1] * vector.y;
+	float y = matrix[2] * vector.x + matrix[3] * vector.y;
+	return vec2(x, y);
 }
 
-mat4::mat4(const mat4& matrix1, const mat4& matrix2, float value, int param) {
+mat2::mat2(const mat2& matrix1, const mat2& matrix2, float value, int param) {
 	//zero
 	for (int i = 0; i < row * col; i++)
 		matrix[i] = 0.0;
@@ -74,51 +72,51 @@ mat4::mat4(const mat4& matrix1, const mat4& matrix2, float value, int param) {
 	}
 }
 
-mat4 mat4::operator + (const mat4& other) {
-	return mat4(*this, other, 0, ADD);
+mat2 mat2::operator + (const mat2& other) {
+	return mat2(*this, other, 0, ADD);
 }
 
-mat4 mat4::operator - (const mat4& other) {
-	return mat4(*this, other, 0, SUB);
+mat2 mat2::operator - (const mat2& other) {
+	return mat2(*this, other, 0, SUB);
 }
 
-mat4 mat4::operator * (const mat4& other) {
-	return mat4(*this, other, 0, mMUL);
+mat2 mat2::operator * (const mat2& other) {
+	return mat2(*this, other, 0, mMUL);
 }
 
-mat4 mat4::operator * (float factor) {
-	return mat4(*this, *this, factor, MUL);
+mat2 mat2::operator * (float factor) {
+	return mat2(*this, *this, factor, MUL);
 }
 
-mat4 mat4::operator / (float factor) {
-	return mat4(*this, *this, factor, DIV);
+mat2 mat2::operator / (float factor) {
+	return mat2(*this, *this, factor, DIV);
 }
 
-mat4& mat4::operator += (const mat4& other) {
+mat2& mat2::operator += (const mat2& other) {
 	for (int i = 0; i < row * col; i++)
 		matrix[i] = matrix[i] + other.matrix[i];
 	return *this;
 }
 
-mat4& mat4::operator -= (const mat4& other) {
+mat2& mat2::operator -= (const mat2& other) {
 	for (int i = 0; i < row * col; i++)
 		matrix[i] = matrix[i] - other.matrix[i];
 	return *this;
 }
 
-mat4& mat4::operator *= (float factor) {
+mat2& mat2::operator *= (float factor) {
 	for (int i = 0; i < row * col; i++)
 		matrix[i] = matrix[i] * factor;
 	return *this;
 }
 
-mat4& mat4::operator /= (float factor) {
+mat2& mat2::operator /= (float factor) {
 	for (int i = 0; i < row * col; i++)
 		matrix[i] = matrix[i] / factor;
 	return *this;
 }
 
-bool mat4::operator == (const mat4& other) {
+bool mat2::operator == (const mat2& other) {
 	for (int i = 0; i < row * col; i++) {
 		if (matrix[i] != other.matrix[i])
 			return false;

@@ -1,12 +1,21 @@
 #pragma once
 
-namespace Display {
-	class Window;
+namespace Application {
+	class App;
+}
+
+namespace PeripheralsUtils {
+	class Mouse;
+}
+
+namespace Settings {
+	class MouseSettings;
 }
 
 namespace Callback {
 	class MouseCallback {
 	public:
-		MouseCallback(Display::Window* window);
+		MouseCallback(Application::App* _app);
+
 	};
 }

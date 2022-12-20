@@ -1,20 +1,42 @@
-#include "SceneManager.h"
-
+/*
+	GLFW & GLEW & External
+*/
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-#include "Settings/MouseSettings.h"
+using namespace std;
+/*
+	Application
+*/
+#include "Application/App.h"
+#include "Application/AppComponent.h"
+
+using namespace Application;
+/*
+	Display
+*/
+#include "Display/Window.h"
+
+using namespace Display;
+/*
+	Settings
+*/
 #include "Settings/WindowSettings.h"
 
-#include "Scene.h"
-
-using namespace std;
 using namespace Settings;
+/*
+	Scene
+*/
+#include "SceneUtils/Scene.h"
+#include "SceneUtils/SceneManager.h"
+
 using namespace SceneUtils;
 
-SceneManager::SceneManager() {
+SceneManager::SceneManager()
+	: AppComponent()
+{
 	frames = 0;
 	lastTime = 0;
 	lastRefresh = 0;
@@ -24,16 +46,14 @@ SceneManager::SceneManager() {
 	hasChangedScene = false;
 
 	currentScene = nullptr;
-	mouseSettings = nullptr;
-	windowSettings = nullptr;
 }
 
 SceneManager::~SceneManager() {
-
+	
 }
 
 void SceneManager::init() {
-	currentScene->setSceneManager(this);
+	
 }
 
 void SceneManager::draw() {
@@ -69,27 +89,10 @@ void SceneManager::calcFramerate() {
 
 void SceneManager::limitFramerate() {
 	//Current thread sleeps here to get targeted FPS
-	if (!windowSettings->isVSyncEnabled()) {
-		while (glfwGetTime() < lastTime + 1.0 / windowSettings->getTargetFPS());
-		lastTime += 1.0 / windowSettings->getTargetFPS();
+	if (!getAppRef()->window->getWindowSettings().isVSyncEnabled()) {
+		while (glfwGetTime() < lastTime + 1.0 / getAppRef()->window->getWindowSettings().getTargetFPS());
+		lastTime += 1.0 / getAppRef()->window->getWindowSettings().getTargetFPS();
 	}
-}
-
-Settings::MouseSettings& SceneManager::getMouseSettings() {
-	return *mouseSettings;
-}
-
-Settings::WindowSettings& SceneManager::getWindowSettings() {
-	return *windowSettings;
-}
-
-
-void SceneManager::loadMouseSettings(Settings::MouseSettings* _mouseSettings) {
-	this->mouseSettings = _mouseSettings;
-}
-
-void SceneManager::loadWindowSettings(Settings::WindowSettings* _windowSettings) {
-	this->windowSettings = _windowSettings;
 }
 
 void SceneManager::addScene(Scene* _scene) {

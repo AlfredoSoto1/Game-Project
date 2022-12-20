@@ -1,9 +1,6 @@
 #pragma once
 
 namespace SceneUtils {
-
-	class SceneManager;
-
 	class Scene {
 	public:
 		Scene();
@@ -14,15 +11,5 @@ namespace SceneUtils {
 		virtual void update()	= 0;
 		virtual void unload()	= 0;
 		virtual void dispose()	= 0;
-
-		SceneManager& getSceneManager();
-
-	private:
-		friend class SceneManager;
-
-		SceneManager* sceneManager;
-
-		void setSceneManager(SceneManager* _sceneManager);
-
 	};
 }

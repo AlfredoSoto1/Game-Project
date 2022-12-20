@@ -1,56 +1,63 @@
-#include "Window.h"
-
+/*
+	GLFW & GLEW
+*/
 #define GLEW_STATIC
 
+#include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <iostream>
-
-#include "Settings/MouseSettings.h"
-#include "Settings/WindowSettings.h"
-
-#include "Callbacks/MouseCallback.h"
-#include "Callbacks/WindowCallback.h"
-
-#include "Display/Graphics/SceneUtils/SceneManager.h"
 
 using namespace std;
+/*
+	Application Components
+*/
+#include "Application/App.h"
+#include "Application/AppComponent.h"
+
+using namespace Application;
+/*
+	Display
+*/
+#include "Display/Window.h"
+
 using namespace Display;
-using namespace Settings;
-using namespace Callback;
+
+/*
+	SceneUtils
+*/
+#include "SceneUtils/SceneManager.h"
+
 using namespace SceneUtils;
 
-Window::Window(const WindowSettings&& _settings) {
+/*
+	Settings & Callbacks
+*/
+#include "Settings/WindowSettings.h"
+#include "Callbacks/WindowCallback.h"
+
+using namespace Settings;
+using namespace Callback;
+
+Window::Window(const WindowSettings&& _settings)
+	: AppComponent()
+{
 	this->winPtr = nullptr;
-	this->mouseSettings = nullptr;
-	this->mouseSettings = new MouseSettings();
-	this->windowSettings = new WindowSettings(_settings);
-
-	this->sceneManager = new SceneManager();
-
-	this->mouseCallback = nullptr;
 	this->windowCallback = nullptr;
+	this->windowSettings = new WindowSettings(_settings);
 }
 
-Window::Window(const string& _title, unsigned int _width, unsigned int _height) {
+Window::Window(const string& _title, unsigned int _width, unsigned int _height) 
+	: AppComponent()
+{
 	this->winPtr = nullptr;
-	this->mouseSettings = nullptr;
-	this->mouseSettings = new MouseSettings();
-	this->windowSettings = new WindowSettings();
-
-	this->sceneManager = new SceneManager();
-	
-	this->mouseCallback = nullptr;
 	this->windowCallback = nullptr;
+	this->windowSettings = new WindowSettings();
 
 	this->windowSettings->setTitle(_title);
 	this->windowSettings->setSize(_width, _height);
 }
 
 Window::~Window() {
-	delete sceneManager;
-
-	delete mouseSettings;
 	delete windowSettings;
 }
 
@@ -62,26 +69,13 @@ void Window::focus() {
 	if(winPtr) glfwFocusWindow(winPtr);
 }
 
-SceneUtils::SceneManager& Window::getSceneManager() {
-	return *sceneManager;
-}
-
 WindowSettings& Window::getWindowSettings() {
 	return *windowSettings;
-}
-
-MouseSettings& Window::getMouseSettings() {
-	return *mouseSettings;
-}
-
-Callback::MouseCallback& Window::getMouseCallback() {
-	return *mouseCallback;
 }
 
 Callback::WindowCallback& Window::getWindowCallback() {
 	return *windowCallback;
 }
-
 
 //definition of error callback
 void error_callback(int error, const char* description) {
@@ -93,6 +87,9 @@ Window::operator GLFWwindow* () {
 	return winPtr;
 }
 
+/*
+	Initiates GLEW
+*/
 bool Window::initGLEW() {
 	if (glewInit() != GLEW_OK) {
 		cout << "Couldn't inititate GLEW correctly." << endl;
@@ -104,6 +101,9 @@ bool Window::initGLEW() {
 	}
 }
 
+/*
+	Initiates GLFW
+*/
 bool Window::initGLFW() {
 	if (!glfwInit()) {
 		cout << "GLFW couldn't initiated correctly." << endl;
@@ -112,7 +112,11 @@ bool Window::initGLFW() {
 	return true;
 }
 
-void Window::start() {
+/*
+	Initializes the window by creating it
+	with corresponding settings and context
+*/
+void Window::init() {
 	//setting error callback
 	glfwSetErrorCallback(&error_callback);
 
@@ -144,32 +148,31 @@ void Window::start() {
 	if (!initGLEW()) return;
 	glViewport(0, 0, windowSettings->getWidth(), windowSettings->getHeight());
 
-	//setup callbacks
-	mouseCallback = new MouseCallback(this);
+	// Create a Window Callback
 	windowCallback = new WindowCallback(this);
-
-	runLoop();
 }
 
+/*
+	runs a loop to keep updating the window
+*/
 void Window::runLoop() {
 
-	sceneManager->loadMouseSettings(mouseSettings);
-	sceneManager->loadWindowSettings(windowSettings);
-
-	sceneManager->init();
+	getAppRef()->sceneManager->init();
 
 	while (!glfwWindowShouldClose(winPtr)) {
-		sceneManager->update();
+		getAppRef()->sceneManager->update();
 		pollEvents(GL_FALSE);
 	}
-	finish();
 }
 
+/*
+	polls events
+*/
 void Window::pollEvents(int _isOnCallback) {
 	if (windowSettings->hasResized())
 		glViewport(0, 0, windowSettings->getWidth(), windowSettings->getHeight());
 
-	sceneManager->draw();
+	getAppRef()->sceneManager->draw();
 	
 	glfwSwapBuffers(winPtr);
 	windowSettings->hasResized() = false;
@@ -177,13 +180,13 @@ void Window::pollEvents(int _isOnCallback) {
 	if (!_isOnCallback)
 		glfwPollEvents();
 
-	sceneManager->afterDraw();
+	getAppRef()->sceneManager->afterDraw();
 }
 
-void Window::finish() {
-	sceneManager->dispose();
-
-	delete mouseCallback;
+/*
+	terminates window context and GLFW
+*/
+void Window::dispose() {
 	delete windowCallback;
 
 	glfwDestroyWindow(winPtr);

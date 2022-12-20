@@ -1,13 +1,29 @@
-#include "WindowCallback.h"
-
+/*
+*	External
+*/
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-#include "Settings/WindowSettings.h"
-#include "Display/Components/Window.h"
+/*
+	Display
+*/
+#include "Display/Window.h"
 
 using namespace Display;
+
+/*
+	Callbacks
+*/
+#include "Callbacks/WindowCallback.h"
+
 using namespace Callback;
+
+/*
+	Settings
+*/
+#include "Settings/WindowSettings.h"
+
+using namespace Settings;
 
 WindowCallback::WindowCallback(Window* window) {
 	glfwSetWindowUserPointer(*window, window);

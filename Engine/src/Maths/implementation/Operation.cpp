@@ -1,13 +1,13 @@
-#include "Operation.h"
-#include "Constants.h"
+#include "Maths/Operation.h"
+#include "Maths/Constants.h"
 
-#include "vec2.h"
-#include "vec3.h"
-#include "vec4.h"
+#include "Maths/vec2.h"
+#include "Maths/vec3.h"
+#include "Maths/vec4.h"
 
-#include "mat2.h"
-#include "mat3.h"
-#include "mat4.h"
+#include "Maths/mat2.h"
+#include "Maths/mat3.h"
+#include "Maths/mat4.h"
 
 #include <cmath>
 

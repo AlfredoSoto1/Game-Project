@@ -151,14 +151,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Display\Components\Window.h" />
-    <ClInclude Include="src\Display\Graphics\RenderUtils\Renderable.h" />
-    <ClInclude Include="src\Display\Graphics\SceneUtils\Camera.h" />
-    <ClInclude Include="src\Display\Graphics\SceneUtils\Scene.h" />
-    <ClInclude Include="src\Display\Graphics\SceneUtils\SceneManager.h" />
+    <ClInclude Include="src\Application\App.h" />
+    <ClInclude Include="src\Application\AppComponent.h" />
+    <ClInclude Include="src\Display\Window.h" />
+    <ClInclude Include="src\PeripheralsUtils\Mouse.h" />
+    <ClInclude Include="src\PeripheralsUtils\Peripherals.h" />
+    <ClInclude Include="src\SceneUtils\Scene.h" />
+    <ClInclude Include="src\SceneUtils\SceneManager.h" />
     <ClInclude Include="src\Callbacks\MouseCallback.h" />
     <ClInclude Include="src\Callbacks\WindowCallback.h" />
-    <ClInclude Include="src\Display\Graphics\RenderUtils\RenderProgram.h" />
     <ClInclude Include="src\Maths\Constants.h" />
     <ClInclude Include="src\Maths\mat2.h" />
     <ClInclude Include="src\Maths\mat3.h" />
@@ -176,23 +177,27 @@
     <ClInclude Include="src\Settings\WindowSettings.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Display\Graphics\SceneUtils\Scene.cpp" />
-    <ClCompile Include="src\Display\Graphics\SceneUtils\SceneManager.cpp" />
-    <ClCompile Include="src\Callbacks\MouseCallback.cpp" />
-    <ClCompile Include="src\Callbacks\WindowCallback.cpp" />
-    <ClCompile Include="src\Display\Components\Window.cpp" />
-    <ClCompile Include="src\Maths\mat2.cpp" />
-    <ClCompile Include="src\Maths\mat3.cpp" />
-    <ClCompile Include="src\Maths\mat4.cpp" />
-    <ClCompile Include="src\Maths\Operation.cpp" />
+    <ClCompile Include="src\Application\implementation\App.cpp" />
+    <ClCompile Include="src\Application\implementation\AppComponent.cpp" />
+    <ClCompile Include="src\PeripheralsUtils\implementation\Mouse.cpp" />
+    <ClCompile Include="src\PeripheralsUtils\implementation\Peripherals.cpp" />
+    <ClCompile Include="src\SceneUtils\implementation\Scene.cpp" />
+    <ClCompile Include="src\SceneUtils\implementation\SceneManager.cpp" />
+    <ClCompile Include="src\Callbacks\implementation\MouseCallback.cpp" />
+    <ClCompile Include="src\Callbacks\implementation\WindowCallback.cpp" />
+    <ClCompile Include="src\Display\implementation\Window.cpp" />
+    <ClCompile Include="src\Maths\implementation\mat2.cpp" />
+    <ClCompile Include="src\Maths\implementation\mat3.cpp" />
+    <ClCompile Include="src\Maths\implementation\mat4.cpp" />
+    <ClCompile Include="src\Maths\implementation\Operation.cpp" />
     <ClCompile Include="src\Maths\unused\vec2.cpp" />
     <ClCompile Include="src\Maths\unused\vec3.cpp" />
     <ClCompile Include="src\Maths\unused\vec4.cpp" />
-    <ClCompile Include="src\Maths\vec2.cpp" />
-    <ClCompile Include="src\Maths\vec3.cpp" />
-    <ClCompile Include="src\Maths\vec4.cpp" />
-    <ClCompile Include="src\Settings\MouseSettings.cpp" />
-    <ClCompile Include="src\Settings\WindowSettings.cpp" />
+    <ClCompile Include="src\Maths\implementation\vec2.cpp" />
+    <ClCompile Include="src\Maths\implementation\vec3.cpp" />
+    <ClCompile Include="src\Maths\implementation\vec4.cpp" />
+    <ClCompile Include="src\Settings\implementation\MouseSettings.cpp" />
+    <ClCompile Include="src\Settings\implementation\WindowSettings.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

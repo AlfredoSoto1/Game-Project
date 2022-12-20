@@ -1,15 +1,17 @@
 #define GLEW_STATIC
-
 #include <GL/glew.h>
 
 #include <iostream>
 using namespace std;
 
+#include "Application/App.h"
+
+#include "Display/Window.h"
+
 #include "Settings/WindowSettings.h"
 
-#include "Display/Components/Window.h"
-#include "Display/Graphics/SceneUtils/Scene.h"
-#include "Display/Graphics/SceneUtils/SceneManager.h"
+#include "SceneUtils/Scene.h"
+#include "SceneUtils/SceneManager.h"
 
 using namespace SceneUtils;
 
@@ -41,12 +43,14 @@ public:
 };
 
 int main() {
-
-	Display::Window win("First Display", 1280, 720);
-	
 	TestScene* scene1 = new TestScene();
+	
+	//Create Application
+	Application::App app;
 
-	win.getSceneManager().addScene(scene1);
+	app.getWindow().getWindowSettings().setTitle("First Display");
 
-	win.start();
+	app.getSceneManager().addScene(scene1);
+
+	app.launch();
 }

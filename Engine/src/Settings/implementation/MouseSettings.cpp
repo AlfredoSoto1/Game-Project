@@ -1,11 +1,14 @@
-#include "MouseSettings.h"
-
+/*
+	GLFW
+*/
 #include <GLFW/glfw3.h>
 
-#include "Callbacks/MouseCallback.h"
+/*
+	Settings
+*/
+#include "Settings/MouseSettings.h"
 
 using namespace Settings;
-using namespace Callback;
 
 MouseSettings::MouseSettings() {
 	xPosition = 0.0;
@@ -48,7 +51,7 @@ double MouseSettings::getXScroll() {
 double MouseSettings::getYScroll() {
 	return yScroll;
 }
-
+ 
 bool* MouseSettings::getButtons() {
 	return mouseButtons;
 }

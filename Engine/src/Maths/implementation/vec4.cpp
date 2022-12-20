@@ -1,6 +1,6 @@
-#include "vec4.h"
-#include "vec2.h"
-#include "vec3.h"
+#include "Maths/vec4.h"
+#include "Maths/vec2.h"
+#include "Maths/vec3.h"
 
 using namespace Maths;
 

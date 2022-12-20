@@ -1,5 +1,5 @@
-#include "vec3.h"
-#include "vec2.h"
+#include "Maths/vec3.h"
+#include "Maths/vec2.h"
 
 using namespace Maths;
 

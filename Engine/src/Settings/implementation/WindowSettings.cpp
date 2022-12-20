@@ -1,7 +1,12 @@
-#include "WindowSettings.h"
-
-#include <GL/glew.h>
+/*
+	GLFW
+*/
 #include <GLFW/glfw3.h>
+
+/*
+	Window Settings
+*/
+#include "Settings/WindowSettings.h"
 
 using namespace Settings;
 
