@@ -153,9 +153,13 @@
   <ItemGroup>
     <ClInclude Include="src\Application\App.h" />
     <ClInclude Include="src\Application\AppComponent.h" />
+    <ClInclude Include="src\BufferUtils\Vertex.h" />
+    <ClInclude Include="src\BufferUtils\VertexBuffer.h" />
     <ClInclude Include="src\Display\Window.h" />
     <ClInclude Include="src\PeripheralsUtils\Mouse.h" />
     <ClInclude Include="src\PeripheralsUtils\Peripherals.h" />
+    <ClInclude Include="src\SceneUtils\Mesh.h" />
+    <ClInclude Include="src\SceneUtils\Model.h" />
     <ClInclude Include="src\SceneUtils\Scene.h" />
     <ClInclude Include="src\SceneUtils\SceneManager.h" />
     <ClInclude Include="src\Callbacks\MouseCallback.h" />
@@ -179,6 +183,7 @@
   <ItemGroup>
     <ClCompile Include="src\Application\implementation\App.cpp" />
     <ClCompile Include="src\Application\implementation\AppComponent.cpp" />
+    <ClCompile Include="src\BufferUtils\implementation\Vertex_impl.h" />
     <ClCompile Include="src\PeripheralsUtils\implementation\Mouse.cpp" />
     <ClCompile Include="src\PeripheralsUtils\implementation\Peripherals.cpp" />
     <ClCompile Include="src\SceneUtils\implementation\Scene.cpp" />

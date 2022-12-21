@@ -19,15 +19,19 @@ namespace SceneUtils {
 
 	class SceneManager : public Application::AppComponent {
 	private:
-		friend class Application::App;
+		friend class Scene;
 		friend class Display::Window;
+		friend class Application::App;
+		friend class Application::AppComponent;
 
-		double lastTime;
-		double lastRefresh;
-		double timeDifference;
-		double lastTimeDifference;
+		volatile double lastTime;
+		volatile double lastRefresh;
+		volatile double timeDifference;
+		volatile double lastTimeDifference;
 
-		unsigned short frames;
+		volatile unsigned short frames;
+
+		short targetFrames;
 
 		bool hasChangedScene;
 
@@ -47,6 +51,10 @@ namespace SceneUtils {
 	public:
 		SceneManager();
 		~SceneManager();
+
+		short getTargetFPS();
+
+		void setTargetFPS(short _FPS);
 
 		void addScene(Scene* _scene);
 

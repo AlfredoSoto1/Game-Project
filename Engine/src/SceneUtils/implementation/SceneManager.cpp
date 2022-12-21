@@ -46,6 +46,8 @@ SceneManager::SceneManager()
 	hasChangedScene = false;
 
 	currentScene = nullptr;
+
+	setTargetFPS(0);
 }
 
 SceneManager::~SceneManager() {
@@ -53,7 +55,8 @@ SceneManager::~SceneManager() {
 }
 
 void SceneManager::init() {
-	
+	currentScene->setApplication(getAppRef());
+	currentScene->init();
 }
 
 void SceneManager::draw() {
@@ -89,10 +92,18 @@ void SceneManager::calcFramerate() {
 
 void SceneManager::limitFramerate() {
 	//Current thread sleeps here to get targeted FPS
-	if (!getAppRef()->window->getWindowSettings().isVSyncEnabled()) {
-		while (glfwGetTime() < lastTime + 1.0 / getAppRef()->window->getWindowSettings().getTargetFPS());
-		lastTime += 1.0 / getAppRef()->window->getWindowSettings().getTargetFPS();
+	if (!getAppRef()->window->getWindowSettings().isVSyncEnabled() && targetFrames > 0) {
+		while (glfwGetTime() < lastTime + 1.0 / targetFrames);
+		lastTime += 1.0 / targetFrames;
 	}
+}
+
+short SceneManager::getTargetFPS() {
+	return targetFrames;
+}
+
+void SceneManager::setTargetFPS(short _FPS) {
+	targetFrames = _FPS;
 }
 
 void SceneManager::addScene(Scene* _scene) {

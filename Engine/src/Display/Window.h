@@ -24,7 +24,7 @@ namespace SceneUtils {
 
 namespace Display {
 
-	/*
+	/* 
 		Main Application Components
 	*/
 
@@ -49,7 +49,7 @@ namespace Display {
 		void pollEvents(int _isOnCallback);
 
 	public:
-		Window(const Settings::WindowSettings&& _settings);
+		Window(const Settings::WindowSettings& _settings);
 		Window(const std::string& _title, unsigned int _width, unsigned int _height);
 		~Window();
 

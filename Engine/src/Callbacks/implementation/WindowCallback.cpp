@@ -33,16 +33,16 @@ WindowCallback::WindowCallback(Window* window) {
 		window.getWindowSettings().uninit();
 		window.getWindowSettings().setPosition(xpos, ypos);
 		window.getWindowSettings().apply();
-		if (window.getWindowSettings().isDynamicUpdate()) {
-			window.pollEvents(GL_TRUE);
-		}
+		//if (window.getWindowSettings().isDynamicUpdate()) {
+		//	window.pollEvents(GL_TRUE);
+		//}
 	};
 
 	auto sizeCallback = [](GLFWwindow* winPtr, int width, int height) {
 		Window& window = *static_cast<Window*>(glfwGetWindowUserPointer(winPtr));
-		window.getWindowSettings().uninit();
-		window.getWindowSettings().setSize(width, height);
-		window.getWindowSettings().apply();
+		//window.getWindowSettings().uninit();
+		//window.getWindowSettings().setSize(width, height);
+		//window.getWindowSettings().apply();
 	};
 
 	auto closeCallback = [](GLFWwindow* winPtr) {
@@ -63,8 +63,8 @@ WindowCallback::WindowCallback(Window* window) {
 
 	auto refreshCallback = [](GLFWwindow* winPtr) {
 		Window& window = *static_cast<Window*>(glfwGetWindowUserPointer(winPtr));
-		if (window.getWindowSettings().isDynamicUpdate())
-			window.pollEvents(GL_TRUE);
+		//if (window.getWindowSettings().isDynamicUpdate())
+		//	window.pollEvents(GL_TRUE);
 	};
 
 	//sets the corresponding callback to GLFW

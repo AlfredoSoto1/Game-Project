@@ -17,7 +17,6 @@ WindowSettings::WindowSettings(const WindowSettings& settings)
 	monitor			(settings.monitor),
 	width			(settings.width),
 	height			(settings.height),
-	targetFrames	(settings.targetFrames),
 	transparency	(settings.transparency),
 	xPosition		(settings.xPosition),
 	yPosition		(settings.yPosition),
@@ -51,7 +50,6 @@ void WindowSettings::reset() {
 	//Sets all settings to their default value
 	setTitle("Window");
 	setSize(MIN_WIDTH, MIN_HEIGHT);
-	setTargetFPS(30);
 	setPosition(0, 0);
 	setTransparency(100);
 
@@ -143,10 +141,6 @@ void WindowSettings::setSize(unsigned int _width, unsigned int _height) {
 	if (hasInitialized) glfwSetWindowSize(context, width, height);
 }
 
-void WindowSettings::setTargetFPS(unsigned int _FPS) {
-	this->targetFrames = _FPS;
-}
-
 
 void WindowSettings::setPosition(unsigned int _xPosition, unsigned int _yPosition) {
 	this->xPosition = _xPosition;
@@ -236,10 +230,6 @@ unsigned int WindowSettings::getWidth() {
 
 unsigned int WindowSettings::getHeight() {
 	return height;
-}
-
-unsigned int WindowSettings::getTargetFPS() {
-	return targetFrames;
 }
 
 unsigned int WindowSettings::getTransparency() {

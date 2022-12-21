@@ -29,6 +29,10 @@ App::App() {
 	this->window = new Window("Default", 1280, 720);
 	this->peripherals = new Peripherals();
 	this->sceneManager = new SceneManager();
+	
+	window->setAppRef(this);
+	peripherals->setAppRef(this);
+	sceneManager->setAppRef(this);
 }
 
 App::~App() {
@@ -39,15 +43,12 @@ App::~App() {
 
 void App::init() {
 	// initialze Window
-	window->setAppRef(this);
 	window->init();
 
 	// initialze peripherals
-	peripherals->setAppRef(this);
 	peripherals->init();
 
 	// initialize Scenes
-	sceneManager->setAppRef(this);
 	sceneManager->init();
 }
 
@@ -59,9 +60,7 @@ void App::run() {
 void App::end() {
 	//dispose everything on the app
 	sceneManager->dispose();
-
 	peripherals->dispose();
-
 	window->dispose();
 }
 

@@ -29,7 +29,6 @@ namespace Settings {
 
 		void setTitle(const std::string& _title);
 
-		void setTargetFPS(unsigned int _FPS);
 		void setTransparency(unsigned int _transparency);
 		void setCurrentMonitor(GLFWmonitor* _currentMonitor);
 		void setSize(unsigned int _width, unsigned int _height);
@@ -47,7 +46,6 @@ namespace Settings {
 
 		unsigned int getWidth();
 		unsigned int getHeight();
-		unsigned int getTargetFPS();
 		unsigned int getTransparency();
 		GLFWmonitor* getCurrentMonitor();
 		
@@ -73,7 +71,6 @@ namespace Settings {
 
 		unsigned int width;
 		unsigned int height;
-		unsigned int targetFrames;
 		unsigned int transparency;
 		
 		int xPosition;

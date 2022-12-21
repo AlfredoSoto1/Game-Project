@@ -14,6 +14,7 @@ namespace Application {
 		AppComponent();
 
 		App* getAppRef();
+
 		void setAppRef(App* _apRef);
 
 	};

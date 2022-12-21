@@ -38,7 +38,7 @@ namespace Application {
 		void end();
 
 	public:
-		App();
+		explicit App();
 		~App();
 
 		void launch();

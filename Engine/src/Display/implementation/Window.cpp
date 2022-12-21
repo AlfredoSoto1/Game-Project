@@ -38,7 +38,7 @@ using namespace SceneUtils;
 using namespace Settings;
 using namespace Callback;
 
-Window::Window(const WindowSettings&& _settings)
+Window::Window(const WindowSettings& _settings)
 	: AppComponent()
 {
 	this->winPtr = nullptr;
@@ -144,8 +144,14 @@ void Window::init() {
 	glfwMakeContextCurrent(winPtr);
 	glfwShowWindow(winPtr);
 
+	glfwSwapInterval(0);
+
 	//Initiates GLEW - returns false if it couldn't initiate
-	if (!initGLEW()) return;
+	if (!initGLEW()) {
+		cout << "Failed to initiate GLEW." << endl;
+		glfwTerminate();
+		return;
+	}
 	glViewport(0, 0, windowSettings->getWidth(), windowSettings->getHeight());
 
 	// Create a Window Callback
@@ -156,9 +162,6 @@ void Window::init() {
 	runs a loop to keep updating the window
 */
 void Window::runLoop() {
-
-	getAppRef()->sceneManager->init();
-
 	while (!glfwWindowShouldClose(winPtr)) {
 		getAppRef()->sceneManager->update();
 		pollEvents(GL_FALSE);
@@ -177,7 +180,7 @@ void Window::pollEvents(int _isOnCallback) {
 	glfwSwapBuffers(winPtr);
 	windowSettings->hasResized() = false;
 
-	if (!_isOnCallback)
+	if (_isOnCallback == GL_FALSE)
 		glfwPollEvents();
 
 	getAppRef()->sceneManager->afterDraw();

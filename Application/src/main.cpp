@@ -13,17 +13,34 @@ using namespace std;
 #include "SceneUtils/Scene.h"
 #include "SceneUtils/SceneManager.h"
 
+#include "SceneUtils/Mesh.h"
+#include "SceneUtils/Model.h"
+
 using namespace SceneUtils;
+
+#include "BufferUtils/Vertex.h"
+#include "BufferUtils/VertexBuffer.h"
+
+using namespace BufferUtils;
 
 class TestScene : public Scene {
 public:
+
 	TestScene() 
 		: Scene() 
 	{
 
 	}
 
+	void init() {
+
+		Vertex<float> vertex;
+		vertex.set(0.0);
+	
+	}
+
 	void load() {
+
 	}
 
 	void render() {
@@ -43,14 +60,17 @@ public:
 };
 
 int main() {
+	
 	TestScene* scene1 = new TestScene();
 	
 	//Create Application
-	Application::App app;
+	Application::App app = Application::App();
 
 	app.getWindow().getWindowSettings().setTitle("First Display");
 
 	app.getSceneManager().addScene(scene1);
 
 	app.launch();
+
+	delete scene1;
 }

@@ -41,7 +41,7 @@ using namespace Settings;
 
 MouseCallback::MouseCallback(App* _app) {
 	
-	glfwSetWindowUserPointer(_app->getWindow(), _app);
+	glfwSetWindowUserPointer(_app->getWindow(), _app); //User Application pointer to GLFW
 
 	auto dropCallback = [](GLFWwindow* winPtr, int _pathCount, const char** _paths) {
 		App& app = TO_APPLICATION(winPtr);
