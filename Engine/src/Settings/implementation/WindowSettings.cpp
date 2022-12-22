@@ -76,6 +76,7 @@ void WindowSettings::loadHints() {
 	if (hasInitialized) return;
 
 	glfwDefaultWindowHints();
+	//FIXME TODO - implement custom version set by user
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);

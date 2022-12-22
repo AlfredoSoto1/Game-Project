@@ -153,9 +153,11 @@
   <ItemGroup>
     <ClInclude Include="src\Application\App.h" />
     <ClInclude Include="src\Application\AppComponent.h" />
-    <ClInclude Include="src\BufferUtils\Vertex.h" />
+    <ClInclude Include="src\BufferUtils\BufferE.h" />
+    <ClInclude Include="src\BufferUtils\implementation\VertexBuffer_impl.h" />
     <ClInclude Include="src\BufferUtils\VertexBuffer.h" />
     <ClInclude Include="src\Display\Window.h" />
+    <ClInclude Include="src\MemoryUtils\Definition.h" />
     <ClInclude Include="src\PeripheralsUtils\Mouse.h" />
     <ClInclude Include="src\PeripheralsUtils\Peripherals.h" />
     <ClInclude Include="src\SceneUtils\Mesh.h" />
@@ -169,11 +171,6 @@
     <ClInclude Include="src\Maths\mat3.h" />
     <ClInclude Include="src\Maths\mat4.h" />
     <ClInclude Include="src\Maths\Operation.h" />
-    <ClInclude Include="src\Maths\unused\mat.h" />
-    <ClInclude Include="src\Maths\unused\vec.h" />
-    <ClInclude Include="src\Maths\unused\vec2.h" />
-    <ClInclude Include="src\Maths\unused\vec3.h" />
-    <ClInclude Include="src\Maths\unused\vec4.h" />
     <ClInclude Include="src\Maths\vec2.h" />
     <ClInclude Include="src\Maths\vec3.h" />
     <ClInclude Include="src\Maths\vec4.h" />
@@ -183,7 +180,6 @@
   <ItemGroup>
     <ClCompile Include="src\Application\implementation\App.cpp" />
     <ClCompile Include="src\Application\implementation\AppComponent.cpp" />
-    <ClCompile Include="src\BufferUtils\implementation\Vertex_impl.h" />
     <ClCompile Include="src\PeripheralsUtils\implementation\Mouse.cpp" />
     <ClCompile Include="src\PeripheralsUtils\implementation\Peripherals.cpp" />
     <ClCompile Include="src\SceneUtils\implementation\Scene.cpp" />
@@ -195,9 +191,6 @@
     <ClCompile Include="src\Maths\implementation\mat3.cpp" />
     <ClCompile Include="src\Maths\implementation\mat4.cpp" />
     <ClCompile Include="src\Maths\implementation\Operation.cpp" />
-    <ClCompile Include="src\Maths\unused\vec2.cpp" />
-    <ClCompile Include="src\Maths\unused\vec3.cpp" />
-    <ClCompile Include="src\Maths\unused\vec4.cpp" />
     <ClCompile Include="src\Maths\implementation\vec2.cpp" />
     <ClCompile Include="src\Maths\implementation\vec3.cpp" />
     <ClCompile Include="src\Maths\implementation\vec4.cpp" />
