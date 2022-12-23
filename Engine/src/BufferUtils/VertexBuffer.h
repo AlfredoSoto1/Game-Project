@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef _VERTEX_BUFFER_HEADER
-#define _VERTEX_BUFFER_HEADER
-
 namespace BufferUtils {
 
 	enum Buffer;
@@ -28,7 +25,6 @@ namespace BufferUtils {
 
 		bool needToRezizeIndexBuffer();
 		bool needToRezizeVertexBuffer();
-		bool needToShrink();
 
 		void pushBackIndex(Index _index);
 
@@ -36,19 +32,21 @@ namespace BufferUtils {
 		VertexBuffer(unsigned int _initialBufferCapacity);
 		~VertexBuffer();
 
-		bool isEmpty() const;
+		bool isEmpty() const;					// returns a boolean wether if the buffer is empty
 
-		unsigned int size() const;
-		unsigned int indexCount() const;
-		unsigned int unallocSize() const;
-		unsigned int vertexCount() const;
-		unsigned int indexCapacity() const;
-		unsigned int vertexCapacity() const;
+		unsigned int size() const;				// returns the sizeof the buffer
+		unsigned int indexCount() const;		// returns the total in-use indices
+		unsigned int unallocSize() const;		// returns the total sizeof the buffer (including the unused allocated memory)
+		unsigned int vertexCount() const;		// returns the total count of vertices
+		unsigned int indexCapacity() const;		// returns the available capacity of indices
+		unsigned int vertexCapacity() const;	// returns the available capacity of vertices
+		
+		const Index* getIndices() const;		// returns a const array of the allocated indices
+		const Vertex* getVertices() const;		// returns a const array of the allocated vertices
 
-		const Index* getIndices() const;
-		const Vertex* getVertices() const;
+		void fit();								// adjusts the buffer to occupy the exact count of each array reducing the unused space
 
-		void clear();
+		void clear();							// clears the buffer
 
 		void pushBack(const Vertex& _vertex);	// push back a copy ref
 		void pushBack(const Vertex&& _vertex);	// push back an rvalue ref
@@ -63,6 +61,4 @@ namespace BufferUtils {
 }
 
 #include "BufferUtils/implementation/VertexBuffer_impl.h"
-
-#endif // !_VERTEX_BUFFER
 

@@ -34,7 +34,7 @@ namespace BufferUtils {
 
 		Vertex* tempData = new Vertex[bufferCapacity * 2];
 		for (unsigned int i = 0; i < bufferCount; i++)
-			tempData[i] = (Vertex&&)(vertices[i]);
+			tempData[i] = std::move(vertices[i]);
 		delete[] vertices;
 		vertices = tempData;
 		bufferCapacity *= 2;
@@ -46,10 +46,6 @@ namespace BufferUtils {
 
 	BUFFER_t bool BUFFER_def::needToRezizeIndexBuffer() {
 		return buffer_indexCapacity == buffer_indexCount;
-	}
-
-	BUFFER_t bool BUFFER_def::needToShrink() {
-		return bufferCount < bufferCapacity / 2;
 	}
 
 	BUFFER_t BUFFER_def::VertexBuffer(unsigned int _initialBufferCapacity) {
@@ -108,6 +104,34 @@ namespace BufferUtils {
 		return vertices;
 	}
 
+	BUFFER_t void BUFFER_def::fit() {
+		if (bufferCount == 0 || buffer_indexCount == 0)
+			return;
+
+		if (buffer_indexCount != buffer_indexCapacity) {
+			Index* newIndexArray = new Index[buffer_indexCount];
+			
+			for (unsigned int i = 0; i < buffer_indexCount; i++)
+				newIndexArray[i] = (Index&&)indices[i];
+			delete[] indices;
+			indices = newIndexArray;
+
+			buffer_indexCapacity = buffer_indexCount;
+		}
+
+
+		if (bufferCount != bufferCapacity) {
+			Vertex* newVertexArray = new Vertex[bufferCount];
+			
+			for (unsigned int i = 0; i < bufferCount; i++)
+				newVertexArray[i] = std::move(vertices[i]);
+			delete[] vertices;
+			vertices = newVertexArray;
+
+			bufferCapacity = bufferCount;
+		}
+	}
+
 	BUFFER_t void BUFFER_def::clear() {
 		if (indices != nullptr)
 			delete[] indices;
@@ -131,7 +155,7 @@ namespace BufferUtils {
 	BUFFER_t void BUFFER_def::pushBack(const Vertex&& _vertex) {
 		if (needToRezizeVertexBuffer())
 			resizeVertexBuffer();
-		vertices[bufferCount++] = (Vertex&&)(_vertex);
+		vertices[bufferCount++] = std::move(_vertex);
 		pushBackIndex(indexCounter++);
 	}
 

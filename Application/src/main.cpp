@@ -48,19 +48,7 @@ public:
 		Vertex vert2 = {vec2( 0.0f,  0.5f), vec3(1.0)};
 		Vertex vert3 = {vec2( 0.5f, -0.5f), vec3(1.0)};
 
-		VertexBuffer<Vertex, unsigned int> buffer(2);
-
-		auto repeatedVertices = [](const Vertex& _v, Vertex& _other) {
-			if (_v.position.x == _other.position.x && _v.position.y == _other.position.y)
-				return true;
-			return false;
-		};
-
-		buffer.pushBack({ vec2(-0.5f, -0.5f), vec3(1.0) });
-		buffer.pushBack({ vec2( 0.0f,  0.5f), vec3(1.0) });
-		buffer.pushBack({ vec2( 0.5f, -0.5f), vec3(1.0) });
-
-		buffer.emplaceBack(vec2(-0.5f, -0.5f), vec3(1.0));
+		VertexBuffer<Vertex, unsigned char> buffer(2);
 
 		cout << "size: "			<< buffer.size() << "B"		<< endl;
 		cout << "total: "			<< buffer.unallocSize() << "B" << endl;
@@ -68,6 +56,17 @@ public:
 		cout << "index count: "		<< buffer.indexCount()		<< endl;
 		cout << "vertex capacity: " << buffer.vertexCapacity()	<< endl;
 		cout << "index capacity: "	<< buffer.indexCapacity()	<< endl;
+
+		buffer.fit();
+
+		cout << "------------------------------------------------" << endl;
+	
+		cout << "size: " << buffer.size() << "B" << endl;
+		cout << "total: " << buffer.unallocSize() << "B" << endl;
+		cout << "vertex count: " << buffer.vertexCount() << endl;
+		cout << "index count: " << buffer.indexCount() << endl;
+		cout << "vertex capacity: " << buffer.vertexCapacity() << endl;
+		cout << "index capacity: " << buffer.indexCapacity() << endl;
 
 	}
 
