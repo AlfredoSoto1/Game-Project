@@ -157,11 +157,11 @@
     <ClInclude Include="src\BufferUtils\implementation\VertexBuffer_impl.h" />
     <ClInclude Include="src\BufferUtils\VertexBuffer.h" />
     <ClInclude Include="src\Display\Window.h" />
-    <ClInclude Include="src\MemoryUtils\Definition.h" />
+    <ClInclude Include="src\Graphics\ShaderProgram.h" />
+    <ClInclude Include="src\MemoryUtils\MemoryE.h" />
     <ClInclude Include="src\PeripheralsUtils\Mouse.h" />
     <ClInclude Include="src\PeripheralsUtils\Peripherals.h" />
-    <ClInclude Include="src\SceneUtils\Mesh.h" />
-    <ClInclude Include="src\SceneUtils\Model.h" />
+    <ClInclude Include="src\MemoryUtils\Mesh.h" />
     <ClInclude Include="src\SceneUtils\Scene.h" />
     <ClInclude Include="src\SceneUtils\SceneManager.h" />
     <ClInclude Include="src\Callbacks\MouseCallback.h" />
@@ -180,6 +180,7 @@
   <ItemGroup>
     <ClCompile Include="src\Application\implementation\App.cpp" />
     <ClCompile Include="src\Application\implementation\AppComponent.cpp" />
+    <ClCompile Include="src\Graphics\implementation\ShaderProgram.cpp" />
     <ClCompile Include="src\PeripheralsUtils\implementation\Mouse.cpp" />
     <ClCompile Include="src\PeripheralsUtils\implementation\Peripherals.cpp" />
     <ClCompile Include="src\SceneUtils\implementation\Scene.cpp" />
@@ -194,6 +195,7 @@
     <ClCompile Include="src\Maths\implementation\vec2.cpp" />
     <ClCompile Include="src\Maths\implementation\vec3.cpp" />
     <ClCompile Include="src\Maths\implementation\vec4.cpp" />
+    <ClCompile Include="src\MemoryUtils\implementation\Mesh.cpp" />
     <ClCompile Include="src\Settings\implementation\MouseSettings.cpp" />
     <ClCompile Include="src\Settings\implementation\WindowSettings.cpp" />
   </ItemGroup>

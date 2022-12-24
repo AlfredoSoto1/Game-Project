@@ -19,7 +19,7 @@ namespace BufferUtils {
 
 		Index* indices;
 		Vertex* vertices;
-
+		 
 		void resizeIndexBuffer();
 		void resizeVertexBuffer();
 
@@ -35,12 +35,19 @@ namespace BufferUtils {
 		bool isEmpty() const;					// returns a boolean wether if the buffer is empty
 
 		unsigned int size() const;				// returns the sizeof the buffer
-		unsigned int indexCount() const;		// returns the total in-use indices
 		unsigned int unallocSize() const;		// returns the total sizeof the buffer (including the unused allocated memory)
-		unsigned int vertexCount() const;		// returns the total count of vertices
 		unsigned int indexCapacity() const;		// returns the available capacity of indices
 		unsigned int vertexCapacity() const;	// returns the available capacity of vertices
-		
+
+		unsigned int indexCount() const;		// returns the total in-use indices
+		unsigned int vertexCount() const;		// returns the total count of vertices
+
+		unsigned int indexCountSize() const;	// returns the sizeOf the count of indices used in array (bytes)
+		unsigned int vertexCountSize() const;	// returns the sizeOf the count of vertices used in array (bytes)
+
+		unsigned int indexSize() const;			// returns the sizeOf the index
+		unsigned int vertexSize() const;		// returns the sizeOf the vertex
+
 		const Index* getIndices() const;		// returns a const array of the allocated indices
 		const Vertex* getVertices() const;		// returns a const array of the allocated vertices
 

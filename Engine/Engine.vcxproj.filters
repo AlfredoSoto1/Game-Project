@@ -72,10 +72,7 @@
     <ClInclude Include="src\PeripheralsUtils\Mouse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\SceneUtils\Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SceneUtils\Mesh.h">
+    <ClInclude Include="src\MemoryUtils\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\BufferUtils\VertexBuffer.h">
@@ -84,10 +81,13 @@
     <ClInclude Include="src\BufferUtils\BufferE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\MemoryUtils\Definition.h">
+    <ClInclude Include="src\BufferUtils\implementation\VertexBuffer_impl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BufferUtils\implementation\VertexBuffer_impl.h">
+    <ClInclude Include="src\Graphics\ShaderProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MemoryUtils\MemoryE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -144,6 +144,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\PeripheralsUtils\implementation\Mouse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MemoryUtils\implementation\Mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\implementation\ShaderProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

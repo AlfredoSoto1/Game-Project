@@ -13,9 +13,6 @@ using namespace std;
 #include "SceneUtils/Scene.h"
 #include "SceneUtils/SceneManager.h"
 
-#include "SceneUtils/Mesh.h"
-#include "SceneUtils/Model.h"
-
 using namespace SceneUtils;
 
 #include "BufferUtils/BufferE.h"
@@ -28,6 +25,23 @@ using namespace BufferUtils;
 #include "Maths/vec4.h"
 using namespace Maths;
 
+#include "MemoryUtils/Mesh.h"
+
+using namespace MemoryUtils;
+#include "Graphics/ShaderProgram.h"
+
+using namespace Graphics;
+
+static void clearError() {
+	while (glGetError() != GL_NO_ERROR);
+}
+
+static void checkError() {
+	while (GLenum error = glGetError()) {
+		printf("[GL ERROR]: %x, %i \n", error, error);
+	}
+}
+
 class TestScene : public Scene {
 public:
 
@@ -37,37 +51,83 @@ public:
 
 	}
 
+	struct Vertex {
+		vec3 position = vec3(0.0);
+		vec4 color = vec4(0.0);
+	};
+
+	VertexBuffer<Vertex, unsigned int>* buffer;
+
+	uint32_t vao;
+	uint32_t ibo;
+	uint32_t vbo;
+
+	Mesh* mesh;
+
+	ShaderProgram* shader;
+
 	void init() {
 
-		struct Vertex {
-			vec2 position = vec2(0.0);
-			vec3 color = vec3(0.0);
+		unsigned int indices[3] = {
+			0, 1, 2,
 		};
 
-		Vertex vert1 = {vec2(-0.5f, -0.5f), vec3(1.0)};
-		Vertex vert2 = {vec2( 0.0f,  0.5f), vec3(1.0)};
-		Vertex vert3 = {vec2( 0.5f, -0.5f), vec3(1.0)};
+		float positions[9] = {
+			-0.5f, -0.5f, 1.0f,
+			 0.5f, -0.5f, -1.0f,
+			 0.5f,  0.5f, -1.0f,
+		};
 
-		VertexBuffer<Vertex, unsigned char> buffer(2);
+		//buffer = new VertexBuffer<Vertex, unsigned int>(2);
 
-		cout << "size: "			<< buffer.size() << "B"		<< endl;
-		cout << "total: "			<< buffer.unallocSize() << "B" << endl;
-		cout << "vertex count: "	<< buffer.vertexCount()		<< endl;
-		cout << "index count: "		<< buffer.indexCount()		<< endl;
-		cout << "vertex capacity: " << buffer.vertexCapacity()	<< endl;
-		cout << "index capacity: "	<< buffer.indexCapacity()	<< endl;
+		//buffer->pushBack({ vec3(-0.5f, -0.5f, -1.0f), vec4(1.0, 0.0, 0.0, 1.0)});
+		//buffer->pushBack({ vec3( 0.5f, -0.5f, -1.0f), vec4(0.0, 1.0, 0.0, 1.0)});
+		//buffer->pushBack({ vec3( 0.5f,  0.5f, -1.0f), vec4(0.0, 0.0, 1.0, 1.0)});
 
-		buffer.fit();
+		//buffer->fit();
 
-		cout << "------------------------------------------------" << endl;
-	
-		cout << "size: " << buffer.size() << "B" << endl;
-		cout << "total: " << buffer.unallocSize() << "B" << endl;
-		cout << "vertex count: " << buffer.vertexCount() << endl;
-		cout << "index count: " << buffer.indexCount() << endl;
-		cout << "vertex capacity: " << buffer.vertexCapacity() << endl;
-		cout << "index capacity: " << buffer.indexCapacity() << endl;
+		//mesh = new Mesh(2, GL_STATIC_DRAW);
 
+		//mesh->createIndexBuffer(buffer->indexCount(), buffer->indexSize(), buffer->getIndices());
+		//mesh->createVertexBuffer(buffer->vertexCountSize(), buffer->getVertices());
+		////mesh->setVertexBuffer(*buffer);
+
+		//mesh->setAttribPointer(0, 3, GL_FLOAT, sizeof(Vertex), (void*)0);
+		//mesh->setAttribPointer(1, 4, GL_FLOAT, sizeof(Vertex), (void*)offsetof(Vertex, color));
+
+		glGenVertexArrays(1, &vao);
+		glBindVertexArray(vao);
+
+		clearError();
+		glGenBuffers(1, &ibo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		checkError();
+
+
+		clearError();
+		glGenBuffers(1, &vbo);
+
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(float), positions, GL_STATIC_DRAW);
+		checkError();
+
+		clearError();
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (const void*)0);
+		//glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offsetof(Vertex, color));
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		checkError();
+
+		glBindVertexArray(0);
+
+
+		const char* vert = "src/testV.glsl";
+		const char* frag = "src/testF.glsl";
+
+		const char* paths[2] = { vert, frag };
+
+		shader = new ShaderProgram(2, paths);
 	}
 
 	void load() {
@@ -78,12 +138,28 @@ public:
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		//glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 
-		glBegin(GL_TRIANGLES);
-		glVertex2f(-0.5f, -0.5f);
-		glVertex2f( 0.0f,  0.5f);
-		glVertex2f( 0.5f, -0.5f);
-		glEnd();
+		shader->onProgram();
 
+		clearError();
+		//mesh->bind();
+		glBindVertexArray(vao);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+		glEnableVertexAttribArray(0);
+
+		glEnable(GL_DEPTH_TEST);
+
+		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+
+		glDisable(GL_DEPTH_TEST);
+
+		//mesh->unbind();
+
+		glDisableVertexAttribArray(0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
+		checkError();
+
+		shader->offProgram();
 	}
 
 	void update() {
@@ -93,6 +169,10 @@ public:
 	}
 
 	void dispose() {
+		delete mesh;
+		delete buffer;
+
+		delete shader;
 	}
 
 };

@@ -48,7 +48,7 @@ namespace BufferUtils {
 		return buffer_indexCapacity == buffer_indexCount;
 	}
 
-	BUFFER_t BUFFER_def::VertexBuffer(unsigned int _initialBufferCapacity) {
+	BUFFER_t BUFFER_def::VertexBuffer(unsigned int _initialBufferCapacity) { 
 		bufferCount = 0;
 		bufferCapacity = _initialBufferCapacity;
 		initialBufferCapacity = _initialBufferCapacity;
@@ -77,7 +77,7 @@ namespace BufferUtils {
 	}
 
 	BUFFER_t unsigned int BUFFER_def::unallocSize() const {
-		return bufferCapacity * sizeof(Vertex) + buffer_indexCapacity * sizeof(Index);
+		return bufferCapacity * sizeof(Vertex) + buffer_indexCapacity * sizeof(Index); 
 	}
 
 	BUFFER_t unsigned int BUFFER_def::vertexCount() const {
@@ -86,6 +86,22 @@ namespace BufferUtils {
 
 	BUFFER_t unsigned int BUFFER_def::vertexCapacity() const {
 		return bufferCapacity;
+	}
+	
+	BUFFER_t unsigned int BUFFER_def::vertexCountSize() const {
+		return bufferCount * sizeof(Vertex);
+	}
+	
+	BUFFER_t unsigned int BUFFER_def::indexSize() const {
+		return sizeof(Index);
+	}
+
+	BUFFER_t unsigned int BUFFER_def::vertexSize() const {
+		return sizeof(Vertex);
+	}
+
+	BUFFER_t unsigned int BUFFER_def::indexCountSize() const {
+		return buffer_indexCount * sizeof(Index);
 	}
 
 	BUFFER_t unsigned int BUFFER_def::indexCapacity() const {
@@ -103,7 +119,7 @@ namespace BufferUtils {
 	BUFFER_t const Vertex* BUFFER_def::getVertices() const {
 		return vertices;
 	}
-
+	
 	BUFFER_t void BUFFER_def::fit() {
 		if (bufferCount == 0 || buffer_indexCount == 0)
 			return;
