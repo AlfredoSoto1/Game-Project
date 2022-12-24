@@ -58,25 +58,11 @@ public:
 
 	VertexBuffer<Vertex, unsigned int>* buffer;
 
-	uint32_t vao;
-	uint32_t ibo;
-	uint32_t vbo;
-
 	Mesh* mesh;
 
 	ShaderProgram* shader;
 
 	void init() {
-
-		//unsigned int indices[3] = {
-		//	0, 1, 2,
-		//};
-
-		//float positions[9] = {
-		//	-0.5f, -0.5f,  1.0f,
-		//	 0.5f, -0.5f, -1.0f,
-		//	 0.5f,  0.5f, -1.0f,
-		//};
 
 		buffer = new VertexBuffer<Vertex, unsigned int>(2);
 
@@ -88,34 +74,10 @@ public:
 
 		mesh = new Mesh(2, GL_STATIC_DRAW);
 
-		mesh->createIndexBuffer(buffer->indexCount(), buffer->indexSize(), buffer->getIndices());
-		mesh->createVertexBuffer(buffer->vertexCountSize(), buffer->getVertices());
+		mesh->setVertexBuffer(*buffer);
 
 		mesh->setAttribPointer(0, 3, GL_FLOAT, sizeof(Vertex), (const void*)0);
 		mesh->setAttribPointer(1, 4, GL_FLOAT, sizeof(Vertex), (const void*)offsetof(Vertex, color));
-
-		//glGenVertexArrays(1, &vao);
-		//glBindVertexArray(vao);
-
-		//glGenBuffers(1, &ibo);
-		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, buffer->indexCountSize(), buffer->getIndices(), GL_STATIC_DRAW);
-		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-
-		//glGenBuffers(1, &vbo);
-
-		//glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		//glBufferData(GL_ARRAY_BUFFER, buffer->vertexCountSize(), buffer->getVertices(), GL_STATIC_DRAW);
-		//glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-		//glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)0);
-		//glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offsetof(Vertex, color));
-		//glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-		//glBindVertexArray(0);
-
 
 		const char* vert = "src/testV.glsl";
 		const char* frag = "src/testF.glsl";
@@ -136,23 +98,14 @@ public:
 		shader->onProgram();
 
 		mesh->bind();
-		//glBindVertexArray(vao);
-		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-		//glEnableVertexAttribArray(0);
-		//glEnableVertexAttribArray(1);
 
 		glEnable(GL_DEPTH_TEST);
 
-		glDrawElements(GL_TRIANGLES, buffer->indexCount(), GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_TRIANGLES, mesh->getIndexCount(), GL_UNSIGNED_INT, nullptr);
 
 		glDisable(GL_DEPTH_TEST);
 
 		mesh->unbind();
-
-		//glDisableVertexAttribArray(0);
-		//glDisableVertexAttribArray(1);
-		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-		//glBindVertexArray(0);
 
 		shader->offProgram();
 	}

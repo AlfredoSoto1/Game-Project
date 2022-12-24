@@ -7,16 +7,16 @@
 using namespace MemoryUtils;
 
 Mesh::Mesh(uint32_t _maxAttribs, uint32_t _accessFormat) {
-	// creates VAO
-	maxAttribs = _maxAttribs;
-	accessFormat = _accessFormat;
-
 	vao = 0;
 	ibo = 0;
 	indexCount = 0;
 	vertexBuffer = 0;
 	attribBuffer = nullptr;
+
+	// creates VAO
 	glGenVertexArrays(1, &vao);
+	maxAttribs = _maxAttribs;
+	accessFormat = _accessFormat;
 }
 
 Mesh::~Mesh() {
@@ -34,19 +34,15 @@ uint32_t Mesh::getIndexCount() const {
 void Mesh::bind() const {
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
 	for (uint32_t i = 0; i < maxAttribs; i++) {
-		//glEnableVertexAttribArray(i);
+		glEnableVertexAttribArray(i);
 	}
 }
 
 void Mesh::unbind() const {
 	for (uint32_t i = 0; i < maxAttribs; i++) {
-		/*glDisableVertexAttribArray(i);*/
+		glDisableVertexAttribArray(i);
 	}
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
@@ -100,7 +96,7 @@ void Mesh::setAttribPointer(const uint32_t _location, const uint32_t _componentC
 	glBindVertexArray(vao);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glVertexAttribPointer(_location, _componentCount, GL_FLOAT, GL_FALSE, _vertexSize, _offset);
+	glVertexAttribPointer(_location, _componentCount, _type, GL_FALSE, _vertexSize, _offset);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindVertexArray(0);
