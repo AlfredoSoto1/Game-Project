@@ -68,23 +68,23 @@ public:
 
 	void init() {
 
-		unsigned int indices[3] = {
-			0, 1, 2,
-		};
+		//unsigned int indices[3] = {
+		//	0, 1, 2,
+		//};
 
-		float positions[9] = {
-			-0.5f, -0.5f, 1.0f,
-			 0.5f, -0.5f, -1.0f,
-			 0.5f,  0.5f, -1.0f,
-		};
+		//float positions[9] = {
+		//	-0.5f, -0.5f,  1.0f,
+		//	 0.5f, -0.5f, -1.0f,
+		//	 0.5f,  0.5f, -1.0f,
+		//};
 
-		//buffer = new VertexBuffer<Vertex, unsigned int>(2);
+		buffer = new VertexBuffer<Vertex, unsigned int>(2);
 
-		//buffer->pushBack({ vec3(-0.5f, -0.5f, -1.0f), vec4(1.0, 0.0, 0.0, 1.0)});
-		//buffer->pushBack({ vec3( 0.5f, -0.5f, -1.0f), vec4(0.0, 1.0, 0.0, 1.0)});
-		//buffer->pushBack({ vec3( 0.5f,  0.5f, -1.0f), vec4(0.0, 0.0, 1.0, 1.0)});
+		buffer->pushBack({ vec3(-0.5f, -0.5f, -1.0f), vec4(1.0, 0.0, 0.0, 1.0)});
+		buffer->pushBack({ vec3( 0.5f, -0.5f, -1.0f), vec4(0.0, 1.0, 0.0, 1.0)});
+		buffer->pushBack({ vec3( 0.5f,  0.5f, -1.0f), vec4(0.0, 0.0, 1.0, 1.0)});
 
-		//buffer->fit();
+		buffer->fit();
 
 		//mesh = new Mesh(2, GL_STATIC_DRAW);
 
@@ -98,26 +98,22 @@ public:
 		glGenVertexArrays(1, &vao);
 		glBindVertexArray(vao);
 
-		clearError();
 		glGenBuffers(1, &ibo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, buffer->indexCountSize(), buffer->getIndices(), GL_STATIC_DRAW);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-		checkError();
 
 
-		clearError();
 		glGenBuffers(1, &vbo);
 
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(float), positions, GL_STATIC_DRAW);
-		checkError();
-
-		clearError();
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (const void*)0);
-		//glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offsetof(Vertex, color));
+		glBufferData(GL_ARRAY_BUFFER, buffer->vertexCountSize(), buffer->getVertices(), GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		checkError();
+
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)0);
+		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offsetof(Vertex, color));
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		glBindVertexArray(0);
 
@@ -140,24 +136,24 @@ public:
 
 		shader->onProgram();
 
-		clearError();
 		//mesh->bind();
 		glBindVertexArray(vao);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
 
 		glEnable(GL_DEPTH_TEST);
 
-		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_TRIANGLES, buffer->indexCount(), GL_UNSIGNED_INT, nullptr);
 
 		glDisable(GL_DEPTH_TEST);
 
 		//mesh->unbind();
 
 		glDisableVertexAttribArray(0);
+		glDisableVertexAttribArray(1);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
-		checkError();
 
 		shader->offProgram();
 	}
