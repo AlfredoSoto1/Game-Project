@@ -8,7 +8,6 @@ using namespace MemoryUtils;
 
 Mesh::Mesh(uint32_t _maxAttribs, uint32_t _accessFormat) {
 	// creates VAO
-	glGenVertexArrays(1, &vao);
 	maxAttribs = _maxAttribs;
 	accessFormat = _accessFormat;
 
@@ -17,6 +16,7 @@ Mesh::Mesh(uint32_t _maxAttribs, uint32_t _accessFormat) {
 	indexCount = 0;
 	vertexBuffer = 0;
 	attribBuffer = nullptr;
+	glGenVertexArrays(1, &vao);
 }
 
 Mesh::~Mesh() {
@@ -34,15 +34,19 @@ uint32_t Mesh::getIndexCount() const {
 void Mesh::bind() const {
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
 	for (uint32_t i = 0; i < maxAttribs; i++) {
-		glEnableVertexAttribArray(i);
+		//glEnableVertexAttribArray(i);
 	}
 }
 
 void Mesh::unbind() const {
 	for (uint32_t i = 0; i < maxAttribs; i++) {
-		glDisableVertexAttribArray(i);
+		/*glDisableVertexAttribArray(i);*/
 	}
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
