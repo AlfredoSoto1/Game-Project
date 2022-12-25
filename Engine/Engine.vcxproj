@@ -151,8 +151,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\A1_\AppCallbacks\ControlerCallback.h" />
+    <ClInclude Include="src\A1_\AppCallbacks\KeyboardCallback.h" />
+    <ClInclude Include="src\A1_\AppCallbacks\Listeners\ControlerListener.h" />
+    <ClInclude Include="src\A1_\AppCallbacks\Listeners\KeyboardListener.h" />
+    <ClInclude Include="src\A1_\AppCallbacks\Listeners\MouseListener.h" />
+    <ClInclude Include="src\A1_\AppCallbacks\Listeners\WindowListener.h" />
+    <ClInclude Include="src\A1_\AppCallbacks\MouseCallback.h" />
+    <ClInclude Include="src\A1_\AppCallbacks\WindowCallback.h" />
+    <ClInclude Include="src\A1_\AppDisplay\Components\Display.h" />
+    <ClInclude Include="src\A1_\AppDisplay\Components\Monitor.h" />
+    <ClInclude Include="src\A1_\AppSettings\ControllerSettings.h" />
+    <ClInclude Include="src\A1_\AppSettings\KeyBoardSettings.h" />
+    <ClInclude Include="src\A1_\AppSettings\MonitorSettings.h" />
+    <ClInclude Include="src\A1_\AppSettings\MouseSettings.h" />
     <ClInclude Include="src\Application\App.h" />
     <ClInclude Include="src\Application\AppComponent.h" />
+    <ClInclude Include="src\A1_\AppSettings\WindowSettings.h" />
     <ClInclude Include="src\BufferUtils\BufferE.h" />
     <ClInclude Include="src\BufferUtils\implementation\VertexBuffer_impl.h" />
     <ClInclude Include="src\BufferUtils\VertexBuffer.h" />

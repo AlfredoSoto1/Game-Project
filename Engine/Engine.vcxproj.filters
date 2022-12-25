@@ -90,6 +90,51 @@
     <ClInclude Include="src\MemoryUtils\MemoryE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\A1_\AppSettings\WindowSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\A1_\AppDisplay\Components\Monitor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\A1_\AppDisplay\Components\Display.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\A1_\AppCallbacks\WindowCallback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\A1_\AppCallbacks\MouseCallback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\A1_\AppCallbacks\KeyboardCallback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\A1_\AppCallbacks\ControlerCallback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\A1_\AppCallbacks\Listeners\WindowListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\A1_\AppCallbacks\Listeners\ControlerListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\A1_\AppCallbacks\Listeners\KeyboardListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\A1_\AppCallbacks\Listeners\MouseListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\A1_\AppSettings\MouseSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\A1_\AppSettings\MonitorSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\A1_\AppSettings\KeyBoardSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\A1_\AppSettings\ControllerSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Display\implementation\Window.cpp">
