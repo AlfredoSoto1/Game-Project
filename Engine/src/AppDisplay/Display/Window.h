@@ -13,8 +13,8 @@ namespace Settings {
 	class WindowSettings;
 }
 
-namespace Callback {
-	class WindowCallback;
+namespace Listener {
+	class WindowListener;
 }
 
 namespace Display {
@@ -26,16 +26,17 @@ namespace Display {
 	class Window : public Application::AppComponent {
 	private:
 		friend class Application::App;
-		friend class Callback::WindowCallback;
+		friend class Listener::WindowListener;
 
 		GLFWwindow* winPtr;
 
-		Settings::WindowSettings* windowSettings;
-		Callback::WindowCallback* windowCallback;
+		Settings::WindowSettings* settings;
+		Listener::WindowListener* listener;
 
 		bool initGLEW();
 
 		void init();
+		void initCallback();
 		void dispose();
 
 	public:
@@ -48,8 +49,9 @@ namespace Display {
 		void focus();
 		void requestAttention();
 
+		void setListener(Listener::WindowListener* _listener);
+
 		Settings::WindowSettings& getSettings();
-		Callback::WindowCallback& getCallback();
 	};
 }
 

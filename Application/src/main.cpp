@@ -37,6 +37,7 @@ using namespace Listener;
 
 #include "AppEquipment/Equipments.h"
 #include "AppEquipment/Mouse.h"
+#include "AppEquipment/Listeners/WindowListener.h"
 using namespace Equipment;
 
 class TestScene : public Scene {

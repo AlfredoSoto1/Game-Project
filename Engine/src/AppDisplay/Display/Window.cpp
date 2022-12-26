@@ -21,27 +21,32 @@ using namespace Application;
 using namespace Display;
 
 /*
-	Settings & Callbacks
+	Settings
 */
 #include "AppSettings/WindowSettings.h"
-#include "AppEquipment/Callbacks/WindowCallback.h"
-
 using namespace Settings;
-using namespace Callback;
+
+/*
+	Listener
+*/
+#include "AppEquipment/Listeners/WindowListener.h"
+using namespace Listener;
+
+#define TO_APPLICATION(x) *static_cast<App*>(glfwGetWindowUserPointer(x));
 
 Window::Window(App* _appRef, const char* _title, unsigned int _width, unsigned int _height) 
 	: AppComponent(_appRef)
 {
+	this->listener = nullptr;
 	this->winPtr = nullptr;
-	this->windowCallback = nullptr;
-	this->windowSettings = new WindowSettings();
+	this->settings = new WindowSettings();
 
-	this->windowSettings->setTitle(_title);
-	this->windowSettings->setSize(_width, _height);
+	this->settings->setTitle(_title);
+	this->settings->setSize(_width, _height);
 }
 
 Window::~Window() {
-	delete windowSettings;
+	delete settings;
 }
 
 void Window::close() {
@@ -56,12 +61,12 @@ void Window::requestAttention() {
 	if (winPtr) glfwRequestWindowAttention(winPtr);
 }
 
-WindowSettings& Window::getSettings() {
-	return *windowSettings;
+void Window::setListener(Listener::WindowListener* _listener) {
+	this->listener = _listener;
 }
 
-Callback::WindowCallback& Window::getCallback() {
-	return *windowCallback;
+WindowSettings& Window::getSettings() {
+	return *settings;
 }
 
 Window::operator GLFWwindow* () {
@@ -88,12 +93,12 @@ bool Window::initGLEW() {
 */
 void Window::init() {
 
-	windowSettings->loadHints();
+	settings->loadHints();
 
 	winPtr = glfwCreateWindow(
-		windowSettings->getWidth(), windowSettings->getHeight(),
-		windowSettings->getTitle().c_str(),
-		windowSettings->isFullScreen() ? windowSettings->getCurrentMonitor() : NULL, NULL);
+		settings->getWidth(), settings->getHeight(),
+		settings->getTitle().c_str(),
+		settings->isFullScreen() ? settings->getCurrentMonitor() : NULL, NULL);
 	
 	if (!winPtr) {
 		cout << "Failed to create GLFW window." << endl;
@@ -102,8 +107,8 @@ void Window::init() {
 	}
 
 	//set settings context and prefferences
-	windowSettings->setContext(winPtr);
-	windowSettings->centerWindow();
+	settings->setContext(winPtr);
+	settings->centerWindow();
 
 	//create Display context
 	glfwMakeContextCurrent(winPtr);
@@ -117,21 +122,96 @@ void Window::init() {
 		glfwTerminate();
 		return;
 	}
-	glViewport(0, 0, windowSettings->getWidth(), windowSettings->getHeight());
+	glViewport(0, 0, settings->getWidth(), settings->getHeight());
 
-	// Create a Window Callback
 	glfwSetWindowUserPointer(winPtr, getAppRef());
 
-	windowCallback = new WindowCallback(getAppRef());
+	initCallback();
 }
 
 /*
 	terminates window context and GLFW
 */
 void Window::dispose() {
-	delete windowCallback;
-
 	glfwDestroyWindow(winPtr);
 	glfwTerminate();
+}
+
+void Window::initCallback() {
+	auto positionCallback = [](GLFWwindow* winPtr, int xpos, int ypos) {
+		App& app = TO_APPLICATION(winPtr);
+		app.getWindow().getSettings().changePosition(xpos, ypos);
+
+		if (app.getWindow().listener != nullptr) {
+			app.getWindow().listener->windowMoved(xpos, ypos);
+		}
+	};
+
+	auto sizeCallback = [](GLFWwindow* winPtr, int width, int height) {
+		App& app = TO_APPLICATION(winPtr);
+		app.getWindow().getSettings().changeSize(width, height);
+
+		if (app.getWindow().listener != nullptr) {
+			app.getWindow().listener->windowSize(width, height);
+		}
+	};
+
+	auto closeCallback = [](GLFWwindow* winPtr) {
+		App& app = TO_APPLICATION(winPtr);
+
+		if (app.getWindow().listener != nullptr) {
+			app.getWindow().listener->windowClosed();
+		}
+	};
+
+	auto focusCallback = [](GLFWwindow* winPtr, int isFocused) {
+		App& app = TO_APPLICATION(winPtr);
+
+		if (app.getWindow().listener != nullptr) {
+			app.getWindow().listener->windowFocused(isFocused > 0 ? true : false);
+		}
+	};
+
+	auto iconifyCallback = [](GLFWwindow* winPtr, int isIconified) {
+		App& app = TO_APPLICATION(winPtr);
+
+		if (app.getWindow().listener != nullptr) {
+			app.getWindow().listener->windowIconified(isIconified > 0 ? true : false);
+		}
+	};
+
+	auto maximizeCallback = [](GLFWwindow* winPtr, int isMaximized) {
+		App& app = TO_APPLICATION(winPtr);
+
+		if (app.getWindow().listener != nullptr) {
+			app.getWindow().listener->windowMaximized(isMaximized > 0 ? true : false);
+		}
+	};
+
+	auto refreshCallback = [](GLFWwindow* winPtr) {
+		App& app = TO_APPLICATION(winPtr);
+
+		if (app.getWindow().listener != nullptr) {
+			app.getWindow().listener->windowRefresh();
+		}
+	};
+
+	auto frameBufferSizeCallback = [](GLFWwindow* winPtr, int width, int height) {
+		App& app = TO_APPLICATION(winPtr);
+
+		if (app.getWindow().listener != nullptr) {
+			app.getWindow().listener->windowFrameBufferSize(width, height);
+		}
+	};
+
+	//sets the corresponding callback to GLFW
+	glfwSetWindowPosCallback(winPtr, positionCallback);
+	glfwSetWindowSizeCallback(winPtr, sizeCallback);
+	glfwSetWindowCloseCallback(winPtr, closeCallback);
+	glfwSetWindowFocusCallback(winPtr, focusCallback);
+	glfwSetWindowIconifyCallback(winPtr, iconifyCallback);
+	glfwSetWindowRefreshCallback(winPtr, refreshCallback);
+	glfwSetWindowMaximizeCallback(winPtr, maximizeCallback);
+	glfwSetFramebufferSizeCallback(winPtr, frameBufferSizeCallback);
 }
 

@@ -51,10 +51,6 @@ MouseSettings& Mouse::getSettings() {
 	return *settings;
 }
 
-Listener::MouseListener* Mouse::getListener() {
-	return listener;
-}
-
 void Mouse::setListener(Listener::MouseListener* _mouseListener) {
 	this->listener = _mouseListener;
 }
@@ -70,16 +66,16 @@ void Mouse::update() {
 void Mouse::initCallback(App* _appRef) {
 	auto dropCallback = [](GLFWwindow* winPtr, int _pathCount, const char** _paths) {
 		App& app = TO_APPLICATION(winPtr);
-		if (app.getEquipments().getMouse().getListener() != nullptr) {
-			app.getEquipments().getMouse().getListener()->mouseDrop(_pathCount, _paths);
+		if (app.getEquipments().getMouse().listener != nullptr) {
+			app.getEquipments().getMouse().listener->mouseDrop(_pathCount, _paths);
 		}
 	};
 
 	auto enterCallback = [](GLFWwindow* winPtr, int isInside) {
 		App& app = TO_APPLICATION(winPtr);
 
-		if (app.getEquipments().getMouse().getListener() != nullptr) {
-			app.getEquipments().getMouse().getListener()->mouseEnterWindow(isInside > 0 ? true : false);
+		if (app.getEquipments().getMouse().listener != nullptr) {
+			app.getEquipments().getMouse().listener->mouseEnterWindow(isInside > 0 ? true : false);
 		}
 	};
 
@@ -93,13 +89,13 @@ void Mouse::initCallback(App* _appRef) {
 		settings.currentButton = button;
 
 		if (action != GLFW_RELEASE) {
-			if (app.getEquipments().getMouse().getListener() != nullptr) {
-				app.getEquipments().getMouse().getListener()->mouseClickedButton(button, mods, settings.getX(), settings.getY());
+			if (app.getEquipments().getMouse().listener != nullptr) {
+				app.getEquipments().getMouse().listener->mouseClickedButton(button, mods, settings.getX(), settings.getY());
 			}
 		}
 		else {
-			if (app.getEquipments().getMouse().getListener() != nullptr) {
-				app.getEquipments().getMouse().getListener()->mouseReleasedButton(button, mods, settings.getX(), settings.getY());
+			if (app.getEquipments().getMouse().listener != nullptr) {
+				app.getEquipments().getMouse().listener->mouseReleasedButton(button, mods, settings.getX(), settings.getY());
 			}
 		}
 
@@ -109,8 +105,8 @@ void Mouse::initCallback(App* _appRef) {
 		App& app = TO_APPLICATION(winPtr);
 		app.getEquipments().getMouse().getSettings().setScrollOffset(xOffset, yOffset);
 
-		if (app.getEquipments().getMouse().getListener() != nullptr) {
-			app.getEquipments().getMouse().getListener()->mouseScrollButton(xOffset, yOffset);
+		if (app.getEquipments().getMouse().listener != nullptr) {
+			app.getEquipments().getMouse().listener->mouseScrollButton(xOffset, yOffset);
 		}
 	};
 
@@ -124,8 +120,8 @@ void Mouse::initCallback(App* _appRef) {
 			-(ypos * 2.0) / app.getWindow().getSettings().getHeight() + 1.0
 		);
 
-		if (app.getEquipments().getMouse().getListener() != nullptr) {
-			app.getEquipments().getMouse().getListener()->mouseMoved(xpos, ypos);
+		if (app.getEquipments().getMouse().listener != nullptr) {
+			app.getEquipments().getMouse().listener->mouseMoved(xpos, ypos);
 		}
 	};
 

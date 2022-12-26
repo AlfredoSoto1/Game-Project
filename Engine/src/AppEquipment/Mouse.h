@@ -24,8 +24,6 @@ namespace Equipment {
 		Settings::MouseSettings* settings;
 		Listener::MouseListener* listener;
 
-		Listener::MouseListener* getListener();
-
 		void initCallback(Application::App* _appRef);
 
 		void update();
