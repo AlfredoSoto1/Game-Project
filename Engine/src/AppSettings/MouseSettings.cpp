@@ -11,6 +11,10 @@
 using namespace Settings;
 
 MouseSettings::MouseSettings() {
+
+	currentMods = -1;
+	currentButton = -1;
+
 	xPosition = 0.0;
 	yPosition = 0.0;
 
@@ -66,4 +70,10 @@ void MouseSettings::setMousePosition(double x, double y) {
 void MouseSettings::setMousePositionNormalized(double x, double y) {
 	this->xPositionNormalized = x;
 	this->yPositionNormalized = y;
+}
+
+bool MouseSettings::isButtonDown(int button) {
+	if (button < 0)
+		return false;
+	return mouseButtons[button] ? true : false;
 }

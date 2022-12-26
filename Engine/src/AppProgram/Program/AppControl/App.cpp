@@ -12,6 +12,12 @@
 using namespace Application;
 
 /*
+	Settings
+*/
+#include "AppSettings/WindowSettings.h"
+using namespace Settings;
+
+/*
 	Display
 */
 #include "AppDisplay/Display/Window.h"
@@ -30,9 +36,9 @@ using namespace SceneUtils;
 using namespace Equipment;
 
 App::App() {
-	loadComponentDefaults();
-	loadEquipmentDefaults();
-	loadSceneControlDefaults();
+	window = new Window(this, "Default", 1280, 720);
+	equipments = new Equipments(this);
+	sceneManager = new SceneManager(this);
 }
 
 App::~App() {
@@ -55,18 +61,6 @@ void error_callback(int error, const char* description) {
 	fprintf(stderr, "Error: %s\n", description);
 }
 
-void App::loadComponentDefaults() {
-	window = new Window(this, "Default", 1280, 720);
-}
-
-void App::loadEquipmentDefaults() {
-	equipments = new Equipments(this);
-}
-
-void App::loadSceneControlDefaults() {
-	sceneManager = new SceneManager(this);
-}
-
 void App::init() {
 
 	if (!glfwInit()) {
@@ -83,7 +77,22 @@ void App::init() {
 
 void App::run() {
 	// run application loop
-	window->runLoop();
+
+	while (!glfwWindowShouldClose(*window)) {
+		sceneManager->update();
+
+		if (window->getSettings().hasResized()) {
+			glViewport(0, 0, window->getSettings().getWidth(), window->getSettings().getHeight());
+		}
+		sceneManager->draw();
+
+		glfwSwapBuffers(*window);
+		window->getSettings().hasResized() = false;
+		sceneManager->afterDraw();
+
+		glfwPollEvents();
+		equipments->update();
+	}
 }
 
 void App::end() {

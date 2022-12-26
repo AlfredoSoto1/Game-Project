@@ -23,13 +23,14 @@ namespace Equipment {
 
 		Mouse* mouse;
 
+		void init();
+		void update();
+		void dispose();
+
 	public:
 		Equipments(Application::App* _appRef);
 		~Equipments();
 
 		Mouse& getMouse();
-
-		void init();
-		void dispose();
 	};
 }

@@ -59,6 +59,14 @@ void Mouse::setListener(Listener::MouseListener* _mouseListener) {
 	this->listener = _mouseListener;
 }
 
+void Mouse::update() {
+	if (settings->isButtonDown(settings->currentButton)) {
+		if (listener != nullptr) {
+			listener->mousePressedButton(settings->currentButton, settings->currentMods, settings->getX(), settings->getY());
+		}
+	}
+}
+
 void Mouse::initCallback(App* _appRef) {
 	auto dropCallback = [](GLFWwindow* winPtr, int _pathCount, const char** _paths) {
 		App& app = TO_APPLICATION(winPtr);
@@ -80,10 +88,21 @@ void Mouse::initCallback(App* _appRef) {
 
 		MouseSettings& settings = app.getEquipments().getMouse().getSettings();
 		settings.getButtons()[button] = action != GLFW_RELEASE;
+		
+		settings.currentMods = mods;
+		settings.currentButton = button;
 
-		if (app.getEquipments().getMouse().getListener() != nullptr) {
-			app.getEquipments().getMouse().getListener()->mouseClickedButton(button, action, mods, settings.getX(), settings.getY());
+		if (action != GLFW_RELEASE) {
+			if (app.getEquipments().getMouse().getListener() != nullptr) {
+				app.getEquipments().getMouse().getListener()->mouseClickedButton(button, mods, settings.getX(), settings.getY());
+			}
 		}
+		else {
+			if (app.getEquipments().getMouse().getListener() != nullptr) {
+				app.getEquipments().getMouse().getListener()->mouseReleasedButton(button, mods, settings.getX(), settings.getY());
+			}
+		}
+
 	};
 
 	auto scrollCallback = [](GLFWwindow* winPtr, double xOffset, double yOffset) {

@@ -33,3 +33,7 @@ void Equipments::init() {
 void Equipments::dispose() {
 	delete mouse;
 }
+
+void Equipments::update() {
+	mouse->update();
+}

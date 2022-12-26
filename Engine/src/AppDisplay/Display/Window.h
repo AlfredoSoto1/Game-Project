@@ -17,10 +17,6 @@ namespace Callback {
 	class WindowCallback;
 }
 
-namespace SceneUtils {
-	class SceneManager;
-}
-
 namespace Display {
 
 	/* 
@@ -30,7 +26,6 @@ namespace Display {
 	class Window : public Application::AppComponent {
 	private:
 		friend class Application::App;
-		friend class SceneUtils::SceneManager;
 		friend class Callback::WindowCallback;
 
 		GLFWwindow* winPtr;
@@ -41,7 +36,6 @@ namespace Display {
 		bool initGLEW();
 
 		void init();
-		void runLoop();
 		void dispose();
 
 	public:

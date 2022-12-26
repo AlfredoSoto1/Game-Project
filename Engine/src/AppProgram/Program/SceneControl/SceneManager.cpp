@@ -15,18 +15,6 @@ using namespace std;
 
 using namespace Application;
 /*
-	Display
-*/
-#include "AppDisplay/Display/Window.h"
-
-using namespace Display;
-/*
-	Settings
-*/
-#include "AppSettings/WindowSettings.h"
-
-using namespace Settings;
-/*
 	Scene
 */
 #include "AppProgram/Program/SceneControl/Scene.h"

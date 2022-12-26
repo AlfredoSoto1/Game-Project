@@ -13,21 +13,12 @@ using namespace std;
 */
 #include "AppProgram/Program/AppControl/App.h"
 #include "AppProgram/Program/AppControl/AppComponent.h"
-
 using namespace Application;
 /*
 	Display
 */
 #include "AppDisplay/Display/Window.h"
-
 using namespace Display;
-
-/*
-	SceneUtils
-*/
-#include "AppProgram/Program/SceneControl/SceneManager.h"
-
-using namespace SceneUtils;
 
 /*
 	Settings & Callbacks
@@ -132,26 +123,6 @@ void Window::init() {
 	glfwSetWindowUserPointer(winPtr, getAppRef());
 
 	windowCallback = new WindowCallback(getAppRef());
-}
-
-/*
-	runs a loop to keep updating the window
-*/
-void Window::runLoop() {
-	while (!glfwWindowShouldClose(winPtr)) {
-		getAppRef()->sceneManager->update();
-
-		if (windowSettings->hasResized()) {
-			glViewport(0, 0, windowSettings->getWidth(), windowSettings->getHeight());
-		}
-		getAppRef()->sceneManager->draw();
-
-		glfwSwapBuffers(winPtr);
-		windowSettings->hasResized() = false;
-		getAppRef()->sceneManager->afterDraw();
-		
-		glfwPollEvents();
-	}
 }
 
 /*

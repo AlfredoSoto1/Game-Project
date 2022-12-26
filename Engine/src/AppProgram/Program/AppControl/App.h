@@ -37,10 +37,6 @@ namespace Application {
 		void run();
 		void end();
 
-		void loadComponentDefaults();
-		void loadEquipmentDefaults();
-		void loadSceneControlDefaults();
-
 		void clearError();
 		void checkError();
 

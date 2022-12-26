@@ -9,10 +9,6 @@ namespace Application {
 	class AppComponent;
 }
 
-namespace Display {
-	class Window;
-}
-
 namespace SceneUtils {
 
 	class Scene;
@@ -20,7 +16,6 @@ namespace SceneUtils {
 	class SceneManager : public Application::AppComponent {
 	private:
 		friend class Scene;
-		friend class Display::Window;
 		friend class Application::App;
 		friend class Application::AppComponent;
 

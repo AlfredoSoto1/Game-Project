@@ -21,10 +21,15 @@ namespace Settings {
 
 		bool* getButtons();
 
+		bool isButtonDown(int button);
+
 	private:
 		friend class Equipment::Mouse;
 
 		bool* mouseButtons;
+
+		int currentMods;
+		int currentButton;
 
 		double xPosition;
 		double yPosition;
