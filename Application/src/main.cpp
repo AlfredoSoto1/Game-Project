@@ -4,43 +4,33 @@
 #include <iostream>
 using namespace std;
 
-#include "Application/App.h"
+#include "AppProgram/Program/AppControl/App.h"
 
-#include "Display/Window.h"
+#include "AppDisplay/Display/Window.h"
 
-#include "Settings/WindowSettings.h"
+#include "AppSettings/WindowSettings.h"
 
-#include "SceneUtils/Scene.h"
-#include "SceneUtils/SceneManager.h"
+#include "AppProgram/Program/SceneControl/Scene.h"
+#include "AppProgram/Program/SceneControl/SceneManager.h"
 
 using namespace SceneUtils;
 
-#include "BufferUtils/BufferE.h"
-#include "BufferUtils/VertexBuffer.h"
+#include "AppProgram/Utils/Buffers/BufferE.h"
+#include "AppProgram/Utils/Buffers/VertexBuffer.h"
 
 using namespace BufferUtils;
 
-#include "Maths/vec2.h"
-#include "Maths/vec3.h"
-#include "Maths/vec4.h"
-using namespace Maths;
+#include "AppProgram/Utils/Maths/vec2.h"
+#include "AppProgram/Utils/Maths/vec3.h"
+#include "AppProgram/Utils/Maths/vec4.h"
+using namespace MathsUtils;
 
-#include "MemoryUtils/Mesh.h"
+#include "AppProgram/Utils/Geometry/Mesh.h"
 
-using namespace MemoryUtils;
-#include "Graphics/ShaderProgram.h"
+using namespace GeometryUtils;
+#include "AppDisplay/Graphics/ShaderControl/ShaderProgram.h"
 
 using namespace Graphics;
-
-static void clearError() {
-	while (glGetError() != GL_NO_ERROR);
-}
-
-static void checkError() {
-	while (GLenum error = glGetError()) {
-		printf("[GL ERROR]: %x, %i \n", error, error);
-	}
-}
 
 class TestScene : public Scene {
 public:
@@ -132,11 +122,12 @@ int main() {
 	//Create Application
 	Application::App app = Application::App();
 
-	app.getWindow().getWindowSettings().setTitle("First Display");
+	app.getWindow().getSettings().setTitle("First Display");
 
 	app.getSceneManager().addScene(scene1);
 
 	app.launch();
 
 	delete scene1;
+
 }
