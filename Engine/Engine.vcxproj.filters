@@ -27,9 +27,6 @@
     <ClInclude Include="src\AppProgram\Program\SceneControl\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppEquipment\Callbacks\MouseCallback.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\AppSettings\MouseSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -87,6 +84,9 @@
     <ClInclude Include="src\AppDisplay\Graphics\ShaderControl\ShaderProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\AppEquipment\Listeners\MouseListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AppDisplay\Display\Window.cpp">
@@ -99,9 +99,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\AppProgram\Program\SceneControl\Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\AppEquipment\Callbacks\MouseCallback.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\AppSettings\MouseSettings.cpp">

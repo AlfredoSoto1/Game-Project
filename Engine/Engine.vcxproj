@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\AppEquipment\Listeners\MouseListener.h" />
     <ClInclude Include="src\AppProgram\Program\AppControl\App.h" />
     <ClInclude Include="src\AppProgram\Program\AppControl\AppComponent.h" />
     <ClInclude Include="src\AppProgram\Utils\Buffers\BufferE.h" />
@@ -163,7 +164,6 @@
     <ClInclude Include="src\AppProgram\Utils\Geometry\Mesh.h" />
     <ClInclude Include="src\AppProgram\Program\SceneControl\Scene.h" />
     <ClInclude Include="src\AppProgram\Program\SceneControl\SceneManager.h" />
-    <ClInclude Include="src\AppEquipment\Callbacks\MouseCallback.h" />
     <ClInclude Include="src\AppEquipment\Callbacks\WindowCallback.h" />
     <ClInclude Include="src\AppProgram\Utils\Maths\Constants.h" />
     <ClInclude Include="src\AppProgram\Utils\Maths\mat2.h" />
@@ -184,7 +184,6 @@
     <ClCompile Include="src\AppEquipment\Equipments.cpp" />
     <ClCompile Include="src\AppProgram\Program\SceneControl\Scene.cpp" />
     <ClCompile Include="src\AppProgram\Program\SceneControl\SceneManager.cpp" />
-    <ClCompile Include="src\AppEquipment\Callbacks\MouseCallback.cpp" />
     <ClCompile Include="src\AppEquipment\Callbacks\WindowCallback.cpp" />
     <ClCompile Include="src\AppDisplay\Display\Window.cpp" />
     <ClCompile Include="src\AppProgram\Utils\Maths\mat2.cpp" />

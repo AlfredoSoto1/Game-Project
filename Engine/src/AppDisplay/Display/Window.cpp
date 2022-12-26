@@ -129,6 +129,8 @@ void Window::init() {
 	glViewport(0, 0, windowSettings->getWidth(), windowSettings->getHeight());
 
 	// Create a Window Callback
+	glfwSetWindowUserPointer(winPtr, getAppRef());
+
 	windowCallback = new WindowCallback(getAppRef());
 }
 

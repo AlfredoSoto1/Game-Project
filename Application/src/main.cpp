@@ -28,11 +28,18 @@ using namespace MathsUtils;
 #include "AppProgram/Utils/Geometry/Mesh.h"
 
 using namespace GeometryUtils;
-#include "AppDisplay/Graphics/ShaderControl/ShaderProgram.h"
 
+#include "AppDisplay/Graphics/ShaderControl/ShaderProgram.h"
 using namespace Graphics;
 
-class TestScene : public Scene {
+#include "AppEquipment/Listeners/MouseListener.h"
+using namespace Listener;
+
+#include "AppEquipment/Equipments.h"
+#include "AppEquipment/Mouse.h"
+using namespace Equipment;
+
+class TestScene : public Scene, public MouseListener {
 public:
 
 	TestScene() 
@@ -53,6 +60,9 @@ public:
 	ShaderProgram* shader;
 
 	void init() {
+
+		getApp().getEquipments().getMouse().setListener(this);
+
 
 		buffer = new VertexBuffer<Vertex, unsigned int>(2);
 
@@ -113,6 +123,33 @@ public:
 		delete shader;
 	}
 
+	void mouseDrop(int _pathCount, const char** _paths) {
+		cout << "drop: " << _pathCount << _paths[0] << endl;
+	}
+
+	void mouseEnterWindow(bool hasEntered) {
+		cout << "entered: " << hasEntered << endl;
+	}
+
+	void mouseMoved(double xpos, double ypos) {
+		cout << "moved: " << xpos << ", " << ypos << endl;
+	}
+
+	void mousePressedButton(int button, int action, int mods, double xpos, double ypos) {
+		cout << "presed: " << xpos << ", " << ypos << endl;
+	}
+
+	void mouseClickedButton(int button, int action, int mods, double xpos, double ypos) {
+		cout << "clicked: " << xpos << ", " << ypos << endl;
+	}
+
+	void mouseReleasedButton(double xpos, double ypos) {
+		cout << "released: " << xpos << ", " << ypos << endl;
+	}
+
+	void mouseScrollButton(double xOffset, double yOffset) {
+		cout << "scroll: " << xOffset << ", " << yOffset<< endl;
+	}
 };
 
 int main() {

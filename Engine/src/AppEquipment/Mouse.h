@@ -8,21 +8,26 @@ namespace Settings {
 	class MouseSettings;
 }
 
-namespace Callback {
-	class MouseCallback;
+namespace Listener {
+	class MouseListener;
 }
 
 namespace Equipment {
 	class Mouse {
 	private:
 		Settings::MouseSettings* settings;
-		Callback::MouseCallback* callback;
+		Listener::MouseListener* listener;
+
+		Listener::MouseListener* getListener();
+
+		void initCallback(Application::App* _appRef);
 
 	public:
 		Mouse(Application::App* _appRef);
 		~Mouse();
 
 		Settings::MouseSettings& getSettings();
-		Callback::MouseCallback& getCallback();
+
+		void setListener(Listener::MouseListener* _mouseListener);
 	};
 }

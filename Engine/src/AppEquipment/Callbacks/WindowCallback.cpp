@@ -36,7 +36,6 @@ using namespace Settings;
 #define TO_APPLICATION(x) *static_cast<App*>(glfwGetWindowUserPointer(x));
 
 WindowCallback::WindowCallback(App* _app) {
-	glfwSetWindowUserPointer(_app->getWindow(), _app);
 
 	auto positionCallback = [](GLFWwindow* winPtr, int xpos, int ypos) {
 		App& app = TO_APPLICATION(winPtr);
