@@ -8,7 +8,7 @@ using namespace Application;
 	Scene
 */
 #include "Scene.h"
-using namespace SceneUtils;
+using namespace SceneControl;
 
 Scene::Scene() {
 	app = nullptr;

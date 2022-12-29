@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\AppDisplay\Graphics\ShaderControl\ShaderProgram.h" />
     <ClInclude Include="src\AppEquipment\Listeners\MouseListener.h" />
     <ClInclude Include="src\AppEquipment\Listeners\WindowListener.h" />
     <ClInclude Include="src\AppProgram\Program\AppControl\App.h" />
@@ -159,7 +160,7 @@
     <ClInclude Include="src\AppProgram\Utils\Buffers\VertexBuffer_impl.h" />
     <ClInclude Include="src\AppProgram\Utils\Buffers\VertexBuffer.h" />
     <ClInclude Include="src\AppDisplay\Display\Window.h" />
-    <ClInclude Include="src\AppDisplay\Graphics\ShaderControl\ShaderProgram.h" />
+    <ClInclude Include="src\AppDisplay\Graphics\ShaderControl\ShaderProgram_old.h" />
     <ClInclude Include="src\AppEquipment\Mouse.h" />
     <ClInclude Include="src\AppEquipment\Equipments.h" />
     <ClInclude Include="src\AppProgram\Utils\Geometry\Mesh.h" />
@@ -177,9 +178,10 @@
     <ClInclude Include="src\AppSettings\WindowSettings.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AppDisplay\Graphics\ShaderControl\ShaderProgram.cpp" />
     <ClCompile Include="src\AppProgram\Program\AppControl\App.cpp" />
     <ClCompile Include="src\AppProgram\Program\AppControl\AppComponent.cpp" />
-    <ClCompile Include="src\AppDisplay\Graphics\ShaderControl\ShaderProgram.cpp" />
+    <ClCompile Include="src\AppDisplay\Graphics\ShaderControl\ShaderProgram_old.cpp" />
     <ClCompile Include="src\AppEquipment\Mouse.cpp" />
     <ClCompile Include="src\AppEquipment\Equipments.cpp" />
     <ClCompile Include="src\AppProgram\Program\SceneControl\Scene.cpp" />

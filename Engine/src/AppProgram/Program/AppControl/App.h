@@ -4,7 +4,7 @@ namespace Display {
 	class Window;
 }
 
-namespace SceneUtils {
+namespace SceneControl {
 	class SceneManager;
 }
 
@@ -26,11 +26,11 @@ namespace Application {
 	private:
 		friend class AppComponent;
 		friend class Display::Window;
-		friend class SceneUtils::SceneManager;
+		friend class SceneControl::SceneManager;
 		friend class Equipment::Equipments;
 
 		Display::Window* window;
-		SceneUtils::SceneManager* sceneManager;
+		SceneControl::SceneManager* sceneManager;
 		Equipment::Equipments* equipments;
 
 		void init();
@@ -49,6 +49,6 @@ namespace Application {
 
 		Display::Window& getWindow();
 		Equipment::Equipments& getEquipments();
-		SceneUtils::SceneManager& getSceneManager();
+		SceneControl::SceneManager& getSceneManager();
 	};
 }

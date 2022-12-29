@@ -9,7 +9,7 @@ namespace Application {
 	class AppComponent;
 }
 
-namespace SceneUtils {
+namespace SceneControl {
 
 	class Scene;
 

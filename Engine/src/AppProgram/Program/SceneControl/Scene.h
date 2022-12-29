@@ -4,7 +4,7 @@ namespace Application {
 	class App;
 }
 
-namespace SceneUtils {
+namespace SceneControl {
 
 	class SceneManager;
 

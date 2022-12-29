@@ -5,22 +5,19 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-
 using namespace std;
 /*
 	Application
 */
 #include "AppProgram/Program/AppControl/App.h"
 #include "AppProgram/Program/AppControl/AppComponent.h"
-
 using namespace Application;
 /*
 	Scene
 */
 #include "AppProgram/Program/SceneControl/Scene.h"
 #include "AppProgram/Program/SceneControl/SceneManager.h"
-
-using namespace SceneUtils;
+using namespace SceneControl;
 
 SceneManager::SceneManager(App* _appRef)
 	: AppComponent(_appRef)

@@ -1,3 +1,5 @@
+#include "ShaderProgram_old.h"
+
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <fstream>
@@ -5,56 +7,63 @@
 #include <malloc.h>
 #include <iostream>
 
-
-#include "ShaderProgram.h"
 using namespace Graphics;
 
-ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragmentPath) {
+ShaderProgram::ShaderProgram(unsigned int pathCount, const char** shaderPaths)
+	: pathCount(pathCount)
+{
 	program = glCreateProgram();
 
-	std::string vertSource;
-	std::string fragSource;
+	shaderIds = new unsigned int[pathCount];
+	shaderSource = new std::string[pathCount];
 
-	uint32_t type = GL_COMPUTE_SHADER; // default shader option TEMP
-	toSource(vertexPath, &vertSource, &type);
-	vertexId = compile(type, vertSource);
-	glAttachShader(program, vertexId);
+	unsigned int type = GL_COMPUTE_SHADER;
+	for (int i = 0; i < pathCount; i++) {
+		parseShaderToSource(shaderPaths[i], &shaderSource[i], &type);
+		if (shaderSource[i].length() != 0) {
+			shaderIds[i] = compileShader(type, shaderSource[i]);
+			glAttachShader(program, shaderIds[i]);
+		}
+	}
 
-	toSource(fragmentPath, &fragSource, &type);
-	fragmentId = compile(type, fragSource);
-	glAttachShader(program, fragmentId);
+	if (pathCount == 0)
+		return;
 
 	glLinkProgram(program);
 	glValidateProgram(program);
 }
 
 ShaderProgram::~ShaderProgram() {
-	
-}
-
-void ShaderProgram::destroy() {
-	glDetachShader(program, vertexId);
-	glDetachShader(program, fragmentId);
-	glDeleteShader(vertexId);
-	glDeleteShader(fragmentId);
+	for (int i = 0; i < pathCount; i++) {
+		if (shaderSource[i].length() != 0) {
+			glDetachShader(program, shaderIds[i]);
+			glDeleteShader(shaderIds[i]);
+		}
+	}
 	glDeleteProgram(program);
+
+	delete[] shaderIds;
+	delete[] shaderSource;
 }
 
-uint32_t ShaderProgram::getProgram() {
-	return program;
-}
-
-void ShaderProgram::bind() {
+void ShaderProgram::onProgram() {
 	glUseProgram(program);
 }
 
-void ShaderProgram::unbind() {
+void ShaderProgram::offProgram() {
 	glUseProgram(0);
 }
 
-void ShaderProgram::toSource(const char* _path, std::string* shaderSource, uint32_t* _shaderType) {
+ShaderProgram::operator unsigned int() {
+	return program;
+}
+
+void ShaderProgram::parseShaderToSource(const char* shaderPath, std::string* shaderSource, unsigned int* type) {
+	if (shaderPath == nullptr)
+		return;//return if no other shader is being parsed
+
 	std::ifstream fileStream;
-	fileStream.open(_path, std::ios::in);
+	fileStream.open(shaderPath, std::ios::in);
 	std::stringstream stream;
 
 	//first checks if file can be opened
@@ -65,20 +74,20 @@ void ShaderProgram::toSource(const char* _path, std::string* shaderSource, uint3
 		while (getline(fileStream, line)) {
 			if (line.find("#shader") != std::string::npos) {
 				if (line.find("vertex") != std::string::npos)
-					*_shaderType = GL_VERTEX_SHADER;
+					*type = GL_VERTEX_SHADER;
 				else if (line.find("fragment") != std::string::npos)
-					*_shaderType = GL_FRAGMENT_SHADER;
+					*type = GL_FRAGMENT_SHADER;
 				else if (line.find("geometry") != std::string::npos)
-					*_shaderType = GL_GEOMETRY_SHADER;
+					*type = GL_GEOMETRY_SHADER;
 				else if (line.find("compute") != std::string::npos)
-					*_shaderType = GL_COMPUTE_SHADER;
+					*type = GL_COMPUTE_SHADER;
 				else
-					std::cout << "Shader type " << line << "\nis not defined in: " << _path << std::endl;
+					std::cout << "Shader type " << line << "\nis not defined in: " << shaderPath << std::endl;
 				shaderTypeFound = true;
 			}
 			else {
 				if (!shaderTypeFound)
-					std::cout << "Shader type is not defined in: " << _path << std::endl;
+					std::cout << "Shader type is not defined in: " << shaderPath << std::endl;
 				stream << line << "\n";
 			}
 		}
@@ -87,14 +96,14 @@ void ShaderProgram::toSource(const char* _path, std::string* shaderSource, uint3
 		fileStream.close();
 	}
 	else {
-		std::cout << "File at " << _path << " \nwas not found." << std::endl;
+		std::cout << "File at " << shaderPath << " \nwas not found." << std::endl;
 	}
 }
 
-uint32_t ShaderProgram::compile(uint32_t _shaderType, std::string& _shaderSource) {
+unsigned int ShaderProgram::compileShader(unsigned int type, const std::string& shaderSource) {
 	//Shader source must be a string allocated in the heap
-	unsigned int shaderId = glCreateShader(_shaderType);
-	const char* src = &(_shaderSource.c_str())[0];
+	unsigned int shaderId = glCreateShader(type);
+	const char* src = &(shaderSource.c_str())[0];
 	glShaderSource(shaderId, 1, &src, nullptr);
 	glCompileShader(shaderId);
 
@@ -107,7 +116,7 @@ uint32_t ShaderProgram::compile(uint32_t _shaderType, std::string& _shaderSource
 		glGetShaderInfoLog(shaderId, messageLength, &messageLength, message);
 
 		const char* shaderType = nullptr;
-		switch (_shaderType) {
+		switch (type) {
 		case GL_VERTEX_SHADER:
 			shaderType = "Vertex Shader";
 			break;

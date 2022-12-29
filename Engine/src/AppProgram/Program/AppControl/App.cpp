@@ -27,7 +27,7 @@ using namespace Display;
 	SceneUtils
 */ 
 #include "AppProgram/Program/SceneControl/SceneManager.h"
-using namespace SceneUtils;
+using namespace SceneControl;
 
 /*
 	Peripherals
