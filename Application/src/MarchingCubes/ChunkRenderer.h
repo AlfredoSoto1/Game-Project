@@ -2,10 +2,10 @@
 
 #include "ChunkShader.h"
 
-#include "AppProgram/Utils/Maths/vec3.h"
-#include "AppProgram/Utils/Maths/vec4.h"
-#include "AppProgram/Utils/Buffers/VertexBuffer.h"
-#include "AppProgram/Utils/Geometry/Mesh.h"
+#include "Utils/Maths/vec3.h"
+#include "Utils/Maths/vec4.h"
+#include "Utils/Buffers/VertexBuffer.h"
+#include "Utils/Geometry/Mesh.h"
 using namespace MathsUtils;
 using namespace BufferUtils;
 using namespace GeometryUtils;

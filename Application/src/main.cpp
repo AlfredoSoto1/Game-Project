@@ -4,27 +4,42 @@
 #include <iostream>
 using namespace std;
 
-#include "AppProgram/Program/AppControl/App.h"
-#include "AppProgram/Program/SceneControl/SceneManager.h"
+#include "Framework/AppManager/Application.h"
 
-#include "AppDisplay/Display/Window.h"
-#include "AppSettings/WindowSettings.h"
+#include "Framework/SceneManager/SceneManager.h"
+
+#include "Graphics/Display/Window.h"
+#include "Settings/WindowSettings.h"
 
 #include "Scenes/OverworldScene.h"
 
+class MainApp : public FrameworkEngine::Application {
+public:
+
+	OverworldScene* overworld;
+
+	MainApp() 
+		: Application()
+	{
+
+	}
+
+protected:
+
+	void init() {
+		overworld = new OverworldScene();
+
+		getWindow().getSettings().setTitle("My Game");
+		getSceneManager().addScene(overworld);
+	}
+
+	void close() {
+		delete overworld;
+	}
+
+};
+
 int main() {
-
-	OverworldScene* overworld = new OverworldScene();
-	
-	//Create Application
-	Application::App app = Application::App();
-
-	app.getWindow().getSettings().setTitle("First Display");
-
-	app.getSceneManager().addScene(overworld);
-
-	app.launch();
-
-	delete overworld;
-
+	MainApp myApp = MainApp();
+	myApp.run();
 }

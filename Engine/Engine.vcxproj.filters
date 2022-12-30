@@ -15,138 +15,141 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\AppDisplay\Display\Window.h">
+    <ClInclude Include="src\Graphics\Display\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppSettings\WindowSettings.h">
+    <ClInclude Include="src\Settings\WindowSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppProgram\Program\SceneControl\Scene.h">
+    <ClInclude Include="src\Framework\SceneManager\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppSettings\MouseSettings.h">
+    <ClInclude Include="src\Settings\MouseSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppProgram\Utils\Maths\Operation.h">
+    <ClInclude Include="src\Utils\Maths\Operation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppProgram\Utils\Maths\Constants.h">
+    <ClInclude Include="src\Utils\Maths\Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppProgram\Utils\Maths\vec2.h">
+    <ClInclude Include="src\Utils\Maths\vec2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppProgram\Utils\Maths\vec3.h">
+    <ClInclude Include="src\Utils\Maths\vec3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppProgram\Utils\Maths\vec4.h">
+    <ClInclude Include="src\Utils\Maths\vec4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppProgram\Utils\Maths\mat2.h">
+    <ClInclude Include="src\Utils\Maths\mat2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppProgram\Utils\Maths\mat3.h">
+    <ClInclude Include="src\Utils\Maths\mat3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppProgram\Utils\Maths\mat4.h">
+    <ClInclude Include="src\Utils\Maths\mat4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppProgram\Program\SceneControl\SceneManager.h">
+    <ClInclude Include="src\Framework\SceneManager\SceneManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppProgram\Program\AppControl\App.h">
+    <ClInclude Include="src\Framework\AppManager\AppComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppProgram\Program\AppControl\AppComponent.h">
+    <ClInclude Include="src\Framework\Peripherals\Device.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppEquipment\Equipments.h">
+    <ClInclude Include="src\Framework\Peripherals\Mouse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppEquipment\Mouse.h">
+    <ClInclude Include="src\Utils\Geometry\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppProgram\Utils\Geometry\Mesh.h">
+    <ClInclude Include="src\Utils\Buffers\VertexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppProgram\Utils\Buffers\VertexBuffer.h">
+    <ClInclude Include="src\Utils\Buffers\BufferE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppProgram\Utils\Buffers\BufferE.h">
+    <ClInclude Include="src\Utils\Buffers\VertexBuffer_impl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppProgram\Utils\Buffers\VertexBuffer_impl.h">
+    <ClInclude Include="src\Shader\ShaderProgram_old.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppDisplay\Graphics\ShaderControl\ShaderProgram_old.h">
+    <ClInclude Include="src\Framework\Listeners\MouseListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppEquipment\Listeners\MouseListener.h">
+    <ClInclude Include="src\Framework\Listeners\WindowListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppEquipment\Listeners\WindowListener.h">
+    <ClInclude Include="src\Shader\ShaderProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppDisplay\Graphics\ShaderControl\ShaderProgram.h">
+    <ClInclude Include="src\Framework\AppManager\Application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Macros.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\AppDisplay\Display\Window.cpp">
+    <ClCompile Include="src\Graphics\Display\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppSettings\WindowSettings.cpp">
+    <ClCompile Include="src\Settings\WindowSettings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppProgram\Program\SceneControl\Scene.cpp">
+    <ClCompile Include="src\Framework\SceneManager\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppSettings\MouseSettings.cpp">
+    <ClCompile Include="src\Settings\MouseSettings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppProgram\Utils\Maths\Operation.cpp">
+    <ClCompile Include="src\Utils\Maths\Operation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppProgram\Utils\Maths\vec2.cpp">
+    <ClCompile Include="src\Utils\Maths\vec2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppProgram\Utils\Maths\vec3.cpp">
+    <ClCompile Include="src\Utils\Maths\vec3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppProgram\Utils\Maths\vec4.cpp">
+    <ClCompile Include="src\Utils\Maths\vec4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppProgram\Utils\Maths\mat2.cpp">
+    <ClCompile Include="src\Utils\Maths\mat2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppProgram\Utils\Maths\mat3.cpp">
+    <ClCompile Include="src\Utils\Maths\mat3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppProgram\Utils\Maths\mat4.cpp">
+    <ClCompile Include="src\Utils\Maths\mat4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppProgram\Program\SceneControl\SceneManager.cpp">
+    <ClCompile Include="src\Framework\SceneManager\SceneManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppProgram\Program\AppControl\App.cpp">
+    <ClCompile Include="src\Framework\AppManager\AppComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppProgram\Program\AppControl\AppComponent.cpp">
+    <ClCompile Include="src\Framework\Peripherals\Device.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppEquipment\Equipments.cpp">
+    <ClCompile Include="src\Framework\Peripherals\Mouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppEquipment\Mouse.cpp">
+    <ClCompile Include="src\Utils\Geometry\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppProgram\Utils\Geometry\Mesh.cpp">
+    <ClCompile Include="src\Shader\ShaderProgram_old.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppDisplay\Graphics\ShaderControl\ShaderProgram_old.cpp">
+    <ClCompile Include="src\Shader\ShaderProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppDisplay\Graphics\ShaderControl\ShaderProgram.cpp">
+    <ClCompile Include="src\Framework\AppManager\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

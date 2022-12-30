@@ -1,6 +1,6 @@
 #pragma once
 
-#include "AppProgram/Program/SceneControl/Scene.h"
+#include "Framework/SceneManager/Scene.h"
 using namespace SceneControl;
 
 #include "../MarchingCubes/ChunkRenderer.h"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "AppDisplay/Graphics/ShaderControl/ShaderProgram.h"
+#include "Shader/ShaderProgram.h"
 
 using namespace Graphics;
 
