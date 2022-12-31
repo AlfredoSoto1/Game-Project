@@ -4,9 +4,11 @@
 
 #include "Utils/Maths/vec3.h"
 #include "Utils/Maths/vec4.h"
+#include "Utils/Buffers/IndexBuffer.h"
+#include "Utils/Buffers/VertexArray.h"
 #include "Utils/Buffers/VertexBuffer.h"
+#include "Utils/Buffers/VirtualBuffer.h"
 #include "Utils/Geometry/Mesh.h"
-#include "Utils/Geometry/VertexArray.h"
 using namespace MathsUtils;
 using namespace BufferUtils;
 using namespace GeometryUtils;
@@ -41,16 +43,6 @@ public:
 
 	void init() {
 
-		// render(vao, shader);
-
-
-		/*
-		* 
-		* 
-		* 
-		* 
-		*/
-
 		shader = new ChunkShader();
 		shader->init();
 
@@ -71,12 +63,13 @@ public:
 
 		vao = new VertexArray();
 
-		vao->bindBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW, buffer->indexCountSize(), buffer->getIndices());
+		IndexBuffer ibo(vao, GL_STATIC_DRAW, buffer->indexCount(), buffer->getIndices());
 
-		vao->bindBuffer(GL_ARRAY_BUFFER, GL_STATIC_DRAW, buffer->vertexCountSize(), buffer->getVertices());
-		vao->addLayout(0, 3, GL_FLOAT, sizeof(Vertex), 0);
-		vao->addLayout(1, 4, GL_FLOAT, sizeof(Vertex), offsetof(Vertex, color));
+		VirtualBuffer vbo(vao, GL_STATIC_DRAW, buffer->vertexSize(), buffer->vertexCount(), buffer->getVertices());
+		vbo.push_Layout(0, 3, GL_FLOAT, 0);
+		vbo.push_Layout(1, 4, GL_FLOAT, offsetof(Vertex, color));
 
+		vao->bindIbo(0);
 	}
 
 	void update() {
@@ -90,6 +83,7 @@ public:
 		//mesh->bind();
 
 		vao->bind();
+		vao->enableAttribs();
 
 		glEnable(GL_DEPTH_TEST);
 
@@ -97,6 +91,7 @@ public:
 
 		glDisable(GL_DEPTH_TEST);
 
+		vao->disableAttribs();
 		vao->unbind();
 		//mesh->unbind();
 
