@@ -25,7 +25,7 @@ Mesh::~Mesh() {
 
 	// deletes VAO
 	glDeleteVertexArrays(1, &vao);
-}
+} 
 
 uint32_t Mesh::getIndexCount() const {
 	return indexCount;

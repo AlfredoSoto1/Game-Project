@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Graphics\Render\Renderer.h" />
+    <ClInclude Include="src\Platform\ApplicationError.h" />
     <ClInclude Include="src\Shader\ShaderProgram.h" />
     <ClInclude Include="src\Framework\Listeners\MouseListener.h" />
     <ClInclude Include="src\Framework\Listeners\WindowListener.h" />
@@ -165,6 +167,7 @@
     <ClInclude Include="src\Utils\Geometry\Mesh.h" />
     <ClInclude Include="src\Framework\SceneManager\Scene.h" />
     <ClInclude Include="src\Framework\SceneManager\SceneManager.h" />
+    <ClInclude Include="src\Utils\Geometry\VertexArray.h" />
     <ClInclude Include="src\Utils\Maths\Constants.h" />
     <ClInclude Include="src\Utils\Maths\mat2.h" />
     <ClInclude Include="src\Utils\Maths\mat3.h" />
@@ -187,6 +190,7 @@
     <ClCompile Include="src\Framework\SceneManager\Scene.cpp" />
     <ClCompile Include="src\Framework\SceneManager\SceneManager.cpp" />
     <ClCompile Include="src\Graphics\Display\Window.cpp" />
+    <ClCompile Include="src\Utils\Geometry\VertexArray.cpp" />
     <ClCompile Include="src\Utils\Maths\mat2.cpp" />
     <ClCompile Include="src\Utils\Maths\mat3.cpp" />
     <ClCompile Include="src\Utils\Maths\mat4.cpp" />

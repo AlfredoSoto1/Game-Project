@@ -5,7 +5,7 @@
 
 namespace GeometryUtils {
 
-	class Mesh {
+	class Mesh { 
 	private:
 		uint32_t vao;
 		uint32_t ibo;

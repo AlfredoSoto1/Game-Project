@@ -1,5 +1,8 @@
 #pragma once
 
+#define OPENGL_ERROR 2
+#define APPLICATION_ERROR 3
+
 namespace Display {
 	class Window;
 }
@@ -27,11 +30,8 @@ namespace FrameworkEngine {
 		SceneControl::SceneManager* sceneManager;
 
 		int errorCode;
-
-		bool isAlive;
 		bool isRunning;
 
-		void checkIfExit();
 		void createMainComponents();
 
 	protected:

@@ -42,7 +42,9 @@ Application::Application() {
 }
 
 Application::~Application() {
-
+	delete window;
+	delete device;
+	delete sceneManager;
 }
 
 void Application::clearError() {
@@ -68,7 +70,7 @@ void Application::createMainComponents() {
 void Application::run() {
 	// Initiates GLFW
 	if (!glfwInit()) {
-		isAlive = false;
+		isRunning = false;
 		std::cout << "GLFW couldn't initiated correctly." << std::endl;
 		return;
 	}
@@ -77,9 +79,6 @@ void Application::run() {
 	glfwSetErrorCallback(&error_callback);
 
 	createMainComponents();
-	
-	isAlive = true;
-	isRunning = false;
 
 	// initiates the application content
 	init();
@@ -88,6 +87,7 @@ void Application::run() {
 	device->init();
 	sceneManager->init();
 
+	isRunning = true;
 	while (!glfwWindowShouldClose(*window)) {
 
 		// update
@@ -114,29 +114,22 @@ void Application::run() {
 		glfwPollEvents();
 		device->update();
 	}
-
-	// closes the application
+	isRunning = false;
 
 	// disposes everything after application has ended
 	sceneManager->dispose();
 	device->dispose();
 	window->dispose();
 	
+	// closes the application
 	close();
 
 	glfwTerminate();
-	isAlive = false;
 }
 
 void Application::exit(int _errorCode) {
 	this->errorCode = _errorCode;
 }
-
-void Application::checkIfExit() {
-	isAlive = false;
-}
-
-// getters
 
 Window& Application::getWindow() {
 	return *window;
