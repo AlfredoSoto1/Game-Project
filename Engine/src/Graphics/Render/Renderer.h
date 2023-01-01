@@ -2,6 +2,10 @@
 
 #include <cstdint>
 
+namespace Graphics {
+	class ShaderProgram;
+}
+
 namespace BufferUtils {
 	class VertexArray;
 }
@@ -14,11 +18,13 @@ namespace Render {
 
 	public:
 		Renderer();
-		~Renderer();
+		virtual ~Renderer();
 
 		void showWireframe();
 		void hideWireframe();
 
-		void render(const BufferUtils::VertexArray& _vao);
+		void dispose();
+
+		void render(const BufferUtils::VertexArray& _vao, const Graphics::ShaderProgram& _shader);
 	};
 }

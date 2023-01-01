@@ -9,9 +9,13 @@ using namespace GeometryUtils;
 
 Model::Model() {
 	vao = new VertexArray();
-
 }
 
 Model::~Model() {
 	delete vao;
 }
+
+VertexArray& Model::getVao() {
+	return *vao;
+}
+

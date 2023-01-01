@@ -33,5 +33,8 @@
     <ClInclude Include="src\Scenes\OverworldScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\MarchingCubes\ChunkBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

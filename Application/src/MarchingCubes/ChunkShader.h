@@ -6,11 +6,9 @@ using namespace Graphics;
 
 class ChunkShader : public ShaderProgram {
 private:
-
+	 
 public:
-	ChunkShader() 
-		: ShaderProgram("src/testV.glsl", "src/testF.glsl")
-	{
+	ChunkShader() {
 
 	}
 

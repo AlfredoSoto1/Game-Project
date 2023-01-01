@@ -5,9 +5,12 @@
 #include <malloc.h>
 #include <iostream>
 
-
 #include "ShaderProgram.h"
 using namespace Graphics;
+
+ShaderProgram::ShaderProgram() {
+
+}
 
 ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragmentPath) {
 	program = glCreateProgram();
@@ -29,7 +32,7 @@ ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragmentPath) {
 }
 
 ShaderProgram::~ShaderProgram() {
-	
+	glDeleteProgram(program);
 }
 
 void ShaderProgram::destroy() {
@@ -37,18 +40,24 @@ void ShaderProgram::destroy() {
 	glDetachShader(program, fragmentId);
 	glDeleteShader(vertexId);
 	glDeleteShader(fragmentId);
+
 	glDeleteProgram(program);
+}
+
+void ShaderProgram::loadShader(const uint32_t _shaderType, const char* _shaderPath) {
+	std::string shaderSourceCode;
+	//toSource(_shaderPath, &shaderSourceCode, &_shaderType);
 }
 
 uint32_t ShaderProgram::getProgram() {
 	return program;
 }
 
-void ShaderProgram::bind() {
+void ShaderProgram::bind() const {
 	glUseProgram(program);
 }
 
-void ShaderProgram::unbind() {
+void ShaderProgram::unbind() const {
 	glUseProgram(0);
 }
 

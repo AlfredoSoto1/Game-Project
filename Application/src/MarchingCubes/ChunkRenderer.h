@@ -13,15 +13,6 @@ using namespace MathsUtils;
 using namespace BufferUtils;
 using namespace GeometryUtils;
 
-void clearError() {
-	while (glGetError() != GL_NO_ERROR);
-}
-
-void checkError() {
-	while (GLenum error = glGetError())
-		std::cout << "[GL ERROR]: " << error << std::endl;
-}
-
 class ChunkRenderer {
 private:
 	ChunkShader* shader;

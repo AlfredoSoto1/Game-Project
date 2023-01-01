@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 namespace BufferUtils {
 	class VertexArray;
 	class IndexBuffer;
@@ -13,11 +15,15 @@ namespace GeometryUtils {
 	
 	class Model {
 	private:
+		std::vector<BufferUtils::IndexBuffer> indexBuffers;
+		
 		BufferUtils::VertexArray* vao;
 
 	public:
 		Model();
-		~Model();
+		virtual ~Model();
+
+		BufferUtils::VertexArray& getVao();
 
 	};
 }

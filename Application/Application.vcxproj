@@ -175,6 +175,7 @@
     <None Include="src\testV.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\MarchingCubes\ChunkBuilder.h" />
     <ClInclude Include="src\MarchingCubes\ChunkRenderer.h" />
     <ClInclude Include="src\MarchingCubes\ChunkShader.h" />
     <ClInclude Include="src\Scenes\OverworldScene.h" />

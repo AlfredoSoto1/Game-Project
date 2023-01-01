@@ -5,7 +5,7 @@
 
 namespace Graphics {
 
-	class ShaderProgram {
+	class ShaderProgram { 
 	private:
 		uint32_t vertexId;
 		uint32_t fragmentId;
@@ -22,13 +22,16 @@ namespace Graphics {
 		virtual void dispose() = 0;
 
 	public:
+		ShaderProgram();
 		ShaderProgram(const char* vertexPath, const char* fragmentPath);
-		~ShaderProgram();
+		virtual ~ShaderProgram();
+
+		void loadShader(const uint32_t _shaderType, const char* _shaderPath);
 
 		uint32_t getProgram();
 
-		void bind();
-		void unbind();
+		void bind() const;
+		void unbind() const;
 
 		void destroy();
 	};
