@@ -3,6 +3,7 @@
 #include <stack>
 #include <vector>
 #include <cstdint>
+#include <utility> 
 
 namespace BufferUtils {
 
@@ -17,15 +18,17 @@ namespace BufferUtils {
 		uint32_t vao;
 		uint32_t boundIbo;
 
-		mutable std::vector<uint32_t> ibos;
 		mutable std::vector<uint32_t> vbos;
 		mutable std::vector<uint32_t> attribs;
+		mutable std::vector<std::pair<uint32_t, uint32_t>> ibos;
 
 	public:
 		VertexArray();
 		~VertexArray();
 
 		operator uint32_t();
+
+		uint32_t getIndexCount() const;
 
 		void bind() const;
 		void unbind() const;

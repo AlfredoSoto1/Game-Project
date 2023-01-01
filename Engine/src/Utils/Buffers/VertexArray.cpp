@@ -13,8 +13,8 @@ VertexArray::VertexArray()
 
 VertexArray::~VertexArray()
 {
-	for (uint32_t& ibo : ibos) {
-		glDeleteBuffers(1, &ibo);
+	for (std::pair<uint32_t, uint32_t>& ibo : ibos) {
+		glDeleteBuffers(1, &ibo.first);
 	}
 	for (uint32_t& vbo : vbos) {
 		glDeleteBuffers(1, &vbo);
@@ -29,6 +29,10 @@ VertexArray::operator uint32_t() {
 	return vao;
 }
 
+uint32_t VertexArray::getIndexCount() const {
+	return ibos[boundIbo].second;
+}
+
 void VertexArray::bind() const {
 	glBindVertexArray(vao);
 }
@@ -38,7 +42,7 @@ void VertexArray::unbind() const {
 }
 
 void VertexArray::enableAttribs() const {
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibos[boundIbo]);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibos[boundIbo].first);
 	for (uint32_t& attr : attribs)
 		glEnableVertexAttribArray(attr);
 }

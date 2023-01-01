@@ -32,8 +32,6 @@ private:
 
 	VertexBuffer<Vertex, unsigned int>* buffer;
 
-	//Mesh* mesh;
-
 	VertexArray* vao;
 
 public:
@@ -54,13 +52,6 @@ public:
 
 		buffer->fit();
 
-		//mesh = new Mesh(2, GL_STATIC_DRAW);
-
-		//mesh->setVertexBuffer(*buffer);
-
-		//mesh->setAttribPointer(0, 3, GL_FLOAT, sizeof(Vertex), (const void*)0);
-		//mesh->setAttribPointer(1, 4, GL_FLOAT, sizeof(Vertex), (const void*)offsetof(Vertex, color));
-
 		vao = new VertexArray();
 
 		IndexBuffer ibo(vao, GL_STATIC_DRAW, buffer->indexCount(), buffer->getIndices());
@@ -80,20 +71,17 @@ public:
 		shader->bind();
 
 		// binds Mesh to render
-		//mesh->bind();
-
 		vao->bind();
 		vao->enableAttribs();
 
 		glEnable(GL_DEPTH_TEST);
 
-		glDrawElements(GL_TRIANGLES, buffer->indexCount(), GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_TRIANGLES, vao->getIndexCount(), GL_UNSIGNED_INT, nullptr);
 
 		glDisable(GL_DEPTH_TEST);
 
 		vao->disableAttribs();
 		vao->unbind();
-		//mesh->unbind();
 
 		shader->unbind();
 	}
@@ -104,7 +92,6 @@ public:
 
 		delete vao;
 
-		//delete mesh;
 		delete buffer;
 	}
 

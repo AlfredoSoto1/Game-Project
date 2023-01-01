@@ -1,5 +1,6 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
+#include <utility>
 
 #include "VertexArray.h"
 #include "IndexBuffer.h"
@@ -16,13 +17,13 @@ IndexBuffer::IndexBuffer(VertexArray* _vao, const uint32_t _accessFormat, const 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	vao->unbind();
 
-	vao->ibos.push_back(ibo);
+	vao->ibos.push_back(std::pair<uint32_t, uint32_t>(ibo, _count));
 }
 
 IndexBuffer::IndexBuffer(VertexArray* _vao, const uint32_t _index)
 	: vao(_vao)
 {
-	ibo = vao->ibos[_index];
+	ibo = vao->ibos[_index].first;
 
 	int32_t usage;
 	int32_t bufferSize;
@@ -54,9 +55,9 @@ void IndexBuffer::unbind() const {
 }
 
 void IndexBuffer::remove() {
-	std::vector<uint32_t>::iterator it = vao->ibos.begin();
+	std::vector<std::pair<uint32_t, uint32_t>>::iterator it = vao->ibos.begin();
 	while (it != vao->ibos.end()) {
-		if (this->ibo == *it)
+		if (this->ibo == it->first)
 			vao->ibos.erase(it);
 		else
 			it++;

@@ -16,20 +16,20 @@ Renderer::~Renderer() {
 }
 
 void Renderer::render(const VertexArray& _vao) {
-	//// binds Shader before using it
+	// binds Shader before using it
 	//shader->bind();
 
-	//_vao.bind();
-	//_vao.enableAttribs();
+	_vao.bind();
+	_vao.enableAttribs();
 
-	//glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
 
-	//glDrawElements(GL_TRIANGLES, _vao->indexCount(), GL_UNSIGNED_INT, nullptr);
+	glDrawElements(GL_TRIANGLES, _vao.getIndexCount(), GL_UNSIGNED_INT, nullptr);
 
-	//glDisable(GL_DEPTH_TEST);
+	glDisable(GL_DEPTH_TEST);
 
-	//_vao.disableAttribs();
-	//_vao.unbind();
+	_vao.disableAttribs();
+	_vao.unbind();
 
 	//shader->unbind();
 }
