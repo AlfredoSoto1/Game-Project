@@ -18,7 +18,6 @@ using namespace BufferUtils;
 using namespace GeometryUtils;
 
 #include "../MarchingCubes/ChunkRenderer.h"
-#include "../MarchingCubes/ChunkBuilder.h"
 
 void clearError() {
 	while (glGetError() != GL_NO_ERROR);
@@ -32,9 +31,7 @@ void checkError() {
 class OverworldScene : public Scene {
 private:
 
-	Renderer renderer;
-	ChunkShader* shader;
-	ChunkBuilder* chunkBuilder;
+	ChunkRenderer* renderer;
 
 public:
 	OverworldScene() 
@@ -44,8 +41,9 @@ public:
 	}
 
 	void init() {
-		shader = new ChunkShader();
-		chunkBuilder = new ChunkBuilder();
+		renderer = new ChunkRenderer();
+
+		renderer->init();
 	}
 
 	void load()  {
@@ -56,10 +54,11 @@ public:
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		//glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 
-		renderer.render(chunkBuilder->singleModel->getVao(), *shader);
+		renderer->render();
 	}
 
 	void update() {
+		renderer->update();
 	}
 
 	void unload()  {
@@ -67,11 +66,8 @@ public:
 	}
 
 	void dispose() {
-		renderer.dispose();
-
-		delete shader;
-
-		delete chunkBuilder;
+		renderer->dispose();
+		delete renderer;
 	}
 
 };

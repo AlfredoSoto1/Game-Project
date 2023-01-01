@@ -1,20 +1,23 @@
 #pragma once
 
-#include <cstdint>
 #include <string>
+#include <cstdint>
 
 namespace Graphics {
 
 	class ShaderProgram { 
 	private:
-		uint32_t vertexId;
-		uint32_t fragmentId;
-
 		uint32_t program;
 
-		void toSource(const char* _path, std::string* shaderSource, uint32_t* _shaderType);
+		uint32_t compShader;
+		uint32_t vertShader;
+		uint32_t fragShader;
+		uint32_t geomShader;
+
+		void source_toString(const char* _path, std::string* shaderSource);
 
 		uint32_t compile(uint32_t _shaderType, std::string& _shaderSource);
+		uint32_t loadShader(const uint32_t _shaderType, const char* _shaderPath);
 
 	protected:
 		virtual void init() = 0;
@@ -22,17 +25,16 @@ namespace Graphics {
 		virtual void dispose() = 0;
 
 	public:
-		ShaderProgram();
-		ShaderProgram(const char* vertexPath, const char* fragmentPath);
+		ShaderProgram(const char* _computePath);
+		ShaderProgram(const char* _vertexPath, const char* _fragmentPath);
+		ShaderProgram(const char* _vertexPath, const char* _geometryPath, const char* fragmentPath);
+
 		virtual ~ShaderProgram();
 
-		void loadShader(const uint32_t _shaderType, const char* _shaderPath);
-
-		uint32_t getProgram();
+		operator uint32_t();
 
 		void bind() const;
 		void unbind() const;
 
-		void destroy();
 	};
 }

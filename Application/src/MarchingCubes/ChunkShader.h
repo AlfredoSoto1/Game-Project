@@ -8,7 +8,9 @@ class ChunkShader : public ShaderProgram {
 private:
 	 
 public:
-	ChunkShader() {
+	ChunkShader()
+		: ShaderProgram("src/testV.glsl", "src/testF.glsl")
+	{
 
 	}
 
@@ -21,7 +23,7 @@ public:
 	}
 
 	void dispose() {
-		destroy();
+		
 	}
 
 };
