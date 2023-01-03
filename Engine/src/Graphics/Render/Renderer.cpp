@@ -2,40 +2,61 @@
 #include <GL/glew.h>
 
 #include "Renderer.h"
-#include "Shader/ShaderProgram.h"
-#include "Utils/Buffers/VertexArray.h"
-
 using namespace Render;
+
+#include "Shader/ShaderProgram.h"
 using namespace Graphics;
-using namespace BufferUtils;
+
+#include "Utils/Geometry/Model.h"
+using namespace GeometryUtils;
+
+#include "Textures/Texture.h"
+using namespace Graphics;
+
+Texture* texture;
 
 Renderer::Renderer() {
+	isWireframe = false;
 
+	texture = new Texture("src/Texture.png");
 }
 
 Renderer::~Renderer() {
-
+	delete texture;
 }
 
-void Renderer::dispose() {
-
+void Renderer::showWireframe() {
+	isWireframe = true;
 }
 
-void Renderer::render(const VertexArray& _vao, const ShaderProgram& _shader) {
-	// binds Shader before using it
+void Renderer::hideWireframe() {
+	isWireframe = false;
+}
+
+void Renderer::render(const Model& _model, const ShaderProgram& _shader) {
 	_shader.bind();
+	_shader.update();
+	_model.bind();
+	_model.enableAttribs();
 
-	_vao.bind();
-	_vao.enableAttribs();
+	texture->bind(0);
 
 	glEnable(GL_DEPTH_TEST);
 
-	glDrawElements(GL_TRIANGLES, _vao.getIndexCount(), GL_UNSIGNED_INT, nullptr);
+	if (isWireframe) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glDrawElements(GL_TRIANGLES, _model.getIndexCount(), GL_UNSIGNED_INT, nullptr);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	else {
+		glDrawElements(GL_TRIANGLES, _model.getIndexCount(), GL_UNSIGNED_INT, nullptr);
+	}
 
 	glDisable(GL_DEPTH_TEST);
+	
+	texture->unbind();
 
-	_vao.disableAttribs();
-	_vao.unbind();
-
+	_model.disableAttribs();
+	_model.unbind();
 	_shader.unbind();
 }

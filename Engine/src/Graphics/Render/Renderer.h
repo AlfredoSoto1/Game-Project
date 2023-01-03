@@ -6,8 +6,8 @@ namespace Graphics {
 	class ShaderProgram;
 }
 
-namespace BufferUtils {
-	class VertexArray;
+namespace GeometryUtils {
+	class Model;
 }
 
 namespace Render {
@@ -23,8 +23,6 @@ namespace Render {
 		void showWireframe();
 		void hideWireframe();
 
-		void dispose();
-
-		void render(const BufferUtils::VertexArray& _vao, const Graphics::ShaderProgram& _shader);
+		void render(const GeometryUtils::Model& _model, const Graphics::ShaderProgram& _shader);
 	};
 }

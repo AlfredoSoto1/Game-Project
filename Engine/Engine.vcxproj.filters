@@ -75,9 +75,6 @@
     <ClInclude Include="src\Utils\Buffers\VertexBuffer_impl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Shader\ShaderProgram_old.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Framework\Listeners\MouseListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -96,7 +93,7 @@
     <ClInclude Include="src\Graphics\Render\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Utils\Buffers\VertexArray.h">
+    <ClInclude Include="src\Utils\Geometry\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\ApplicationError.h">
@@ -105,10 +102,19 @@
     <ClInclude Include="src\Utils\Buffers\IndexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Utils\Geometry\Model.h">
+    <ClInclude Include="src\Utils\Buffers\VirtualBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Utils\Buffers\VirtualBuffer.h">
+    <ClInclude Include="src\Utils\Buffers\ShaderStorageBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shader\Material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Textures\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Textures\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -161,28 +167,34 @@
     <ClCompile Include="src\Utils\Geometry\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Shader\ShaderProgram_old.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Shader\ShaderProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Framework\AppManager\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Utils\Buffers\VertexArray.cpp">
+    <ClCompile Include="src\Utils\Geometry\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Utils\Buffers\IndexBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Utils\Geometry\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Utils\Buffers\VirtualBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Graphics\Render\Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\Buffers\ShaderStorageBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shader\Material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Textures\stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Textures\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

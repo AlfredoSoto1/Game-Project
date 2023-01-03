@@ -2,9 +2,11 @@
 
 #include <cstdint>
 
-namespace BufferUtils {
-	class VertexArray;
+namespace GeometryUtils {
+	class Model;
+}
 
+namespace BufferUtils {
 	class IndexBuffer {
 	private:
 		uint32_t ibo;
@@ -12,11 +14,11 @@ namespace BufferUtils {
 		uint32_t accessFormat;
 		const void* data;
 
-		VertexArray* vao;
+		GeometryUtils::Model* model;
 
 	public:
-		IndexBuffer(VertexArray* _vao, const uint32_t _accessFormat, const uint32_t _count, const void* _data);
-		IndexBuffer(VertexArray* _vao, const uint32_t _index);
+		IndexBuffer(GeometryUtils::Model* _model, const uint32_t _accessFormat, const uint32_t _count, const void* _data);
+		IndexBuffer(GeometryUtils::Model* _model, const uint32_t _index);
 
 		operator uint32_t();
 

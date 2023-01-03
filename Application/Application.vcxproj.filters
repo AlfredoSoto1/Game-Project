@@ -22,12 +22,10 @@
   <ItemGroup>
     <None Include="src\testV.glsl" />
     <None Include="src\testF.glsl" />
+    <None Include="src\testComp.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\MarchingCubes\ChunkShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MarchingCubes\ChunkRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Scenes\OverworldScene.h">
@@ -36,5 +34,13 @@
     <ClInclude Include="src\MarchingCubes\ChunkBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\MarchingCubes\ComputeShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\Texture.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -157,20 +157,22 @@
     <ClInclude Include="src\Framework\Listeners\MouseListener.h" />
     <ClInclude Include="src\Framework\Listeners\WindowListener.h" />
     <ClInclude Include="src\Framework\AppManager\AppComponent.h" />
+    <ClInclude Include="src\Textures\stb_image.h" />
+    <ClInclude Include="src\Textures\Texture.h" />
     <ClInclude Include="src\Utils\Buffers\BufferE.h" />
     <ClInclude Include="src\Utils\Buffers\IndexBuffer.h" />
+    <ClInclude Include="src\Utils\Buffers\ShaderStorageBuffer.h" />
     <ClInclude Include="src\Utils\Buffers\VirtualBuffer.h" />
     <ClInclude Include="src\Utils\Buffers\VertexBuffer_impl.h" />
     <ClInclude Include="src\Utils\Buffers\VertexBuffer.h" />
     <ClInclude Include="src\Graphics\Display\Window.h" />
-    <ClInclude Include="src\Shader\ShaderProgram_old.h" />
     <ClInclude Include="src\Framework\Peripherals\Mouse.h" />
     <ClInclude Include="src\Framework\Peripherals\Device.h" />
     <ClInclude Include="src\Utils\Geometry\Mesh.h" />
     <ClInclude Include="src\Framework\SceneManager\Scene.h" />
     <ClInclude Include="src\Framework\SceneManager\SceneManager.h" />
     <ClInclude Include="src\Utils\Geometry\Model.h" />
-    <ClInclude Include="src\Utils\Buffers\VertexArray.h" />
+    <ClInclude Include="src\Shader\Material.h" />
     <ClInclude Include="src\Utils\Maths\Constants.h" />
     <ClInclude Include="src\Utils\Maths\mat2.h" />
     <ClInclude Include="src\Utils\Maths\mat3.h" />
@@ -186,18 +188,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Graphics\Render\Renderer.cpp" />
+    <ClCompile Include="src\Shader\Material.cpp" />
     <ClCompile Include="src\Shader\ShaderProgram.cpp" />
     <ClCompile Include="src\Framework\AppManager\AppComponent.cpp" />
-    <ClCompile Include="src\Shader\ShaderProgram_old.cpp" />
     <ClCompile Include="src\Framework\Peripherals\Mouse.cpp" />
     <ClCompile Include="src\Framework\Peripherals\Device.cpp" />
     <ClCompile Include="src\Framework\SceneManager\Scene.cpp" />
     <ClCompile Include="src\Framework\SceneManager\SceneManager.cpp" />
     <ClCompile Include="src\Graphics\Display\Window.cpp" />
+    <ClCompile Include="src\Textures\stb_image.cpp" />
+    <ClCompile Include="src\Textures\Texture.cpp" />
     <ClCompile Include="src\Utils\Buffers\IndexBuffer.cpp" />
+    <ClCompile Include="src\Utils\Buffers\ShaderStorageBuffer.cpp" />
     <ClCompile Include="src\Utils\Buffers\VirtualBuffer.cpp" />
     <ClCompile Include="src\Utils\Geometry\Model.cpp" />
-    <ClCompile Include="src\Utils\Buffers\VertexArray.cpp" />
     <ClCompile Include="src\Utils\Maths\mat2.cpp" />
     <ClCompile Include="src\Utils\Maths\mat3.cpp" />
     <ClCompile Include="src\Utils\Maths\mat4.cpp" />

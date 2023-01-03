@@ -1,28 +1,29 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
-#include "VertexArray.h"
-#include "VirtualBuffer.h"
+#include "Utils/Geometry/Model.h"
+using namespace GeometryUtils;
 
+#include "VirtualBuffer.h"
 using namespace BufferUtils;
 
-VirtualBuffer::VirtualBuffer(VertexArray* _vao, const uint32_t _accessFormat, const uint32_t _vertexSize, const uint32_t _count, const void* _data)
-	: accessFormat(_accessFormat), vertexSize(_vertexSize), vertexCount(_count), data(_data), vao(_vao)
+VirtualBuffer::VirtualBuffer(Model* _model, const uint32_t _accessFormat, const uint32_t _vertexSize, const uint32_t _count, const void* _data)
+	: accessFormat(_accessFormat), vertexSize(_vertexSize), vertexCount(_count), data(_data), model(_model)
 {
-	vao->bind();
+	model->bind();
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, vertexCount * vertexSize, data, accessFormat);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	vao->unbind();
+	model->unbind();
 
-	vao->vbos.push_back(vbo);
+	model->vbos.push_back(vbo);
 }
 
-VirtualBuffer::VirtualBuffer(VertexArray* _vao, const uint32_t _vertexSize, const uint32_t _index)
-	: vao(_vao)
+VirtualBuffer::VirtualBuffer(Model* _model, const uint32_t _vertexSize, const uint32_t _index)
+	: model(_model)
 {
-	vbo = vao->vbos[_index];
+	vbo = model->vbos[_index];
 
 	int32_t usage;
 	int32_t bufferSize;
@@ -64,20 +65,20 @@ uint32_t VirtualBuffer::getAccessFormat() {
 }
 
 void VirtualBuffer::bind() const {
-	vao->bind();
+	model->bind();
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 }
 
 void VirtualBuffer::unbind() const {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	vao->unbind();
+	model->unbind();
 }
 
 void VirtualBuffer::remove() {
-	std::vector<uint32_t>::iterator it = vao->vbos.begin();
-	while (it != vao->vbos.end()) {
+	std::vector<uint32_t>::iterator it = model->vbos.begin();
+	while (it != model->vbos.end()) {
 		if (this->vbo == *it)
-			vao->vbos.erase(it);
+			model->vbos.erase(it);
 		else
 			it++;
 	}
@@ -85,29 +86,29 @@ void VirtualBuffer::remove() {
 }
 
 void VirtualBuffer::push_Layout(const uint32_t _location, const uint32_t _compCount, const uint32_t _type, const uint32_t _offset) {
-	vao->bind();
+	model->bind();
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glVertexAttribPointer(_location, _compCount, _type, getIfNormalized(_type), vertexSize, (void*)_offset);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	vao->unbind();
+	model->unbind();
 
-	vao->attribs.push_back(_location);
+	model->attribs.push_back(_location);
 }
 
 void VirtualBuffer::push_Layout(const uint32_t _location, const uint32_t _compCount, const uint32_t _type) {
-	vao->bind();
+	model->bind();
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glVertexAttribPointer(_location, _compCount, _type, getIfNormalized(_type), 0, (void*)0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	vao->unbind();
+	model->unbind();
 
-	vao->attribs.push_back(_location);
+	model->attribs.push_back(_location);
 }
 
 void VirtualBuffer::setData(const uint32_t _offset, const uint32_t _count, const void* _data) {
-	vao->bind();
+	model->bind();
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferSubData(GL_ARRAY_BUFFER, _offset, _count * vertexSize, _data);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	vao->unbind();
+	model->unbind();
 }

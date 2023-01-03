@@ -2,8 +2,11 @@
 
 #include <cstdint>
 
+namespace GeometryUtils {
+	class Model;
+}
+
 namespace BufferUtils {
-	class VertexArray;
 
 	class VirtualBuffer {
 	private:
@@ -13,13 +16,13 @@ namespace BufferUtils {
 		uint32_t vertexCount;
 		const void* data;
 
-		VertexArray* vao;
+		GeometryUtils::Model* model;
 
 		uint32_t getIfNormalized(uint32_t _type);
 
 	public:
-		VirtualBuffer(VertexArray* _vao, const uint32_t _vertexSize, const uint32_t _index);
-		VirtualBuffer(VertexArray* _vao, const uint32_t _accessFormat, const uint32_t _vertexSize, const uint32_t _count, const void* _data);
+		VirtualBuffer(GeometryUtils::Model* _model, const uint32_t _vertexSize, const uint32_t _index);
+		VirtualBuffer(GeometryUtils::Model* _model, const uint32_t _accessFormat, const uint32_t _vertexSize, const uint32_t _count, const void* _data);
 	
 		operator uint32_t();
 

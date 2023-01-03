@@ -2,28 +2,29 @@
 #include <GL/glew.h>
 #include <utility>
 
-#include "VertexArray.h"
 #include "IndexBuffer.h"
-
 using namespace BufferUtils;
 
-IndexBuffer::IndexBuffer(VertexArray* _vao, const uint32_t _accessFormat, const uint32_t _count, const void* _data)
-	: accessFormat(_accessFormat), count(_count), data(_data), vao(_vao)
+#include "Utils/Geometry/Model.h"
+using namespace GeometryUtils;
+
+IndexBuffer::IndexBuffer(Model* _model, const uint32_t _accessFormat, const uint32_t _count, const void* _data)
+	: accessFormat(_accessFormat), count(_count), data(_data), model(_model)
 {
-	vao->bind();
+	model->bind();
 	glGenBuffers(1, &ibo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), data, accessFormat);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	vao->unbind();
+	model->unbind();
 
-	vao->ibos.push_back(std::pair<uint32_t, uint32_t>(ibo, _count));
+	model->ibos.push_back(std::pair<uint32_t, uint32_t>(ibo, _count));
 }
 
-IndexBuffer::IndexBuffer(VertexArray* _vao, const uint32_t _index)
-	: vao(_vao)
+IndexBuffer::IndexBuffer(Model* _model, const uint32_t _index)
+	: model(_model)
 {
-	ibo = vao->ibos[_index].first;
+	ibo = model->ibos[_index].first;
 
 	int32_t usage;
 	int32_t bufferSize;
@@ -55,10 +56,10 @@ void IndexBuffer::unbind() const {
 }
 
 void IndexBuffer::remove() {
-	std::vector<std::pair<uint32_t, uint32_t>>::iterator it = vao->ibos.begin();
-	while (it != vao->ibos.end()) {
+	std::vector<std::pair<uint32_t, uint32_t>>::iterator it = model->ibos.begin();
+	while (it != model->ibos.end()) {
 		if (this->ibo == it->first)
-			vao->ibos.erase(it);
+			model->ibos.erase(it);
 		else
 			it++;
 	}
@@ -66,9 +67,9 @@ void IndexBuffer::remove() {
 }
 
 void IndexBuffer::setData(const uint32_t _offset, const uint32_t _count, const void* _data) {
-	vao->bind();
+	model->bind();
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 	glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, _offset, _count, _data);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	vao->unbind();
+	model->unbind();
 }

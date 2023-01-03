@@ -1,65 +1,65 @@
 #pragma once
 
+#include "Utils/Maths/vec2.h"
 #include "Utils/Maths/vec3.h"
 #include "Utils/Maths/vec4.h"
 using namespace MathsUtils;
 
+#include "Utils/Buffers/IndexBuffer.h"
 #include "Utils/Buffers/VertexBuffer.h"
+#include "Utils/Buffers/VirtualBuffer.h"
 using namespace BufferUtils;
 
+#include "Utils/Geometry/Mesh.h"
 #include "Utils/Geometry/Model.h"
 using namespace GeometryUtils;
 
 class ChunkBuilder {
 public:
-
 	struct Vertex {
 		vec3 position = vec3(0.0);
 		vec4 color = vec4(0.0);
+		vec2 textCoord = vec2(0.0);
 	};
 
-	VertexBuffer<Vertex, unsigned int>* mesh;	// reusable mesh
+	Model* model;
 
-	Model* singleModel;
+	VertexBuffer<Vertex, unsigned int>* mesh;
 
 	ChunkBuilder() {
 		mesh = new VertexBuffer<Vertex, unsigned int>(2);
-
 	}
 
 	~ChunkBuilder() {
-
+		delete model;
+		delete mesh;
 	}
 	
 	void create() {
+		
+		buildMesh();
 
-		// create mesh
-		mesh->pushBack({ vec3(-0.5f, -0.5f, -1.0f), vec4(1.0, 0.0, 0.0, 1.0) });
-		mesh->pushBack({ vec3( 0.5f, -0.5f, -1.0f), vec4(0.0, 1.0, 0.0, 1.0) });
-		mesh->pushBack({ vec3( 0.5f,  0.5f, -1.0f), vec4(0.0, 0.0, 1.0, 1.0) });
+		model = new Model();
 
-		// fit buffer to real size
-		mesh->fit();
+		IndexBuffer ibo(model, GL_STATIC_DRAW, mesh->indexCount(), mesh->getIndices());
 
-		//singleModel = new Model(mesh, material, ...);
-
-		singleModel = new Model();
-
-		IndexBuffer ibo(&singleModel->getVao(), GL_STATIC_DRAW, mesh->indexCount(), mesh->getIndices());
-
-		VirtualBuffer vbo(&singleModel->getVao(), GL_STATIC_DRAW, mesh->vertexSize(), mesh->vertexCount(), mesh->getVertices());
+		VirtualBuffer vbo(model, GL_STATIC_DRAW, mesh->vertexSize(), mesh->vertexCount(), mesh->getVertices());
 		vbo.push_Layout(0, 3, GL_FLOAT, 0);
 		vbo.push_Layout(1, 4, GL_FLOAT, offsetof(Vertex, color));
+		vbo.push_Layout(2, 2, GL_FLOAT, offsetof(Vertex, textCoord));
 
-		//vao->bindIbo(0);
-
-		// clear and reset current mesh
-		mesh->clear();
+		model->bindIbo(0);
 	}
 
-	void dispose() {
-		delete mesh;
+	void buildMesh() {
+		mesh->pushBack({ vec3(-0.5f, -0.5f, -1.0f), vec4(1.0, 0.0, 0.0, 1.0) , vec2(0.0, 0.0) });
+		mesh->pushBack({ vec3( 0.5f, -0.5f, -1.0f), vec4(0.0, 1.0, 0.0, 1.0) , vec2(1.0, 0.0) });
+		mesh->pushBack({ vec3( 0.5f,  0.5f, -1.0f), vec4(0.0, 0.0, 1.0, 1.0) , vec2(1.0, 1.0) });
 
-		delete singleModel;
+		mesh->pushBack({ vec3( 0.5f,  0.5f, -1.0f), vec4(1.0, 0.0, 0.0, 1.0) , vec2(1.0, 1.0) });
+		mesh->pushBack({ vec3(-0.5f,  0.5f, -1.0f), vec4(0.0, 1.0, 0.0, 1.0) , vec2(0.0, 1.0) });
+		mesh->pushBack({ vec3(-0.5f, -0.5f, -1.0f), vec4(0.0, 0.0, 1.0, 1.0) , vec2(0.0, 0.0) });
+
+		mesh->fit();
 	}
 };
