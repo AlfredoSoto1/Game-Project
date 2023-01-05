@@ -4,32 +4,24 @@
 using namespace SceneControl;
 
 #include "Graphics/Render/Renderer.h"
-using namespace Render;
-
-#include "Utils/Maths/vec3.h"
-#include "Utils/Maths/vec4.h"
-using namespace MathsUtils;
 
 #include "Utils/Buffers/IndexBuffer.h"
 #include "Utils/Buffers/VertexBuffer.h"
-#include "Utils/Buffers/VirtualBuffer.h"
-using namespace BufferUtils;
 
 #include "Utils/Geometry/Mesh.h"
 #include "Utils/Geometry/Model.h"
-using namespace GeometryUtils;
+#include "Shader/Material.h"
+using namespace Uranium;
 
 #include "../MarchingCubes/ChunkBuilder.h"
-#include "../MarchingCubes/ChunkShader.h"
-#include "../MarchingCubes/ComputeShader.h"
+#include "../MarchingCubes/ChunkRenderer.h"
 
 /*
 * TODO
-*	+ Compute Shaders
-*	+ Shader Storage Buffers
 *	+ Improve Buffers (Ibo, SSBo, Vbo, Vao)
 *	+ Camera Implementation
 *	+ Key Listener / Object
+*	+ Material and textures
 *	+ Basic Marching cube algorithm / Displaying
 *	+ Organize code
 */
@@ -48,10 +40,7 @@ private:
 
 	ChunkBuilder* chunkBuilder;
 
-	ChunkShader* shader;
-	ComputeShader* compShader;
-
-	Renderer* renderer;
+	ChunkRenderer* chunkRenderer;
 
 public:
 	OverworldScene() 
@@ -62,17 +51,10 @@ public:
 
 	void init() {
 
-		renderer = new Renderer();
-
-		shader = new ChunkShader();
-		shader->load();
+		chunkRenderer = new ChunkRenderer();
 
 		chunkBuilder = new ChunkBuilder();
-
 		chunkBuilder->create();
-
-		compShader = new ComputeShader();
-		compShader->load();
 
 	}
 
@@ -88,7 +70,7 @@ public:
 		//compShader->update();
 		//compShader->unbind();
 
-		renderer->render(*chunkBuilder->model, *shader);
+		chunkRenderer->render(*chunkBuilder->model, Material());
 	}
 
 	void update() {
@@ -100,12 +82,8 @@ public:
 	}
 
 	void dispose() {
-		shader->unload();
-		compShader->unload();
-
 		delete chunkBuilder;
-		delete shader;
-		delete renderer;
+		delete chunkRenderer;
 	}
 
 };

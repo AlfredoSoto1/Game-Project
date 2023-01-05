@@ -1,7 +1,7 @@
-#include "Utils/Maths/mat3.h"
-#include "Utils/Maths/vec3.h"
+#include "mat3.h"
+#include "vec3.h"
 
-using namespace MathsUtils;
+using namespace Uranium;
 
 #define ADD  0
 #define SUB  1

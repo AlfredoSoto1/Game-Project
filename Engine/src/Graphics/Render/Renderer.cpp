@@ -1,28 +1,34 @@
-#define GLEW_STATIC
-#include <GL/glew.h>
+#define UR_OPENGL
+#define UR_CONTENT_API
+#include "Engine.h"
+
+#include "Utils/Maths/vec2.h"
+#include "Utils/Maths/vec3.h"
+#include "Utils/Maths/vec4.h"
+
+#include "Utils/Maths/mat2.h"
+#include "Utils/Maths/mat3.h"
+#include "Utils/Maths/mat4.h"
 
 #include "Renderer.h"
-using namespace Render;
-
+#include "Shader/Shader.h"
+#include "Shader/Material.h"
 #include "Shader/ShaderProgram.h"
-using namespace Graphics;
-
 #include "Utils/Geometry/Model.h"
-using namespace GeometryUtils;
+using namespace Uranium;
 
-#include "Textures/Texture.h"
-using namespace Graphics;
-
-Texture* texture;
-
-Renderer::Renderer() {
+Renderer::Renderer(const Shader& _vert, const Shader& _frag) {
 	isWireframe = false;
 
-	texture = new Texture("src/Texture.png");
+	shader = new ShaderProgram(_vert, _frag);
+
+	shader->bind();
+	preProcessShader();
+	shader->unbind();
 }
 
 Renderer::~Renderer() {
-	delete texture;
+	delete shader;
 }
 
 void Renderer::showWireframe() {
@@ -33,14 +39,11 @@ void Renderer::hideWireframe() {
 	isWireframe = false;
 }
 
-void Renderer::render(const Model& _model, const ShaderProgram& _shader) {
-	_shader.bind();
-	_shader.update();
-	_model.bind();
-	_model.enableAttribs();
+void Renderer::preProcessShader() {
 
-	texture->bind(0);
+}
 
+void Renderer::draw(const Model& _model) {
 	glEnable(GL_DEPTH_TEST);
 
 	if (isWireframe) {
@@ -53,10 +56,51 @@ void Renderer::render(const Model& _model, const ShaderProgram& _shader) {
 	}
 
 	glDisable(GL_DEPTH_TEST);
-	
-	texture->unbind();
+}
 
-	_model.disableAttribs();
-	_model.unbind();
-	_shader.unbind();
+void Renderer::render(const Model& _model, const Material& _material) {
+	// bind Shader Program
+	glUseProgram(*shader);
+	
+	// update uniforms
+	updateModifierUniforms();
+
+	// render
+	processShader(_model, _material);
+}
+
+Sampler2D Renderer::getSampler2D(const_string _name) const {
+	return glGetUniformLocation(*shader, _name);
+}
+
+Uniform Renderer::getUniform(const_string _name) const {
+	return glGetUniformLocation(*shader, _name);
+}
+
+void Renderer::bindSampler2D(const Sampler2D& _sampler, uint32 _samplerId) const {
+	glUniform1i(_sampler, _samplerId);
+}
+
+void Renderer::setVec2(Uniform _uniform, const vec2& _vec2) const {
+	glUniform2f(_uniform, _vec2.x, _vec2.y);
+}
+
+void Renderer::setVec3(Uniform _uniform, const vec3& _vec3) const {
+	glUniform3f(_uniform, _vec3.x, _vec3.y, _vec3.z);
+}
+
+void Renderer::setVec4(Uniform _uniform, const vec4& _vec4) const {
+	glUniform4f(_uniform, _vec4.x, _vec4.y, _vec4.z, _vec4.w);
+}
+
+void Renderer::setMat2(Uniform _uniform, mat2& _mat2) const {
+	glUniformMatrix2fv(_uniform, 1, GL_TRUE, _mat2);
+}
+
+void Renderer::setMat3(Uniform _uniform, mat3& _mat3) const {
+	glUniformMatrix3fv(_uniform, 1, GL_TRUE, _mat3);
+}
+
+void Renderer::setMat4(Uniform _uniform, mat4& _mat4) const {
+	glUniformMatrix4fv(_uniform, 1, GL_TRUE, _mat4);
 }

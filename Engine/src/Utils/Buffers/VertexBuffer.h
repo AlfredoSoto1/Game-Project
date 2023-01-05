@@ -1,71 +1,43 @@
 #pragma once
 
-namespace BufferUtils {
+#define UR_CONTENT_API
+#include "Engine.h"
 
-	enum Buffer;
+namespace Uranium {
 
-	template<typename Vertex, typename Index>
+	class Model;
+
 	class VertexBuffer {
 	private:
-		unsigned int bufferCount;			// buffer count of used vertices
-		unsigned int bufferCapacity;		// buffer capacity of total buffer (vertices)
-		unsigned int initialBufferCapacity;	// initial capacity of buffer (vertices)
+		uint32 vbo;
+		uint32 accessFormat;
+		uint32 vertexSize;
+		uint32 vertexCount;
+		const void* data;
 
-		unsigned int buffer_indexCount;				// count of total indices
-		unsigned int buffer_indexCapacity;			// buffer capacity of total buffer (indices)
-		unsigned int initial_Buffer_indexCapacity;	// initial capacity of buffer (indices)
+		Model* model;
 
-		Index indexCounter;
-
-		Index* indices;
-		Vertex* vertices;
-		 
-		void resizeIndexBuffer();
-		void resizeVertexBuffer();
-
-		bool needToRezizeIndexBuffer();
-		bool needToRezizeVertexBuffer();
-
-		void pushBackIndex(Index _index);
+		uint32 getIfNormalized(uint32 _type);
 
 	public:
-		VertexBuffer(unsigned int _initialBufferCapacity);
-		~VertexBuffer();
+		VertexBuffer(Model* _model, const uint32 _vertexSize, const uint32 _index);
+		VertexBuffer(Model* _model, const uint32 _accessFormat, const uint32 _vertexSize, const uint32 _count, const void* _data);
+	
+		operator uint32();
 
-		bool isEmpty() const;					// returns a boolean wether if the buffer is empty
+		uint32 getVertexSize();
+		uint32 getVertexCount();
+		uint32 getAccessFormat();
 
-		unsigned int size() const;				// returns the sizeof the buffer
-		unsigned int unallocSize() const;		// returns the total sizeof the buffer (including the unused allocated memory)
-		unsigned int indexCapacity() const;		// returns the available capacity of indices
-		unsigned int vertexCapacity() const;	// returns the available capacity of vertices
+		void bind() const;
+		void unbind() const;
 
-		unsigned int indexCount() const;		// returns the total in-use indices
-		unsigned int vertexCount() const;		// returns the total count of vertices
+		void remove();
 
-		unsigned int indexCountSize() const;	// returns the sizeOf the count of indices used in array (bytes)
-		unsigned int vertexCountSize() const;	// returns the sizeOf the count of vertices used in array (bytes)
+		void setData(const uint32 _offset, const uint32 _count, const void* _data);
 
-		unsigned int indexSize() const;			// returns the sizeOf the index
-		unsigned int vertexSize() const;		// returns the sizeOf the vertex
-
-		const Index* getIndices() const;		// returns a const array of the allocated indices
-		const Vertex* getVertices() const;		// returns a const array of the allocated vertices
-
-		void fit();								// adjusts the buffer to occupy the exact count of each array reducing the unused space
-
-		void clear();							// clears the buffer
-
-		void pushBack(const Vertex& _vertex);	// push back a copy ref
-		void pushBack(const Vertex&& _vertex);	// push back an rvalue ref
-
-		void pushBack(const Vertex& _vertex, bool(*compare)(const Vertex& _vertex, Vertex& _other));	// push back a copy ref
-		void pushBack(const Vertex&& _vertex, bool(*compare)(const Vertex&& _vertex, Vertex& _other));	// push back an rvalue ref
-
-		template<typename... Args>
-		void emplaceBack(Args&& ... _args);
+		void push_Layout(const uint32 _location, const uint32 _compCount, const uint32 _type);
+		void push_Layout(const uint32 _location, const uint32 _compCount, const uint32 _type, const uint32 _offset);
 
 	};
 }
-
-#include "VertexBuffer_impl.h"
-

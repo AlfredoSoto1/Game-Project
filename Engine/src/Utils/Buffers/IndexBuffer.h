@@ -1,35 +1,34 @@
 #pragma once
 
-#include <cstdint>
+#define UR_CONTENT_API
+#include "Engine.h"
 
-namespace GeometryUtils {
+namespace Uranium {
 	class Model;
-}
 
-namespace BufferUtils {
 	class IndexBuffer {
 	private:
-		uint32_t ibo;
-		uint32_t count;
-		uint32_t accessFormat;
+		uint32 ibo;
+		uint32 count;
+		uint32 accessFormat;
 		const void* data;
 
-		GeometryUtils::Model* model;
+		Model* model;
 
 	public:
-		IndexBuffer(GeometryUtils::Model* _model, const uint32_t _accessFormat, const uint32_t _count, const void* _data);
-		IndexBuffer(GeometryUtils::Model* _model, const uint32_t _index);
+		IndexBuffer(Model* _model, const uint32 _accessFormat, const uint32 _count, const void* _data);
+		IndexBuffer(Model* _model, const uint32 _index);
 
-		operator uint32_t();
+		operator uint32();
 
-		uint32_t getCount();
-		uint32_t getAccessFormat();
+		uint32 getCount();
+		uint32 getAccessFormat();
 
 		void bind() const;
 		void unbind() const;
 
 		void remove();
 
-		void setData(const uint32_t _offset, const uint32_t _count, const void* _data);
+		void setData(const uint32 _offset, const uint32 _count, const void* _data);
 	};
 }

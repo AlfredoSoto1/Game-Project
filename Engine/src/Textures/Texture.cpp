@@ -28,6 +28,7 @@ Texture::Texture(const char* _path)
 
 	if (localImageData != nullptr)
 		stbi_image_free(localImageData);
+
 }
 
 Texture::~Texture() {

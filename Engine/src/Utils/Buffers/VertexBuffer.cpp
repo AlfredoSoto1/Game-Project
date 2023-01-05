@@ -1,13 +1,12 @@
-#define GLEW_STATIC
-#include <GL/glew.h>
+#define UR_OPENGL
+#define UR_CONTENT_API
+#include "Engine.h"
 
+#include "VertexBuffer.h"
 #include "Utils/Geometry/Model.h"
-using namespace GeometryUtils;
+using namespace Uranium;
 
-#include "VirtualBuffer.h"
-using namespace BufferUtils;
-
-VirtualBuffer::VirtualBuffer(Model* _model, const uint32_t _accessFormat, const uint32_t _vertexSize, const uint32_t _count, const void* _data)
+VertexBuffer::VertexBuffer(Model* _model, const uint32 _accessFormat, const uint32 _vertexSize, const uint32 _count, const void* _data)
 	: accessFormat(_accessFormat), vertexSize(_vertexSize), vertexCount(_count), data(_data), model(_model)
 {
 	model->bind();
@@ -20,13 +19,13 @@ VirtualBuffer::VirtualBuffer(Model* _model, const uint32_t _accessFormat, const 
 	model->vbos.push_back(vbo);
 }
 
-VirtualBuffer::VirtualBuffer(Model* _model, const uint32_t _vertexSize, const uint32_t _index)
-	: model(_model)
+VertexBuffer::VertexBuffer(Model* _model, const uint32 _vertexSize, const uint32 _index)
+	: model(_model), data(nullptr)
 {
 	vbo = model->vbos[_index];
 
-	int32_t usage;
-	int32_t bufferSize;
+	int32 usage;
+	int32 bufferSize;
 	glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &bufferSize);
 	glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_USAGE, &usage);
 
@@ -35,7 +34,7 @@ VirtualBuffer::VirtualBuffer(Model* _model, const uint32_t _vertexSize, const ui
 	accessFormat = usage;
 }
 
-uint32_t VirtualBuffer::getIfNormalized(uint32_t _type) {
+uint32 VertexBuffer::getIfNormalized(uint32 _type) {
 	switch (_type) {
 	case GL_BYTE:			return GL_FALSE;
 	case GL_INT:			return GL_FALSE;
@@ -48,34 +47,34 @@ uint32_t VirtualBuffer::getIfNormalized(uint32_t _type) {
 	}
 }
 
-VirtualBuffer::operator uint32_t() {
+VertexBuffer::operator uint32() {
 	return vbo;
 }
 
-uint32_t VirtualBuffer::getVertexSize() {
+uint32 VertexBuffer::getVertexSize() {
 	return vertexSize;
 }
 
-uint32_t VirtualBuffer::getVertexCount() {
+uint32 VertexBuffer::getVertexCount() {
 	return vertexCount;
 }
 
-uint32_t VirtualBuffer::getAccessFormat() {
+uint32 VertexBuffer::getAccessFormat() {
 	return accessFormat;
 }
 
-void VirtualBuffer::bind() const {
+void VertexBuffer::bind() const {
 	model->bind();
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 }
 
-void VirtualBuffer::unbind() const {
+void VertexBuffer::unbind() const {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	model->unbind();
 }
 
-void VirtualBuffer::remove() {
-	std::vector<uint32_t>::iterator it = model->vbos.begin();
+void VertexBuffer::remove() {
+	std::vector<uint32>::iterator it = model->vbos.begin();
 	while (it != model->vbos.end()) {
 		if (this->vbo == *it)
 			model->vbos.erase(it);
@@ -85,7 +84,7 @@ void VirtualBuffer::remove() {
 	glDeleteBuffers(1, &vbo);
 }
 
-void VirtualBuffer::push_Layout(const uint32_t _location, const uint32_t _compCount, const uint32_t _type, const uint32_t _offset) {
+void VertexBuffer::push_Layout(const uint32 _location, const uint32 _compCount, const uint32 _type, const uint32 _offset) {
 	model->bind();
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glVertexAttribPointer(_location, _compCount, _type, getIfNormalized(_type), vertexSize, (void*)_offset);
@@ -95,7 +94,7 @@ void VirtualBuffer::push_Layout(const uint32_t _location, const uint32_t _compCo
 	model->attribs.push_back(_location);
 }
 
-void VirtualBuffer::push_Layout(const uint32_t _location, const uint32_t _compCount, const uint32_t _type) {
+void VertexBuffer::push_Layout(const uint32 _location, const uint32 _compCount, const uint32 _type) {
 	model->bind();
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glVertexAttribPointer(_location, _compCount, _type, getIfNormalized(_type), 0, (void*)0);
@@ -105,7 +104,7 @@ void VirtualBuffer::push_Layout(const uint32_t _location, const uint32_t _compCo
 	model->attribs.push_back(_location);
 }
 
-void VirtualBuffer::setData(const uint32_t _offset, const uint32_t _count, const void* _data) {
+void VertexBuffer::setData(const uint32 _offset, const uint32 _count, const void* _data) {
 	model->bind();
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferSubData(GL_ARRAY_BUFFER, _offset, _count * vertexSize, _data);

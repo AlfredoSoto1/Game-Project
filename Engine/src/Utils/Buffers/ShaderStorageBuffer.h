@@ -1,23 +1,24 @@
 #pragma once
 
-#include <cstdint>
+#define UR_CONTENT_API
+#include "Engine.h"
 
-namespace BufferUtils {
+namespace Uranium {
 	class ShaderStorageBuffer {
 	private:
-		uint32_t ssbo;
+		uint32 ssbo;
 
 	public:
-		ShaderStorageBuffer(uint32_t _accessFormat, uint32_t _bindingOffset, uint32_t _size, void* _data);
+		ShaderStorageBuffer(uint32 _accessFormat, uint32 _bindingOffset, uint32 _size, void* _data);
 		~ShaderStorageBuffer();
 
-		operator uint32_t() const;
+		operator uint32() const;
 
 		void bind() const;
 		void unbind() const;
 
-		void setData(uint32_t _offset, uint32_t _size, void* _data);
-		void getData(uint32_t _offset, uint32_t _size, void* _data);
+		void setData(uint32 _offset, uint32 _size, void* _data);
+		void getData(uint32 _offset, uint32 _size, void* _data);
 
 	};
 }

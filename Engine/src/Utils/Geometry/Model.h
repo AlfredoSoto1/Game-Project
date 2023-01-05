@@ -1,32 +1,29 @@
 #pragma once
 
-#include <stack>
+#define UR_CONTENT_API
+#include "Engine.h"
+
 #include <vector>
 #include <cstdint>
 #include <utility> 
 
-namespace Render {
+namespace Uranium {
+
 	class Renderer;
-}
-
-namespace BufferUtils {
 	class IndexBuffer;
-	class VirtualBuffer;
-}
+	class VertexBuffer;
 
-namespace GeometryUtils {
 	class Model {
 	private:
-		friend class Render::Renderer;
-		friend class BufferUtils::IndexBuffer;
-		friend class BufferUtils::VirtualBuffer;
+		friend class IndexBuffer;
+		friend class VertexBuffer;
 
-		uint32_t vao;
-		uint32_t boundIbo;
+		uint32 vao;
+		uint32 boundIbo;
 
-		mutable std::vector<uint32_t> vbos;
-		mutable std::vector<uint32_t> attribs;
-		mutable std::vector<std::pair<uint32_t, uint32_t>> ibos;
+		mutable std::vector<uint32> vbos;
+		mutable std::vector<uint32> attribs;
+		mutable std::vector<std::pair<uint32, uint32>> ibos;
 
 	public:
 		void enableAttribs() const;
@@ -36,13 +33,13 @@ namespace GeometryUtils {
 		Model();
 		~Model();
 
-		operator uint32_t();
+		operator uint32();
 
-		uint32_t getIndexCount() const;
+		uint32 getIndexCount() const;
 
 		void bind() const;
 		void unbind() const;
 
-		void bindIbo(const uint32_t _boundIbo);
+		void bindIbo(const uint32 _boundIbo);
 	};
 }

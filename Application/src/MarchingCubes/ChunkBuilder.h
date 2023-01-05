@@ -3,16 +3,13 @@
 #include "Utils/Maths/vec2.h"
 #include "Utils/Maths/vec3.h"
 #include "Utils/Maths/vec4.h"
-using namespace MathsUtils;
 
 #include "Utils/Buffers/IndexBuffer.h"
 #include "Utils/Buffers/VertexBuffer.h"
-#include "Utils/Buffers/VirtualBuffer.h"
-using namespace BufferUtils;
 
 #include "Utils/Geometry/Mesh.h"
 #include "Utils/Geometry/Model.h"
-using namespace GeometryUtils;
+using namespace Uranium;
 
 class ChunkBuilder {
 public:
@@ -24,10 +21,10 @@ public:
 
 	Model* model;
 
-	VertexBuffer<Vertex, unsigned int>* mesh;
+	Mesh<Vertex, unsigned int>* mesh;
 
 	ChunkBuilder() {
-		mesh = new VertexBuffer<Vertex, unsigned int>(2);
+		mesh = new Mesh<Vertex, unsigned int>(2);
 	}
 
 	~ChunkBuilder() {
@@ -43,7 +40,7 @@ public:
 
 		IndexBuffer ibo(model, GL_STATIC_DRAW, mesh->indexCount(), mesh->getIndices());
 
-		VirtualBuffer vbo(model, GL_STATIC_DRAW, mesh->vertexSize(), mesh->vertexCount(), mesh->getVertices());
+		VertexBuffer vbo(model, GL_STATIC_DRAW, mesh->vertexSize(), mesh->vertexCount(), mesh->getVertices());
 		vbo.push_Layout(0, 3, GL_FLOAT, 0);
 		vbo.push_Layout(1, 4, GL_FLOAT, offsetof(Vertex, color));
 		vbo.push_Layout(2, 2, GL_FLOAT, offsetof(Vertex, textCoord));

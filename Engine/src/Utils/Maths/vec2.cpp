@@ -1,6 +1,6 @@
-#include "Utils/Maths/vec2.h"
+#include "vec2.h"
 
-using namespace MathsUtils;
+using namespace Uranium;
 
 vec2::vec2(float xy)
 	: x(xy), y(xy)

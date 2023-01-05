@@ -1,6 +1,9 @@
+
+#define UR_API_CONTENT
+#include "Engine.h"
 #include "Material.h"
 
-using namespace Graphics;
+using namespace Uranium;
 
 Material::Material() {
 

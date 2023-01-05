@@ -1,16 +1,15 @@
 #pragma once
 
-#ifndef _VERTEX_BUFFER_IMPL
-#define _VERTEX_BUFFER_IMPL
+#ifndef _MESH_IMPL
+#define _MESH_IMPL
 
 #include <utility>
-#include "BufferE.h"
-#include "VertexBuffer.h"
+#include "Mesh.h"
 
 #define BUFFER_t template<typename Vertex, typename Index>
-#define BUFFER_def VertexBuffer<Vertex, Index>
+#define BUFFER_def Mesh<Vertex, Index>
 
-namespace BufferUtils {
+namespace Uranium {
 
 	BUFFER_t void BUFFER_def::resizeIndexBuffer() {
 		if (indices == nullptr) {
@@ -48,7 +47,7 @@ namespace BufferUtils {
 		return buffer_indexCapacity == buffer_indexCount;
 	}
 
-	BUFFER_t BUFFER_def::VertexBuffer(unsigned int _initialBufferCapacity) { 
+	BUFFER_t BUFFER_def::Mesh(unsigned int _initialBufferCapacity) { 
 		bufferCount = 0;
 		bufferCapacity = _initialBufferCapacity;
 		initialBufferCapacity = _initialBufferCapacity;
@@ -64,7 +63,7 @@ namespace BufferUtils {
 		resizeVertexBuffer();
 	}
 
-	BUFFER_t BUFFER_def::~VertexBuffer() {
+	BUFFER_t BUFFER_def::~Mesh() {
 		clear();
 	}
 

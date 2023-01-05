@@ -5,10 +5,8 @@
 using namespace MathsUtils;
 
 #include "Shader/ShaderProgram.h"
-using namespace Graphics;
-
 #include "Utils/Buffers/ShaderStorageBuffer.h"
-using namespace BufferUtils;
+using namespace Uranium;
 
 class ComputeShader : public ShaderProgram {
 private:

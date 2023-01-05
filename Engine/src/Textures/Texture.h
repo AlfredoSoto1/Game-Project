@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Engine.h"
+
 namespace Graphics {
 
 	class Texture {

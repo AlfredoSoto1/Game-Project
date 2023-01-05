@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
@@ -26,19 +18,6 @@
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
@@ -57,12 +36,6 @@
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -70,14 +43,6 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)bin\Engine\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\Engine\$(Platform)\$(Configuration)\intermediates</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)bin\Engine\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\Engine\$(Platform)\$(Configuration)\intermediates</IntDir>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)bin\Engine\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\Engine\$(Platform)\$(Configuration)\intermediates</IntDir>
@@ -86,43 +51,11 @@
     <OutDir>$(SolutionDir)bin\Engine\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\Engine\$(Platform)\$(Configuration)\intermediates</IntDir>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp14</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\x64\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Engine\src</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp14</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\x64\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Engine\src</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);UR_API_CONTENT;UR_API_CONTENT</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\x64\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Engine\src</AdditionalIncludeDirectories>
@@ -138,7 +71,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);UR_API_CONTENT;UR_API_CONTENT</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\x64\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Engine\src</AdditionalIncludeDirectories>
@@ -151,24 +84,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Graphics\Render\Renderer.h" />
     <ClInclude Include="src\Platform\ApplicationError.h" />
+    <ClInclude Include="src\Shader\ComputeShader.h" />
+    <ClInclude Include="src\Shader\Shader.h" />
     <ClInclude Include="src\Shader\ShaderProgram.h" />
     <ClInclude Include="src\Framework\Listeners\MouseListener.h" />
     <ClInclude Include="src\Framework\Listeners\WindowListener.h" />
     <ClInclude Include="src\Framework\AppManager\AppComponent.h" />
     <ClInclude Include="src\Textures\stb_image.h" />
     <ClInclude Include="src\Textures\Texture.h" />
-    <ClInclude Include="src\Utils\Buffers\BufferE.h" />
     <ClInclude Include="src\Utils\Buffers\IndexBuffer.h" />
     <ClInclude Include="src\Utils\Buffers\ShaderStorageBuffer.h" />
-    <ClInclude Include="src\Utils\Buffers\VirtualBuffer.h" />
-    <ClInclude Include="src\Utils\Buffers\VertexBuffer_impl.h" />
     <ClInclude Include="src\Utils\Buffers\VertexBuffer.h" />
+    <ClInclude Include="src\Utils\Geometry\Mesh_impl.h" />
+    <ClInclude Include="src\Utils\Geometry\Mesh.h" />
     <ClInclude Include="src\Graphics\Display\Window.h" />
     <ClInclude Include="src\Framework\Peripherals\Mouse.h" />
     <ClInclude Include="src\Framework\Peripherals\Device.h" />
-    <ClInclude Include="src\Utils\Geometry\Mesh.h" />
     <ClInclude Include="src\Framework\SceneManager\Scene.h" />
     <ClInclude Include="src\Framework\SceneManager\SceneManager.h" />
     <ClInclude Include="src\Utils\Geometry\Model.h" />
@@ -188,7 +122,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Graphics\Render\Renderer.cpp" />
+    <ClCompile Include="src\Shader\ComputeShader.cpp" />
     <ClCompile Include="src\Shader\Material.cpp" />
+    <ClCompile Include="src\Shader\Shader.cpp" />
     <ClCompile Include="src\Shader\ShaderProgram.cpp" />
     <ClCompile Include="src\Framework\AppManager\AppComponent.cpp" />
     <ClCompile Include="src\Framework\Peripherals\Mouse.cpp" />
@@ -200,7 +136,7 @@
     <ClCompile Include="src\Textures\Texture.cpp" />
     <ClCompile Include="src\Utils\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="src\Utils\Buffers\ShaderStorageBuffer.cpp" />
-    <ClCompile Include="src\Utils\Buffers\VirtualBuffer.cpp" />
+    <ClCompile Include="src\Utils\Buffers\VertexBuffer.cpp" />
     <ClCompile Include="src\Utils\Geometry\Model.cpp" />
     <ClCompile Include="src\Utils\Maths\mat2.cpp" />
     <ClCompile Include="src\Utils\Maths\mat3.cpp" />
@@ -209,7 +145,6 @@
     <ClCompile Include="src\Utils\Maths\vec2.cpp" />
     <ClCompile Include="src\Utils\Maths\vec3.cpp" />
     <ClCompile Include="src\Utils\Maths\vec4.cpp" />
-    <ClCompile Include="src\Utils\Geometry\Mesh.cpp" />
     <ClCompile Include="src\Settings\MouseSettings.cpp" />
     <ClCompile Include="src\Settings\WindowSettings.cpp" />
     <ClCompile Include="src\Framework\AppManager\Application.cpp" />

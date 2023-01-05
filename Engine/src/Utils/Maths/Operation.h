@@ -1,6 +1,6 @@
 #pragma once
 
-namespace MathsUtils {
+namespace Uranium {
 	float sqrt(float number);
 	float inv_sqrt(float number);
 

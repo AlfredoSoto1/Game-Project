@@ -1,9 +1,9 @@
-#define GLEW_STATIC
-#include <GL/glew.h>
+#define UR_OPENGL
+#define UR_CONTENT_API
+#include "Engine.h"
 
 #include "Model.h"
-
-using namespace GeometryUtils;
+using namespace Uranium;
 
 Model::Model() 
 	:	boundIbo(0)
@@ -13,10 +13,10 @@ Model::Model()
 
 Model::~Model()
 {
-	for (std::pair<uint32_t, uint32_t>& ibo : ibos) {
+	for (std::pair<uint32, uint32>& ibo : ibos) {
 		glDeleteBuffers(1, &ibo.first);
 	}
-	for (uint32_t& vbo : vbos) {
+	for (uint32& vbo : vbos) {
 		glDeleteBuffers(1, &vbo);
 	}
 	glDeleteVertexArrays(1, &vao);
@@ -25,11 +25,11 @@ Model::~Model()
 	attribs.clear();
 }
 
-Model::operator uint32_t() {
+Model::operator uint32() {
 	return vao;
 }
 
-uint32_t Model::getIndexCount() const {
+uint32 Model::getIndexCount() const {
 	return ibos[boundIbo].second;
 }
 
@@ -43,16 +43,16 @@ void Model::unbind() const {
 
 void Model::enableAttribs() const {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibos[boundIbo].first);
-	for (uint32_t& attr : attribs)
+	for (uint32& attr : attribs)
 		glEnableVertexAttribArray(attr);
 }
 
 void Model::disableAttribs() const {
-	for (uint32_t& attr : attribs)
+	for (uint32& attr : attribs)
 		glDisableVertexAttribArray(attr);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void Model::bindIbo(const uint32_t _boundIbo) {
+void Model::bindIbo(const uint32 _boundIbo) {
 	this->boundIbo = _boundIbo;
 }
