@@ -1,12 +1,23 @@
 #pragma once
 
-#include "Graphics/Render/Renderer.h"
-#include "Utils/Geometry/Model.h"
-#include "Shader/Shader.h"
-using namespace Uranium;
+#define UR_OPENGL
+#include "Engine.h"
 
-#include "Textures/Texture.h"
-using namespace Graphics;
+#include "Uranium/Application/Application.h"
+#include "Uranium/Application/ApplicationRunner.h"
+
+#include "Uranium/Application/Settings/WindowSettings.h"
+#include "Uranium/Application/Devices/Window.h"
+
+#include "Scenes/OverworldScene.h"
+#include "Uranium/RenderEngine/SceneControl/Scene.h"
+#include "Uranium/RenderEngine/SceneControl/SceneManager.h"
+#include "Uranium/RenderEngine/ShaderControl/Shader.h"
+#include "Uranium/RenderEngine/Graphics/Renderer.h"
+
+#include "Uranium/Utils/Materials/Texture.h"
+
+using namespace Uranium;
 
 class ChunkRenderer : public Renderer {
 private:

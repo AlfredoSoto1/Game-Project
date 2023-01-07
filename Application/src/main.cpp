@@ -4,42 +4,39 @@
 #include <iostream>
 using namespace std;
 
-#include "Framework/AppManager/Application.h"
+#include "Uranium/Application/Application.h"
+#include "Uranium/Application/ApplicationRunner.h"
 
-#include "Framework/SceneManager/SceneManager.h"
-
-#include "Graphics/Display/Window.h"
-#include "Settings/WindowSettings.h"
+#include "Uranium/Application/Settings/WindowSettings.h"
+#include "Uranium/Application/Devices/Window.h"
 
 #include "Scenes/OverworldScene.h"
+#include "Uranium/RenderEngine/SceneControl/Scene.h"
+#include "Uranium/RenderEngine/SceneControl/SceneManager.h"
 
-class MainApp : public FrameworkEngine::Application {
+using namespace Uranium;
+
+class MainApp : public ApplicationRunner {
 public:
 	
 	OverworldScene* overworld;
 
-	MainApp() 
-		: Application()
-	{
-
-	}
-
-protected:
-
 	void init() {
 		overworld = new OverworldScene();
 
-		getWindow().getSettings().setTitle("My Game");
-		getSceneManager().addScene(overworld);
+		Application::get().getWindow().getSettings().setTitle("My Game");
+		Application::get().getSceneManager().addScene(overworld);
 	}
 
-	void close() {
+	void run() {
+
+	}
+
+	void dispose() {
 		delete overworld;
 	}
-
 };
 
 int main() {
-	MainApp myApp = MainApp();
-	myApp.run();
+	Application::start(new MainApp());
 }

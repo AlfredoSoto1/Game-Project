@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Utils/Maths/vec2.h"
-#include "Utils/Maths/vec3.h"
-#include "Utils/Maths/vec4.h"
+#include "Uranium/Utils/Maths/vec2.h"
+#include "Uranium/Utils/Maths/vec3.h"
+#include "Uranium/Utils/Maths/vec4.h"
 
-#include "Utils/Buffers/IndexBuffer.h"
-#include "Utils/Buffers/VertexBuffer.h"
+#include "Uranium/Utils/Buffers/IndexBuffer.h"
+#include "Uranium/Utils/Buffers/VertexBuffer.h"
 
-#include "Utils/Geometry/Mesh.h"
-#include "Utils/Geometry/Model.h"
+#include "Uranium/Utils/Geometry/Mesh.h"
+#include "Uranium/Utils/Geometry/Model.h"
 using namespace Uranium;
 
 class ChunkBuilder {

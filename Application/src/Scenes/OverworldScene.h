@@ -1,16 +1,22 @@
 #pragma once
 
-#include "Framework/SceneManager/Scene.h"
-using namespace SceneControl;
+#define UR_OPENGL
+#include "Engine.h"
 
-#include "Graphics/Render/Renderer.h"
+#include "Uranium/Application/Application.h"
+#include "Uranium/Application/ApplicationRunner.h"
 
-#include "Utils/Buffers/IndexBuffer.h"
-#include "Utils/Buffers/VertexBuffer.h"
+#include "Uranium/Application/Settings/WindowSettings.h"
+#include "Uranium/Application/Devices/Window.h"
 
-#include "Utils/Geometry/Mesh.h"
-#include "Utils/Geometry/Model.h"
-#include "Shader/Material.h"
+#include "Scenes/OverworldScene.h"
+#include "Uranium/RenderEngine/SceneControl/Scene.h"
+#include "Uranium/RenderEngine/SceneControl/SceneManager.h"
+#include "Uranium/RenderEngine/ShaderControl/Shader.h"
+#include "Uranium/RenderEngine/Graphics/Renderer.h"
+
+#include "Uranium/Utils/Materials/Material.h"
+
 using namespace Uranium;
 
 #include "../MarchingCubes/ChunkBuilder.h"
@@ -18,9 +24,10 @@ using namespace Uranium;
 
 /*
 * TODO
-*	+ Improve Buffers (Ibo, SSBo, Vbo, Vao)
 *	+ Camera Implementation
 *	+ Key Listener / Object
+*	+ Pre compiled headers and ASSERT macros
+*	+ Restore application concept with window and scene and listeners
 *	+ Material and textures
 *	+ Basic Marching cube algorithm / Displaying
 *	+ Organize code
