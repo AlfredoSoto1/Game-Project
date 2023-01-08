@@ -1,33 +1,34 @@
 #pragma once
 
-#include <cstdint>
+#define UR_CONTENT_API
+#include "Engine.h"
 
-namespace BufferUtils {
-	class VertexArray;
+namespace Uranium {
+	class Model;
 
 	class IndexBuffer {
 	private:
-		uint32_t ibo;
-		uint32_t count;
-		uint32_t accessFormat;
+		unsigned int ibo;
+		unsigned int count;
+		unsigned int accessFormat;
 		const void* data;
 
-		VertexArray* vao;
+		Model* model;
 
 	public:
-		IndexBuffer(VertexArray* _vao, const uint32_t _accessFormat, const uint32_t _count, const void* _data);
-		IndexBuffer(VertexArray* _vao, const uint32_t _index);
+		IndexBuffer(Model* _model, const unsigned int _accessFormat, const unsigned int _count, const void* _data); // create IBO
+		IndexBuffer(Model* _model, const unsigned int _index); // obtain back IBO
 
-		operator uint32_t();
+		operator unsigned int() const;
 
-		uint32_t getCount();
-		uint32_t getAccessFormat();
+		unsigned int getCount();
+		unsigned int getAccessFormat();
 
 		void bind() const;
 		void unbind() const;
 
 		void remove();
 
-		void setData(const uint32_t _offset, const uint32_t _count, const void* _data);
+		void setData(const unsigned int _offset, const unsigned int _count, const void* _data);
 	};
 }

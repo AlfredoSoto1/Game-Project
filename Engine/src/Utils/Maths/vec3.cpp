@@ -1,7 +1,7 @@
-#include "Utils/Maths/vec3.h"
-#include "Utils/Maths/vec2.h"
+#include "vec3.h"
+#include "vec2.h"
 
-using namespace MathsUtils;
+using namespace Uranium;
 
 vec3::vec3(float xyz)
 	: x(xyz), y(xyz), z(xyz)

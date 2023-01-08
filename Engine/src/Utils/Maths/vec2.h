@@ -1,12 +1,12 @@
 #pragma once
 
-namespace MathsUtils {
+namespace Uranium {
 
 	struct vec2 {
 	public:
 		float x, y;
 
-		vec2(float xy);
+		vec2(float xy = 0.0f);
 		vec2(float x, float y);
 		vec2(const vec2& vector);
 

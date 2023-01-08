@@ -1,8 +1,8 @@
-#include "Utils/Maths/vec4.h"
-#include "Utils/Maths/vec2.h"
-#include "Utils/Maths/vec3.h"
+#include "vec4.h"
+#include "vec2.h"
+#include "vec3.h"
 
-using namespace MathsUtils;
+using namespace Uranium;
 
 vec4::vec4(const vec4& vector)
 	: x(vector.x), y(vector.y), z(vector.z), w(vector.w)

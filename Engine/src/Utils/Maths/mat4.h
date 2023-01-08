@@ -1,6 +1,6 @@
 #pragma once
 
-namespace MathsUtils {
+namespace Uranium {
 
 	struct vec4;
 

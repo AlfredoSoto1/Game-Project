@@ -1,98 +1,61 @@
 #pragma once
 
-#include "ChunkShader.h"
+#define UR_OPENGL
+#include "Engine.h"
 
-#include "Utils/Maths/vec3.h"
-#include "Utils/Maths/vec4.h"
-#include "Utils/Buffers/IndexBuffer.h"
-#include "Utils/Buffers/VertexArray.h"
-#include "Utils/Buffers/VertexBuffer.h"
-#include "Utils/Buffers/VirtualBuffer.h"
-#include "Utils/Geometry/Mesh.h"
-using namespace MathsUtils;
-using namespace BufferUtils;
-using namespace GeometryUtils;
+#include "Application/Application.h"
 
-void clearError() {
-	while (glGetError() != GL_NO_ERROR);
-}
+#include "Application/Settings/WindowSettings.h"
+#include "Application/Devices/Window.h"
 
-void checkError() {
-	while (GLenum error = glGetError())
-		std::cout << "[GL ERROR]: " << error << std::endl;
-}
+#include "Scenes/OverworldScene.h"
+#include "RenderEngine/SceneControl/Scene.h"
+#include "RenderEngine/ShaderControl/Shader.h"
+#include "RenderEngine/Graphics/Renderer.h"
 
-class ChunkRenderer {
+#include "Utils/Materials/Texture.h"
+
+using namespace Uranium;
+
+class ChunkRenderer : public Renderer {
 private:
-	ChunkShader* shader;
-	struct Vertex {
-		vec3 position = vec3(0.0);
-		vec4 color = vec4(0.0);
-	};
+	Texture* texture;
 
-	VertexBuffer<Vertex, unsigned int>* buffer;
-
-	VertexArray* vao;
-
+	Uniform color;
 public:
-	ChunkRenderer() {
+	ChunkRenderer()
+		: Renderer(Shader(GL_VERTEX_SHADER, "src/testV.glsl"), Shader(GL_FRAGMENT_SHADER, "src/testF.glsl"))
+	{
 
+		texture = new Texture("src/Texture.png");
 	}
 
-	void init() {
-
-		shader = new ChunkShader();
-		shader->init();
-
-		buffer = new VertexBuffer<Vertex, unsigned int>(2);
-
-		buffer->pushBack({ vec3(-0.5f, -0.5f, -1.0f), vec4(1.0, 0.0, 0.0, 1.0) });
-		buffer->pushBack({ vec3( 0.5f, -0.5f, -1.0f), vec4(0.0, 1.0, 0.0, 1.0) });
-		buffer->pushBack({ vec3( 0.5f,  0.5f, -1.0f), vec4(0.0, 0.0, 1.0, 1.0) });
-
-		buffer->fit();
-
-		vao = new VertexArray();
-
-		IndexBuffer ibo(vao, GL_STATIC_DRAW, buffer->indexCount(), buffer->getIndices());
-
-		VirtualBuffer vbo(vao, GL_STATIC_DRAW, buffer->vertexSize(), buffer->vertexCount(), buffer->getVertices());
-		vbo.push_Layout(0, 3, GL_FLOAT, 0);
-		vbo.push_Layout(1, 4, GL_FLOAT, offsetof(Vertex, color));
-
-		vao->bindIbo(0);
+	~ChunkRenderer() {
+		delete texture;
 	}
 
-	void update() {
+	void preProcessShader() override {
+		color = getUniform("u_Color");
+
+		Sampler2D sampler = getSampler2D("grass");
+		bindSampler2D(sampler, 0);
 	}
 
-	void render() {
-		// binds Shader before using it
-		shader->bind();
-
-		// binds Mesh to render
-		vao->bind();
-		vao->enableAttribs();
-
-		glEnable(GL_DEPTH_TEST);
-
-		glDrawElements(GL_TRIANGLES, vao->getIndexCount(), GL_UNSIGNED_INT, nullptr);
-
-		glDisable(GL_DEPTH_TEST);
-
-		vao->disableAttribs();
-		vao->unbind();
-
-		shader->unbind();
+	void updateModifierUniforms() {
+		setVec4(color, { 1.0, 0.0, 0.0, 1.0 });
 	}
 
-	void dispose() {
-		shader->dispose();
-		delete shader;
+	void processShader(const Model& _model, const Material& _material) {
+		_model.bind();
+		_model.enableAttribs();
 
-		delete vao;
+		texture->bind(0);
 
-		delete buffer;
+		draw(_model);
+
+		texture->unbind();
+
+		_model.unbind();
+		_model.disableAttribs();
 	}
-
 };

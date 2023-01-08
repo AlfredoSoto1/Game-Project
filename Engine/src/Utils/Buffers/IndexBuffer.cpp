@@ -1,48 +1,46 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
-#include <utility>
 
-#include "VertexArray.h"
+#include <memory>
 #include "IndexBuffer.h"
+#include "Utils/Geometry/Model.h"
+using namespace Uranium;
 
-using namespace BufferUtils;
-
-IndexBuffer::IndexBuffer(VertexArray* _vao, const uint32_t _accessFormat, const uint32_t _count, const void* _data)
-	: accessFormat(_accessFormat), count(_count), data(_data), vao(_vao)
+IndexBuffer::IndexBuffer(Model* _model, const unsigned int _accessFormat, const unsigned int _count, const void* _data)
+	: accessFormat(_accessFormat), count(_count), data(_data), model(_model)
 {
-	vao->bind();
+	model->bind();
 	glGenBuffers(1, &ibo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), data, accessFormat);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	vao->unbind();
+	model->unbind();
 
-	vao->ibos.push_back(std::pair<uint32_t, uint32_t>(ibo, _count));
+	model->ibos.push_back(std::make_shared<IndexBuffer>(*this));
 }
 
-IndexBuffer::IndexBuffer(VertexArray* _vao, const uint32_t _index)
-	: vao(_vao)
+IndexBuffer::IndexBuffer(Model* _model, const unsigned int _index)
+	: accessFormat(GL_STATIC_DRAW), count(0), data(nullptr), model(nullptr)
 {
-	ibo = vao->ibos[_index].first;
+	std::shared_ptr<IndexBuffer>& iboPtr = _model->ibos[_index];
 
-	int32_t usage;
-	int32_t bufferSize;
-	glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &bufferSize);
-	glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_USAGE, &usage);
+	data = iboPtr->data;
+	model = iboPtr->model;
 
-	count = bufferSize / sizeof(unsigned int);
-	accessFormat = usage;
+	ibo = iboPtr->ibo;
+	count = iboPtr->count;
+	accessFormat = iboPtr->accessFormat;
 }
 
-IndexBuffer::operator uint32_t() {
+IndexBuffer::operator unsigned int() const {
 	return ibo;
 }
 
-uint32_t IndexBuffer::getCount() {
+unsigned int IndexBuffer::getCount() {
 	return count;
 }
 
-uint32_t IndexBuffer::getAccessFormat() {
+unsigned int IndexBuffer::getAccessFormat() {
 	return accessFormat;
 }
 
@@ -55,20 +53,20 @@ void IndexBuffer::unbind() const {
 }
 
 void IndexBuffer::remove() {
-	std::vector<std::pair<uint32_t, uint32_t>>::iterator it = vao->ibos.begin();
-	while (it != vao->ibos.end()) {
-		if (this->ibo == it->first)
-			vao->ibos.erase(it);
+	std::vector<std::shared_ptr<IndexBuffer>>::iterator it = model->ibos.begin();
+	while (it != model->ibos.end()) {
+		if (this->ibo == (*it)->ibo)
+			model->ibos.erase(it);
 		else
 			it++;
 	}
 	glDeleteBuffers(1, &ibo);
 }
 
-void IndexBuffer::setData(const uint32_t _offset, const uint32_t _count, const void* _data) {
-	vao->bind();
+void IndexBuffer::setData(const unsigned int _offset, const unsigned int _count, const void* _data) {
+	model->bind();
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 	glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, _offset, _count, _data);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	vao->unbind();
+	model->unbind();
 }

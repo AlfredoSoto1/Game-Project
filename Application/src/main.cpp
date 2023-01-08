@@ -4,42 +4,92 @@
 #include <iostream>
 using namespace std;
 
-#include "Framework/AppManager/Application.h"
+#define UR_OPENGL
+#include "Engine.h"
 
-#include "Framework/SceneManager/SceneManager.h"
+#include "UraniumApi.h"
 
-#include "Graphics/Display/Window.h"
-#include "Settings/WindowSettings.h"
+#include "Application/Application.h"
+#include "Application/AppProgram.h"
+
+#include "Application/Devices/Window.h"
+#include "Application/Settings/WindowSettings.h"
+
+#include "Application/Listeners/MouseEventListener.h"
 
 #include "Scenes/OverworldScene.h"
+#include "RenderEngine/SceneControl/Scene.h"
 
-class MainApp : public FrameworkEngine::Application {
+#include "Utils/Materials/Material.h"
+#include "RenderEngine/Graphics/Renderer.h"
+#include "RenderEngine/SceneControl/Scene.h"
+#include "RenderEngine/ShaderControl/Shader.h"
+
+#include "MarchingCubes/ChunkBuilder.h"
+#include "MarchingCubes/ChunkRenderer.h"
+
+using namespace Uranium;
+
+/*
+* TODO
+*	+ Camera Implementation
+*	+ Key Listener / Object
+*	+ Material and textures
+*	+ Basic Marching cube algorithm / Displaying
+*	+ Organize code
+*/
+
+class OverworldScene : public Scene {
+private:
+	ChunkBuilder* chunkBuilder;
+	ChunkRenderer* chunkRenderer;
+
 public:
-	
-	OverworldScene* overworld;
-
-	MainApp() 
-		: Application()
+	OverworldScene()
+		: Scene("Overworld")
 	{
+		chunkRenderer = new ChunkRenderer();
+
+		chunkBuilder = new ChunkBuilder();
+		chunkBuilder->create();
+	}
+	~OverworldScene() {
+		delete chunkBuilder;
+		delete chunkRenderer;
+	}
+	void load() {
 
 	}
+	void unload() {
 
-protected:
-
-	void init() {
-		overworld = new OverworldScene();
-
-		getWindow().getSettings().setTitle("My Game");
-		getSceneManager().addScene(overworld);
 	}
+	void draw() {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+		chunkRenderer->render(*chunkBuilder->model, Material());
+	}
+	void update() {
 
-	void close() {
-		delete overworld;
 	}
 
 };
 
+class MainApp : public AppProgram {
+public:
+	
+	OverworldScene* scene;
+
+	void init() {
+		Application::get().getWindow().getSettings().setTitle("My Game");
+		scene = new OverworldScene();
+		push_firstNewScene(scene);
+	}
+
+	void dispose() {
+		delete scene;
+	}
+};
+
 int main() {
-	MainApp myApp = MainApp();
-	myApp.run();
+	Application::start(new MainApp());
 }
