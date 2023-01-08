@@ -3,10 +3,10 @@
 
 #include "Mouse.h"
 #include "Window.h"
-#include "Uranium/Application/Application.h"
-#include "Uranium/Application/Settings/MouseSettings.h"
-#include "Uranium/Application/Settings/WindowSettings.h"
-#include "Uranium/Application/Listeners/MouseListener.h"
+#include "Application/Application.h"
+#include "Application/Settings/MouseSettings.h"
+#include "Application/Settings/WindowSettings.h"
+#include "Application/Listeners/MouseListener.h"
 
 using namespace Uranium;
 

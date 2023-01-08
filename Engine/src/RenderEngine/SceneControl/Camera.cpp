@@ -3,10 +3,10 @@
 #include <GLFW/glfw3.h>
 
 #include "Camera.h"
-#include "Uranium/Application/Application.h"
-#include "Uranium/Application/Devices/Window.h"
-#include "Uranium/Application/Settings/WindowSettings.h"
-#include "Uranium/Utils/Maths/Operation.h"
+#include "Application/Application.h"
+#include "Application/Devices/Window.h"
+#include "Application/Settings/WindowSettings.h"
+#include "Utils/Maths/Operation.h"
 
 using namespace Uranium;
 

@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Uranium/Utils/Maths/vec2.h"
-#include "Uranium/Utils/Maths/vec3.h"
-#include "Uranium/Utils/Maths/vec4.h"
+#include "Utils/Maths/vec2.h"
+#include "Utils/Maths/vec3.h"
+#include "Utils/Maths/vec4.h"
 
-#include "Uranium/Utils/Maths/mat2.h"
-#include "Uranium/Utils/Maths/mat3.h"
-#include "Uranium/Utils/Maths/mat4.h"
+#include "Utils/Maths/mat2.h"
+#include "Utils/Maths/mat3.h"
+#include "Utils/Maths/mat4.h"
 
 namespace Uranium {
 

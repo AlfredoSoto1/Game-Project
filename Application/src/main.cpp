@@ -9,19 +9,19 @@ using namespace std;
 
 #include "UraniumApi.h"
 
-#include "Uranium/Application/Application.h"
-#include "Uranium/Application/AppProgram.h"
+#include "Application/Application.h"
+#include "Application/AppProgram.h"
 
-#include "Uranium/Application/Devices/Window.h"
-#include "Uranium/Application/Settings/WindowSettings.h"
+#include "Application/Devices/Window.h"
+#include "Application/Settings/WindowSettings.h"
 
 #include "Scenes/OverworldScene.h"
-#include "Uranium/RenderEngine/SceneControl/Scene.h"
+#include "RenderEngine/SceneControl/Scene.h"
 
-#include "Uranium/Utils/Materials/Material.h"
-#include "Uranium/RenderEngine/Graphics/Renderer.h"
-#include "Uranium/RenderEngine/SceneControl/Scene.h"
-#include "Uranium/RenderEngine/ShaderControl/Shader.h"
+#include "Utils/Materials/Material.h"
+#include "RenderEngine/Graphics/Renderer.h"
+#include "RenderEngine/SceneControl/Scene.h"
+#include "RenderEngine/ShaderControl/Shader.h"
 
 #include "MarchingCubes/ChunkBuilder.h"
 #include "MarchingCubes/ChunkRenderer.h"

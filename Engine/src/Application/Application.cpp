@@ -11,8 +11,8 @@ using namespace std;
 #include "Devices/Window.h"
 #include "Devices/Mouse.h"
 #include "Settings/WindowSettings.h"
-#include "Uranium/RenderEngine/SceneControl/Scene.h"
-#include "Uranium/Application/AppProgram.h"
+#include "RenderEngine/SceneControl/Scene.h"
+#include "Application/AppProgram.h"
 
 using namespace Uranium;
 

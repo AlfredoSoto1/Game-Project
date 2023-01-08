@@ -3,17 +3,17 @@
 #define UR_OPENGL
 #include "Engine.h"
 
-#include "Uranium/Application/Application.h"
+#include "Application/Application.h"
 
-#include "Uranium/Application/Settings/WindowSettings.h"
-#include "Uranium/Application/Devices/Window.h"
+#include "Application/Settings/WindowSettings.h"
+#include "Application/Devices/Window.h"
 
 #include "Scenes/OverworldScene.h"
-#include "Uranium/RenderEngine/SceneControl/Scene.h"
-#include "Uranium/RenderEngine/ShaderControl/Shader.h"
-#include "Uranium/RenderEngine/Graphics/Renderer.h"
+#include "RenderEngine/SceneControl/Scene.h"
+#include "RenderEngine/ShaderControl/Shader.h"
+#include "RenderEngine/Graphics/Renderer.h"
 
-#include "Uranium/Utils/Materials/Texture.h"
+#include "Utils/Materials/Texture.h"
 
 using namespace Uranium;
 

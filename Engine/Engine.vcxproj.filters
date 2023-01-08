@@ -15,100 +15,100 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Uranium\Application\Devices\Window.h">
+    <ClInclude Include="src\Application\Devices\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Application\Settings\WindowSettings.h">
+    <ClInclude Include="src\Application\Settings\WindowSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\RenderEngine\SceneControl\Scene.h">
+    <ClInclude Include="src\RenderEngine\SceneControl\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Application\Settings\MouseSettings.h">
+    <ClInclude Include="src\Application\Settings\MouseSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Utils\Maths\Operation.h">
+    <ClInclude Include="src\Utils\Maths\Operation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Utils\Maths\Constants.h">
+    <ClInclude Include="src\Utils\Maths\Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Utils\Maths\vec2.h">
+    <ClInclude Include="src\Utils\Maths\vec2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Utils\Maths\vec3.h">
+    <ClInclude Include="src\Utils\Maths\vec3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Utils\Maths\vec4.h">
+    <ClInclude Include="src\Utils\Maths\vec4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Utils\Maths\mat2.h">
+    <ClInclude Include="src\Utils\Maths\mat2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Utils\Maths\mat3.h">
+    <ClInclude Include="src\Utils\Maths\mat3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Utils\Maths\mat4.h">
+    <ClInclude Include="src\Utils\Maths\mat4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Application\AppProgram.h">
+    <ClInclude Include="src\Application\AppProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Application\Devices\Mouse.h">
+    <ClInclude Include="src\Application\Devices\Mouse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Utils\Geometry\Mesh.h">
+    <ClInclude Include="src\Utils\Geometry\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Utils\Geometry\Mesh_impl.h">
+    <ClInclude Include="src\Utils\Geometry\Mesh_impl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Application\Listeners\MouseListener.h">
+    <ClInclude Include="src\Application\Listeners\MouseListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Application\Listeners\WindowListener.h">
+    <ClInclude Include="src\Application\Listeners\WindowListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\RenderEngine\ShaderControl\ShaderProgram.h">
+    <ClInclude Include="src\RenderEngine\ShaderControl\ShaderProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Application\Application.h">
+    <ClInclude Include="src\Application\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\RenderEngine\Graphics\Renderer.h">
+    <ClInclude Include="src\RenderEngine\Graphics\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Utils\Geometry\Model.h">
+    <ClInclude Include="src\Utils\Geometry\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Utils\Buffers\IndexBuffer.h">
+    <ClInclude Include="src\Utils\Buffers\IndexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Utils\Buffers\VertexBuffer.h">
+    <ClInclude Include="src\Utils\Buffers\VertexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Utils\Buffers\ShaderStorageBuffer.h">
+    <ClInclude Include="src\Utils\Buffers\ShaderStorageBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Utils\Materials\Material.h">
+    <ClInclude Include="src\Utils\Materials\Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Utils\Materials\Texture.h">
+    <ClInclude Include="src\Utils\Materials\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Utils\Materials\stb_image.h">
+    <ClInclude Include="src\Utils\Materials\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\RenderEngine\ShaderControl\Shader.h">
+    <ClInclude Include="src\RenderEngine\ShaderControl\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\RenderEngine\ShaderControl\ComputeShader.h">
+    <ClInclude Include="src\RenderEngine\ShaderControl\ComputeShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\RenderEngine\SceneControl\Camera.h">
+    <ClInclude Include="src\RenderEngine\SceneControl\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\UraniumApi.h">
@@ -116,82 +116,82 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Uranium\Application\Devices\Window.cpp">
+    <ClCompile Include="src\Application\Devices\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Application\Settings\WindowSettings.cpp">
+    <ClCompile Include="src\Application\Settings\WindowSettings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\RenderEngine\SceneControl\Scene.cpp">
+    <ClCompile Include="src\RenderEngine\SceneControl\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Application\Settings\MouseSettings.cpp">
+    <ClCompile Include="src\Application\Settings\MouseSettings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Utils\Maths\Operation.cpp">
+    <ClCompile Include="src\Utils\Maths\Operation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Utils\Maths\vec2.cpp">
+    <ClCompile Include="src\Utils\Maths\vec2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Utils\Maths\vec3.cpp">
+    <ClCompile Include="src\Utils\Maths\vec3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Utils\Maths\vec4.cpp">
+    <ClCompile Include="src\Utils\Maths\vec4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Utils\Maths\mat2.cpp">
+    <ClCompile Include="src\Utils\Maths\mat2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Utils\Maths\mat3.cpp">
+    <ClCompile Include="src\Utils\Maths\mat3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Utils\Maths\mat4.cpp">
+    <ClCompile Include="src\Utils\Maths\mat4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Application\AppProgram.cpp">
+    <ClCompile Include="src\Application\AppProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Application\Devices\Mouse.cpp">
+    <ClCompile Include="src\Application\Devices\Mouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\RenderEngine\ShaderControl\ShaderProgram.cpp">
+    <ClCompile Include="src\RenderEngine\ShaderControl\ShaderProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Application\Application.cpp">
+    <ClCompile Include="src\Application\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Utils\Geometry\Model.cpp">
+    <ClCompile Include="src\Utils\Geometry\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Utils\Buffers\IndexBuffer.cpp">
+    <ClCompile Include="src\Utils\Buffers\IndexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Utils\Buffers\VertexBuffer.cpp">
+    <ClCompile Include="src\Utils\Buffers\VertexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\RenderEngine\Graphics\Renderer.cpp">
+    <ClCompile Include="src\RenderEngine\Graphics\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Utils\Buffers\ShaderStorageBuffer.cpp">
+    <ClCompile Include="src\Utils\Buffers\ShaderStorageBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Utils\Materials\Material.cpp">
+    <ClCompile Include="src\Utils\Materials\Material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Utils\Materials\stb_image.cpp">
+    <ClCompile Include="src\Utils\Materials\stb_image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\Utils\Materials\Texture.cpp">
+    <ClCompile Include="src\Utils\Materials\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\RenderEngine\ShaderControl\Shader.cpp">
+    <ClCompile Include="src\RenderEngine\ShaderControl\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\RenderEngine\ShaderControl\ComputeShader.cpp">
+    <ClCompile Include="src\RenderEngine\ShaderControl\ComputeShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\RenderEngine\SceneControl\Camera.cpp">
+    <ClCompile Include="src\RenderEngine\SceneControl\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
