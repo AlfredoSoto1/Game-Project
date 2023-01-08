@@ -36,5 +36,6 @@ static bool check_OpenGL_error() {
 #define compile_error(message)
 #define print_status(status)
 #define check_OpenGLError()
+#define clear_OpenGLError()
 
 #endif

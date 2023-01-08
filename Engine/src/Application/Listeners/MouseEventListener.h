@@ -1,7 +1,7 @@
 #pragma once
 
 namespace Uranium {
-	class MouseListener {
+	class MouseEventListener {
 	public:
 		virtual void mouseDrop(int _pathCount, const char** _paths) = 0;
 

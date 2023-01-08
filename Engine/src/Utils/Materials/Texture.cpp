@@ -1,5 +1,5 @@
-#define UR_OPENGL
-#include "Engine.h"
+#define GLEW_STATIC
+#include <GL/glew.h>
 
 #include "Texture.h"
 #include "stb_image.h"

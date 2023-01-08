@@ -89,13 +89,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine.h" />
+    <ClInclude Include="src\RenderEngine\SceneControl\FPCamera.h" />
+    <ClInclude Include="src\RenderEngine\SceneControl\UserCamera.h" />
     <ClInclude Include="src\UraniumApi.h" />
-    <ClInclude Include="src\RenderEngine\SceneControl\Camera.h" />
     <ClInclude Include="src\RenderEngine\Graphics\Renderer.h" />
     <ClInclude Include="src\RenderEngine\ShaderControl\ComputeShader.h" />
     <ClInclude Include="src\RenderEngine\ShaderControl\Shader.h" />
     <ClInclude Include="src\RenderEngine\ShaderControl\ShaderProgram.h" />
-    <ClInclude Include="src\Application\Listeners\MouseListener.h" />
+    <ClInclude Include="src\Application\Listeners\MouseEventListener.h" />
     <ClInclude Include="src\Application\Listeners\WindowListener.h" />
     <ClInclude Include="src\Utils\Materials\stb_image.h" />
     <ClInclude Include="src\Utils\Materials\Texture.h" />
@@ -123,8 +124,9 @@
     <ClInclude Include="src\Application\Application.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\RenderEngine\SceneControl\Camera.cpp" />
     <ClCompile Include="src\RenderEngine\Graphics\Renderer.cpp" />
+    <ClCompile Include="src\RenderEngine\SceneControl\FPCamera.cpp" />
+    <ClCompile Include="src\RenderEngine\SceneControl\UserCamera.cpp" />
     <ClCompile Include="src\RenderEngine\ShaderControl\ComputeShader.cpp" />
     <ClCompile Include="src\Utils\Materials\Material.cpp" />
     <ClCompile Include="src\RenderEngine\ShaderControl\Shader.cpp" />

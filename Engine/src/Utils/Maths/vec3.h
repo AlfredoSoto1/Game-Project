@@ -8,7 +8,7 @@ namespace Uranium {
 	public:
 		float x, y, z;
 
-		vec3(float xyz);
+		vec3(float xyz = 0.0f);
 		vec3(float x, float y, float z);
 		vec3(const vec3& vector);
 		vec3(const vec2& vector2, float z);

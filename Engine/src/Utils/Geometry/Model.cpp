@@ -1,10 +1,9 @@
-#define UR_OPENGL
-#define UR_CONTENT_API
-#include "Engine.h"
+#define GLEW_STATIC
+#include <GL/glew.h>
 
 #include "Model.h"
-#include "Uranium/Utils/Buffers/IndexBuffer.h"
-#include "Uranium/Utils/Buffers/VertexBuffer.h"
+#include "Utils/Buffers/IndexBuffer.h"
+#include "Utils/Buffers/VertexBuffer.h"
 using namespace Uranium;
 
 Model::Model() 

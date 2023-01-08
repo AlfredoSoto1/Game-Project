@@ -1,10 +1,9 @@
-#define UR_OPENGL
-#define UR_CONTENT_API
-#include "Engine.h"
+#define GLEW_STATIC
+#include <GL/glew.h>
 
 #include <memory>
 #include "IndexBuffer.h"
-#include "Uranium/Utils/Geometry/Model.h"
+#include "Utils/Geometry/Model.h"
 using namespace Uranium;
 
 IndexBuffer::IndexBuffer(Model* _model, const unsigned int _accessFormat, const unsigned int _count, const void* _data)

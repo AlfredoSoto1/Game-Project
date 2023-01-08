@@ -15,6 +15,8 @@ using namespace std;
 #include "Application/Devices/Window.h"
 #include "Application/Settings/WindowSettings.h"
 
+#include "Application/Listeners/MouseEventListener.h"
+
 #include "Scenes/OverworldScene.h"
 #include "RenderEngine/SceneControl/Scene.h"
 
@@ -30,8 +32,6 @@ using namespace Uranium;
 
 /*
 * TODO
-*	+ Pre compiled headers and ASSERT macros
-*	+ Restore application concept with window and scene and listeners
 *	+ Camera Implementation
 *	+ Key Listener / Object
 *	+ Material and textures
@@ -71,7 +71,7 @@ public:
 	void update() {
 
 	}
-	
+
 };
 
 class MainApp : public AppProgram {

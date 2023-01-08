@@ -6,7 +6,7 @@
 #include "Application/Application.h"
 #include "Application/Settings/MouseSettings.h"
 #include "Application/Settings/WindowSettings.h"
-#include "Application/Listeners/MouseListener.h"
+#include "Application/Listeners/MouseEventListener.h"
 
 using namespace Uranium;
 
@@ -23,7 +23,7 @@ MouseSettings& Mouse::getSettings() {
 	return *settings;
 }
 
-void Mouse::setListener(MouseListener* _mouseListener) {
+void Mouse::setListener(MouseEventListener* _mouseListener) {
 	this->listener = _mouseListener;
 }
 

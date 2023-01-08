@@ -13,7 +13,7 @@ namespace Uranium {
 		vec4(const vec3& vector3, float w);
 		vec4(const vec2& vector2, float z, float w);
 		vec4(float x, float y, float z, float w);
-		vec4(float xyzw);
+		vec4(float xyzw = 0.0f);
 
 		float& operator [] (unsigned int index);
 

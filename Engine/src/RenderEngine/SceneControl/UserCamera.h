@@ -10,8 +10,11 @@
 
 namespace Uranium {
 
-	class Camera {
+	class UserCamera {
 	private:
+		bool isCameraLocked;
+
+	protected:
 		vec3 position;
 		vec3 rotation;
 		vec3 direction;
@@ -22,25 +25,18 @@ namespace Uranium {
 		double fov;
 		double nearPlane;
 		double farPlane;
-		
+
 		double xSensitivity;
 		double ySensitivity;
 
-		bool isCameraLocked;
-
+		virtual void update() = 0;
+		
 		void updateViewMatrix();
 		void updateProjectionMatrix();
 
-		void calc_camera_rotation(const double& milisecDif);
-		void calcMovementDirection(const double& milisecDif);
-
-		float getDirectionFromKey(unsigned int key1, unsigned int key2);
-
 	public:
-		Camera();
-		~Camera();
-	
-		void update() {}
-		
+		UserCamera();
+		virtual ~UserCamera();
+
 	};
 }

@@ -1,5 +1,4 @@
-#define UR_GLFW
-#include "Engine.h"
+#include <GLFW/glfw3.h>
 
 #include "MouseSettings.h"
 using namespace Uranium;

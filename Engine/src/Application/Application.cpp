@@ -1,7 +1,7 @@
-#define UR_GLFW
-#define UR_OPENGL
-#define UR_CONTENT_API
-#include "Engine.h"
+#define GLEW_STATIC
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 #include "UraniumApi.h"
 
 #include <iostream>

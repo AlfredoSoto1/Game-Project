@@ -1,6 +1,4 @@
-
-#define UR_GLFW
-#include "Engine.h"
+#include <GLFW/glfw3.h>
 
 #include "WindowSettings.h"
 using namespace Uranium;

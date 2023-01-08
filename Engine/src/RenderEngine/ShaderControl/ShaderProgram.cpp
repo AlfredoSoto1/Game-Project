@@ -1,6 +1,5 @@
-#define UR_OPENGL
-#define UR_CONTENT_API
-#include "Engine.h"
+#define GLEW_STATIC
+#include <GL/glew.h>
 
 #include "Shader.h"
 #include "ShaderProgram.h"

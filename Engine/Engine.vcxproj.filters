@@ -63,7 +63,7 @@
     <ClInclude Include="src\Utils\Geometry\Mesh_impl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Application\Listeners\MouseListener.h">
+    <ClInclude Include="src\Application\Listeners\MouseEventListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Application\Listeners\WindowListener.h">
@@ -108,10 +108,13 @@
     <ClInclude Include="src\RenderEngine\ShaderControl\ComputeShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\RenderEngine\SceneControl\Camera.h">
+    <ClInclude Include="src\UraniumApi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\UraniumApi.h">
+    <ClInclude Include="src\RenderEngine\SceneControl\UserCamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\SceneControl\FPCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -191,7 +194,10 @@
     <ClCompile Include="src\RenderEngine\ShaderControl\ComputeShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RenderEngine\SceneControl\Camera.cpp">
+    <ClCompile Include="src\RenderEngine\SceneControl\UserCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderEngine\SceneControl\FPCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

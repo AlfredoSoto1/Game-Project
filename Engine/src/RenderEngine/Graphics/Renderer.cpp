@@ -1,6 +1,6 @@
-#define UR_OPENGL
-#define UR_CONTENT_API
-#include "Engine.h"
+#define GLEW_STATIC
+#include <GL/glew.h>
+
 #include "UraniumApi.h"
 
 #include "Utils/Maths/vec2.h"

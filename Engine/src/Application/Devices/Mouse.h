@@ -3,13 +3,13 @@
 namespace Uranium {
 	class Application;
 	class MouseSettings;
-	class MouseListener;
+	class MouseEventListener;
 
 	class Mouse {
 	private:
 		friend Application;
 		MouseSettings* settings;
-		MouseListener* listener;
+		MouseEventListener* listener;
 
 		void initCallback();
 
@@ -21,6 +21,6 @@ namespace Uranium {
 
 		MouseSettings& getSettings();
 
-		void setListener(MouseListener* _mouseListener);
+		void setListener(MouseEventListener* _mouseListener);
 	};
 }

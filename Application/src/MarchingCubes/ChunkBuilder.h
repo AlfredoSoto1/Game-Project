@@ -14,9 +14,9 @@ using namespace Uranium;
 class ChunkBuilder {
 public:
 	struct Vertex {
-		vec3 position = vec3(0.0);
-		vec4 color = vec4(0.0);
-		vec2 textCoord = vec2(0.0);
+		vec3 position;
+		vec4 color;
+		vec2 textCoord;
 	};
 
 	Model* model;
