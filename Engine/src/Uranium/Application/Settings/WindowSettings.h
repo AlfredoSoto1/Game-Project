@@ -11,12 +11,10 @@ struct GLFWwindow;
 namespace Uranium {
 
 	class Window;
-	class WindowCallback;
 
 	class WindowSettings {
 	private:
 		friend class Window;
-		friend class WindowCallback;
 
 		std::string title;
 

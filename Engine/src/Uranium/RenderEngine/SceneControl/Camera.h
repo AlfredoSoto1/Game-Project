@@ -28,11 +28,19 @@ namespace Uranium {
 
 		bool isCameraLocked;
 
+		void updateViewMatrix();
+		void updateProjectionMatrix();
+
+		void calc_camera_rotation(const double& milisecDif);
+		void calcMovementDirection(const double& milisecDif);
+
+		float getDirectionFromKey(unsigned int key1, unsigned int key2);
+
 	public:
 		Camera();
 		~Camera();
 	
-		void update();
+		void update() {}
 		
 	};
 }

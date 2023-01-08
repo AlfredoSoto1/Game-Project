@@ -2,17 +2,17 @@
 #define UR_OPENGL
 #define UR_CONTENT_API
 #include "Engine.h"
+#include "UraniumApi.h"
 
 #include <iostream>
 using namespace std;
 
 #include "Application.h"
-#include "ApplicationRunner.h"
 #include "Devices/Window.h"
-#include "Devices/Device.h"
+#include "Devices/Mouse.h"
 #include "Settings/WindowSettings.h"
 #include "Uranium/RenderEngine/SceneControl/Scene.h"
-#include "Uranium/RenderEngine/SceneControl/SceneManager.h"
+#include "Uranium/Application/AppProgram.h"
 
 using namespace Uranium;
 
@@ -26,10 +26,10 @@ Application& Application::get() {
 	return *application;
 }
 
-void Application::start(ApplicationRunner* _applicationTemplate) {
+void Application::start(AppProgram* _appProgram) {
+	throw_error(_appProgram == nullptr, "No AppProgram defined for Application context.");
 	// create Application
-	Application::application = new Application();
-	Application::get().applicationTemplate = _applicationTemplate;
+	Application::application = new Application(_appProgram);
 	// run application
 	Application::get().run();
 	// end aplication
@@ -37,23 +37,32 @@ void Application::start(ApplicationRunner* _applicationTemplate) {
 }
 
 // Create Application
-Application::Application() {
+Application::Application(AppProgram* _appProgram) 
+	: appProgram(_appProgram), isRunning(false)
+{
+	mouse = nullptr;
+	window = nullptr;
 	// Initiates GLFW
 	if (!glfwInit()) {
 		isRunning = false;
-		std::cout << "GLFW couldn't initiated correctly." << std::endl;
+		print_status("GLFW couldn't initiated correctly.");
 		return;
 	}
-
 	// set default GLFW error callback
 	glfwSetErrorCallback(&error_callback);
+
+	isRunning = true;
 }
 
 // End Application
 Application::~Application() {
+	if (!isRunning)
+		return;
+	isRunning = false;
+
 	delete window;
-	delete device;
-	delete sceneManager;
+	delete mouse;
+	delete appProgram;
 
 	glfwTerminate();
 }
@@ -61,32 +70,26 @@ Application::~Application() {
 // Run Application
 void Application::run() {
 	
-	window = new Window("Default", 1280, 720);
-	device = new Device();
-	sceneManager = new SceneManager();
-
 	// initiates the application content
-	applicationTemplate->init();
-
+	window = new Window("Default", 1280, 720);
 	window->init();
-	device->init();
-	sceneManager->init();
 
-	isRunning = true;
+	// init external devices
+	mouse = new Mouse();
+	
+	// init application program
+	appProgram->init();
+
 	while (!glfwWindowShouldClose(*window)) {
-
-		applicationTemplate->run();
-
 		// update
-		sceneManager->update();
-
+		appProgram->update();
 		// reset viewport
 		if (window->getSettings().hasResized()) {
 			glViewport(0, 0, window->getSettings().getWidth(), window->getSettings().getHeight());
 		}
 
 		// draw
-		sceneManager->draw();
+		appProgram->draw();
 
 		// post processing
 
@@ -95,44 +98,24 @@ void Application::run() {
 
 		// post draw
 		window->getSettings().hasResized() = false;
-		sceneManager->afterDraw();
+		appProgram->afterDraw();
 
 		// poll events
 		glfwPollEvents();
-		device->update();
+		mouse->update();
 	}
-	isRunning = false;
+	// closes the application
+	appProgram->dispose();
 
 	// disposes everything after application has ended
-	sceneManager->dispose();
-	device->dispose();
 	window->dispose();
-
-	// closes the application
-	applicationTemplate->dispose();
 }
-
-//void Application::clearError() {
-//	while (glGetError() != GL_NO_ERROR);
-//}
-//
-//void Application::checkError() {
-//	while (GLenum error = glGetError())
-//		std::cout << "[GL ERROR]: " << error << std::endl;
-//}
 
 Window& Application::getWindow() {
 	return *window;
 }
 
-SceneManager& Application::getSceneManager() {
-	return *sceneManager;
+Mouse& Application::getMouse() {
+	return *mouse;
 }
 
-Device& Application::getDevice() {
-	return *device;
-}
-
-void Application::setCurrentScene(Scene* _scene) {
-
-}

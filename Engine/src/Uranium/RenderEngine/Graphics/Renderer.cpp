@@ -1,6 +1,7 @@
 #define UR_OPENGL
 #define UR_CONTENT_API
 #include "Engine.h"
+#include "UraniumApi.h"
 
 #include "Uranium/Utils/Maths/vec2.h"
 #include "Uranium/Utils/Maths/vec3.h"
@@ -78,29 +79,43 @@ Uniform Renderer::getUniform(const_string _name) const {
 }
 
 void Renderer::bindSampler2D(const Sampler2D& _sampler, unsigned int _samplerId) const {
+	if (_sampler < 0)
+		return;
 	glUniform1i(_sampler, _samplerId);
 }
 
 void Renderer::setVec2(Uniform _uniform, const vec2& _vec2) const {
+	if (_uniform < 0)
+		return;
 	glUniform2f(_uniform, _vec2.x, _vec2.y);
 }
 
 void Renderer::setVec3(Uniform _uniform, const vec3& _vec3) const {
+	if (_uniform < 0)
+		return;
 	glUniform3f(_uniform, _vec3.x, _vec3.y, _vec3.z);
 }
 
 void Renderer::setVec4(Uniform _uniform, const vec4& _vec4) const {
+	if (_uniform < 0)
+		return;
 	glUniform4f(_uniform, _vec4.x, _vec4.y, _vec4.z, _vec4.w);
 }
 
 void Renderer::setMat2(Uniform _uniform, mat2& _mat2) const {
+	if (_uniform < 0)
+		return;
 	glUniformMatrix2fv(_uniform, 1, GL_TRUE, _mat2);
 }
 
 void Renderer::setMat3(Uniform _uniform, mat3& _mat3) const {
+	if (_uniform < 0)
+		return;
 	glUniformMatrix3fv(_uniform, 1, GL_TRUE, _mat3);
 }
 
 void Renderer::setMat4(Uniform _uniform, mat4& _mat4) const {
+	if (_uniform < 0)
+		return;
 	glUniformMatrix4fv(_uniform, 1, GL_TRUE, _mat4);
 }

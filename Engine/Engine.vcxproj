@@ -59,6 +59,8 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\x64\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Engine\src</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -75,6 +77,8 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\x64\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Engine\src</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -85,15 +89,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine.h" />
-    <ClInclude Include="src\Uranium\Application\ApplicationRunner.h" />
+    <ClInclude Include="src\UraniumApi.h" />
     <ClInclude Include="src\Uranium\RenderEngine\SceneControl\Camera.h" />
     <ClInclude Include="src\Uranium\RenderEngine\Graphics\Renderer.h" />
-    <ClInclude Include="src\Uranium\Utils\Callbacks\ApplicationError.h" />
     <ClInclude Include="src\Uranium\RenderEngine\ShaderControl\ComputeShader.h" />
     <ClInclude Include="src\Uranium\RenderEngine\ShaderControl\Shader.h" />
     <ClInclude Include="src\Uranium\RenderEngine\ShaderControl\ShaderProgram.h" />
-    <ClInclude Include="src\Uranium\Framework\Listeners\MouseListener.h" />
-    <ClInclude Include="src\Uranium\Framework\Listeners\WindowListener.h" />
+    <ClInclude Include="src\Uranium\Application\Listeners\MouseListener.h" />
+    <ClInclude Include="src\Uranium\Application\Listeners\WindowListener.h" />
     <ClInclude Include="src\Uranium\Utils\Materials\stb_image.h" />
     <ClInclude Include="src\Uranium\Utils\Materials\Texture.h" />
     <ClInclude Include="src\Uranium\Utils\Buffers\IndexBuffer.h" />
@@ -103,9 +106,8 @@
     <ClInclude Include="src\Uranium\Utils\Geometry\Mesh.h" />
     <ClInclude Include="src\Uranium\Application\Devices\Window.h" />
     <ClInclude Include="src\Uranium\Application\Devices\Mouse.h" />
-    <ClInclude Include="src\Uranium\Application\Devices\Device.h" />
     <ClInclude Include="src\Uranium\RenderEngine\SceneControl\Scene.h" />
-    <ClInclude Include="src\Uranium\RenderEngine\SceneControl\SceneManager.h" />
+    <ClInclude Include="src\Uranium\Application\AppProgram.h" />
     <ClInclude Include="src\Uranium\Utils\Geometry\Model.h" />
     <ClInclude Include="src\Uranium\Utils\Materials\Material.h" />
     <ClInclude Include="src\Uranium\Utils\Maths\Constants.h" />
@@ -128,9 +130,8 @@
     <ClCompile Include="src\Uranium\RenderEngine\ShaderControl\Shader.cpp" />
     <ClCompile Include="src\Uranium\RenderEngine\ShaderControl\ShaderProgram.cpp" />
     <ClCompile Include="src\Uranium\Application\Devices\Mouse.cpp" />
-    <ClCompile Include="src\Uranium\Application\Devices\Device.cpp" />
     <ClCompile Include="src\Uranium\RenderEngine\SceneControl\Scene.cpp" />
-    <ClCompile Include="src\Uranium\RenderEngine\SceneControl\SceneManager.cpp" />
+    <ClCompile Include="src\Uranium\Application\AppProgram.cpp" />
     <ClCompile Include="src\Uranium\Application\Devices\Window.cpp" />
     <ClCompile Include="src\Uranium\Utils\Materials\stb_image.cpp" />
     <ClCompile Include="src\Uranium\Utils\Materials\Texture.cpp" />

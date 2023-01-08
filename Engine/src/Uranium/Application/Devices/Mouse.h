@@ -1,15 +1,13 @@
 #pragma once
 
 namespace Uranium {
-	class Device;
 	class Application;
 	class MouseSettings;
 	class MouseListener;
 
 	class Mouse {
 	private:
-		friend class Device;
-
+		friend Application;
 		MouseSettings* settings;
 		MouseListener* listener;
 

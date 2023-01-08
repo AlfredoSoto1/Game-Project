@@ -5,44 +5,37 @@
 
 namespace Uranium {
 	
+	class Mouse;
 	class Window;
-	class Device;
-	class Scene;
-	class SceneManager;
-	class ApplicationRunner;
+	class AppProgram;
 
 	class Application {
 	private:
+		friend class Mouse;
 		friend class Window;
-		friend class Device;
-		friend class SceneManager;
+		friend class AppProgram;
 
 		static Application* application;
 
-		ApplicationRunner* applicationTemplate;
-		
+		Mouse* mouse;
 		Window* window;
-		Device* device;
-		SceneManager* sceneManager;
+		AppProgram* appProgram;
 
 		bool isRunning;
 
-		Application();
+		Application(AppProgram* _appProgram);
 		virtual ~Application();
 
 		void run();
 
 	public:
 		static Application& get();
-		static void start(ApplicationRunner* _applicationTemplate);
+		static void start(AppProgram* _appProgram);
 		
 		Application(const Application&) = delete;
 		Application(const Application&&) = delete;
 
-		void setCurrentScene(Scene* _scene);
-
+		Mouse& getMouse();
 		Window& getWindow();
-		Device& getDevice();
-		SceneManager& getSceneManager();
 	};
 }

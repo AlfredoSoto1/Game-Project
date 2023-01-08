@@ -51,10 +51,7 @@
     <ClInclude Include="src\Uranium\Utils\Maths\mat4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\RenderEngine\SceneControl\SceneManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Uranium\Application\Devices\Device.h">
+    <ClInclude Include="src\Uranium\Application\AppProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Uranium\Application\Devices\Mouse.h">
@@ -66,10 +63,10 @@
     <ClInclude Include="src\Uranium\Utils\Geometry\Mesh_impl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Framework\Listeners\MouseListener.h">
+    <ClInclude Include="src\Uranium\Application\Listeners\MouseListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Framework\Listeners\WindowListener.h">
+    <ClInclude Include="src\Uranium\Application\Listeners\WindowListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Uranium\RenderEngine\ShaderControl\ShaderProgram.h">
@@ -82,9 +79,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Uranium\Utils\Geometry\Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Uranium\Utils\Callbacks\ApplicationError.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Uranium\Utils\Buffers\IndexBuffer.h">
@@ -117,7 +111,7 @@
     <ClInclude Include="src\Uranium\RenderEngine\SceneControl\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uranium\Application\ApplicationRunner.h">
+    <ClInclude Include="src\UraniumApi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -155,10 +149,7 @@
     <ClCompile Include="src\Uranium\Utils\Maths\mat4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uranium\RenderEngine\SceneControl\SceneManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Uranium\Application\Devices\Device.cpp">
+    <ClCompile Include="src\Uranium\Application\AppProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Uranium\Application\Devices\Mouse.cpp">

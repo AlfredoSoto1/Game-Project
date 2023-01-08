@@ -4,14 +4,12 @@
 #include "Engine.h"
 
 #include "Uranium/Application/Application.h"
-#include "Uranium/Application/ApplicationRunner.h"
 
 #include "Uranium/Application/Settings/WindowSettings.h"
 #include "Uranium/Application/Devices/Window.h"
 
 #include "Scenes/OverworldScene.h"
 #include "Uranium/RenderEngine/SceneControl/Scene.h"
-#include "Uranium/RenderEngine/SceneControl/SceneManager.h"
 #include "Uranium/RenderEngine/ShaderControl/Shader.h"
 #include "Uranium/RenderEngine/Graphics/Renderer.h"
 
