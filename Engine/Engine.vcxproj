@@ -60,7 +60,7 @@
       <LanguageStandard>stdcpp14</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\x64\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Engine\src</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>UraniumPch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -78,7 +78,7 @@
       <LanguageStandard>stdcpp14</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\x64\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Engine\src</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>UraniumPch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -88,29 +88,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Devices\Keyboard.h" />
     <ClInclude Include="src\Engine.h" />
-    <ClInclude Include="src\RenderEngine\SceneControl\FPCamera.h" />
-    <ClInclude Include="src\RenderEngine\SceneControl\UserCamera.h" />
+    <ClInclude Include="src\Events\InputEvent.h" />
+    <ClInclude Include="src\Gui\Cursor.h" />
+    <ClInclude Include="src\Uranium.h" />
+    <ClInclude Include="src\Scene\FPCamera.h" />
+    <ClInclude Include="src\Scene\Camera.h" />
     <ClInclude Include="src\UraniumApi.h" />
-    <ClInclude Include="src\RenderEngine\Graphics\Renderer.h" />
-    <ClInclude Include="src\RenderEngine\ShaderControl\ComputeShader.h" />
-    <ClInclude Include="src\RenderEngine\ShaderControl\Shader.h" />
-    <ClInclude Include="src\RenderEngine\ShaderControl\ShaderProgram.h" />
-    <ClInclude Include="src\Application\Listeners\MouseEventListener.h" />
-    <ClInclude Include="src\Application\Listeners\WindowListener.h" />
-    <ClInclude Include="src\Utils\Materials\stb_image.h" />
-    <ClInclude Include="src\Utils\Materials\Texture.h" />
+    <ClInclude Include="src\Renderer\Renderer.h" />
+    <ClInclude Include="src\Renderer\ComputeShader.h" />
+    <ClInclude Include="src\Renderer\Shader.h" />
+    <ClInclude Include="src\Renderer\ShaderProgram.h" />
+    <ClInclude Include="src\Events\MouseListener.h" />
+    <ClInclude Include="src\Events\WindowListener.h" />
+    <ClInclude Include="src\UraniumPch.h" />
+    <ClInclude Include="src\Vendor\stb_image.h" />
+    <ClInclude Include="src\Renderer\Texture.h" />
     <ClInclude Include="src\Utils\Buffers\IndexBuffer.h" />
     <ClInclude Include="src\Utils\Buffers\ShaderStorageBuffer.h" />
     <ClInclude Include="src\Utils\Buffers\VertexBuffer.h" />
     <ClInclude Include="src\Utils\Geometry\Mesh_impl.h" />
     <ClInclude Include="src\Utils\Geometry\Mesh.h" />
-    <ClInclude Include="src\Application\Devices\Window.h" />
-    <ClInclude Include="src\Application\Devices\Mouse.h" />
-    <ClInclude Include="src\RenderEngine\SceneControl\Scene.h" />
-    <ClInclude Include="src\Application\AppProgram.h" />
+    <ClInclude Include="src\Gui\Window.h" />
+    <ClInclude Include="src\Devices\Mouse.h" />
+    <ClInclude Include="src\Scene\Scene.h" />
+    <ClInclude Include="src\Core\AppProgram.h" />
     <ClInclude Include="src\Utils\Geometry\Model.h" />
-    <ClInclude Include="src\Utils\Materials\Material.h" />
+    <ClInclude Include="src\Renderer\Material.h" />
     <ClInclude Include="src\Utils\Maths\Constants.h" />
     <ClInclude Include="src\Utils\Maths\mat2.h" />
     <ClInclude Include="src\Utils\Maths\mat3.h" />
@@ -119,24 +124,30 @@
     <ClInclude Include="src\Utils\Maths\vec2.h" />
     <ClInclude Include="src\Utils\Maths\vec3.h" />
     <ClInclude Include="src\Utils\Maths\vec4.h" />
-    <ClInclude Include="src\Application\Settings\MouseSettings.h" />
-    <ClInclude Include="src\Application\Settings\WindowSettings.h" />
-    <ClInclude Include="src\Application\Application.h" />
+    <ClInclude Include="src\Gui\WindowSettings.h" />
+    <ClInclude Include="src\Core\Application.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\RenderEngine\Graphics\Renderer.cpp" />
-    <ClCompile Include="src\RenderEngine\SceneControl\FPCamera.cpp" />
-    <ClCompile Include="src\RenderEngine\SceneControl\UserCamera.cpp" />
-    <ClCompile Include="src\RenderEngine\ShaderControl\ComputeShader.cpp" />
-    <ClCompile Include="src\Utils\Materials\Material.cpp" />
-    <ClCompile Include="src\RenderEngine\ShaderControl\Shader.cpp" />
-    <ClCompile Include="src\RenderEngine\ShaderControl\ShaderProgram.cpp" />
-    <ClCompile Include="src\Application\Devices\Mouse.cpp" />
-    <ClCompile Include="src\RenderEngine\SceneControl\Scene.cpp" />
-    <ClCompile Include="src\Application\AppProgram.cpp" />
-    <ClCompile Include="src\Application\Devices\Window.cpp" />
-    <ClCompile Include="src\Utils\Materials\stb_image.cpp" />
-    <ClCompile Include="src\Utils\Materials\Texture.cpp" />
+    <ClCompile Include="src\Devices\Keyboard.cpp" />
+    <ClCompile Include="src\Events\InputEvent.cpp" />
+    <ClCompile Include="src\Gui\Cursor.cpp" />
+    <ClCompile Include="src\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Scene\FPCamera.cpp" />
+    <ClCompile Include="src\Scene\Camera.cpp" />
+    <ClCompile Include="src\Renderer\ComputeShader.cpp" />
+    <ClCompile Include="src\Renderer\Material.cpp" />
+    <ClCompile Include="src\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Renderer\ShaderProgram.cpp" />
+    <ClCompile Include="src\Devices\Mouse.cpp" />
+    <ClCompile Include="src\Scene\Scene.cpp" />
+    <ClCompile Include="src\Core\AppProgram.cpp" />
+    <ClCompile Include="src\Gui\Window.cpp" />
+    <ClCompile Include="src\UraniumPch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Vendor\stb_image.cpp" />
+    <ClCompile Include="src\Renderer\Texture.cpp" />
     <ClCompile Include="src\Utils\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="src\Utils\Buffers\ShaderStorageBuffer.cpp" />
     <ClCompile Include="src\Utils\Buffers\VertexBuffer.cpp" />
@@ -148,9 +159,8 @@
     <ClCompile Include="src\Utils\Maths\vec2.cpp" />
     <ClCompile Include="src\Utils\Maths\vec3.cpp" />
     <ClCompile Include="src\Utils\Maths\vec4.cpp" />
-    <ClCompile Include="src\Application\Settings\MouseSettings.cpp" />
-    <ClCompile Include="src\Application\Settings\WindowSettings.cpp" />
-    <ClCompile Include="src\Application\Application.cpp" />
+    <ClCompile Include="src\Gui\WindowSettings.cpp" />
+    <ClCompile Include="src\Core\Application.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

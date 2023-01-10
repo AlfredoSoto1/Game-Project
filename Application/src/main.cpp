@@ -1,29 +1,28 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
-#include <iostream>
-using namespace std;
-
-#define UR_OPENGL
 #include "Engine.h"
 
 #include "UraniumApi.h"
+//#include "UraniumPch.h"
 
-#include "Application/Application.h"
-#include "Application/AppProgram.h"
+#include "Core/AppProgram.h"
+#include "Core/Application.h"
 
-#include "Application/Devices/Window.h"
-#include "Application/Settings/WindowSettings.h"
+#include "Gui/Window.h"
+#include "Gui/WindowSettings.h"
+#include "Devices/Mouse.h"
 
-#include "Application/Listeners/MouseEventListener.h"
+#include "Events/MouseListener.h"
 
 #include "Scenes/OverworldScene.h"
-#include "RenderEngine/SceneControl/Scene.h"
+#include "Scene/Scene.h"
 
-#include "Utils/Materials/Material.h"
-#include "RenderEngine/Graphics/Renderer.h"
-#include "RenderEngine/SceneControl/Scene.h"
-#include "RenderEngine/ShaderControl/Shader.h"
+#include "Renderer/Material.h"
+#include "Renderer/Renderer.h"
+#include "Scene/Camera.h"
+#include "Scene/FPCamera.h"
+#include "Renderer/Shader.h"
 
 #include "MarchingCubes/ChunkBuilder.h"
 #include "MarchingCubes/ChunkRenderer.h"
@@ -32,11 +31,18 @@ using namespace Uranium;
 
 /*
 * TODO
-*	+ Camera Implementation
-*	+ Key Listener / Object
-*	+ Material and textures
+*	+ Key / mouse listener implementation
+*	+ fix and organize
+*	+ Better renderer
+*	+ camera movement
 *	+ Basic Marching cube algorithm / Displaying
 *	+ Organize code
+* 
+* Window -> and methods
+* WindowProps -> window settings
+* 
+* Mouse -> and methods
+* MouseProps -> mouse settings
 */
 
 class OverworldScene : public Scene {
@@ -44,10 +50,14 @@ private:
 	ChunkBuilder* chunkBuilder;
 	ChunkRenderer* chunkRenderer;
 
+	FPCamera* camera;
+
 public:
 	OverworldScene()
 		: Scene("Overworld")
 	{
+		camera = new FPCamera(this);
+
 		chunkRenderer = new ChunkRenderer();
 
 		chunkBuilder = new ChunkBuilder();
@@ -56,6 +66,7 @@ public:
 	~OverworldScene() {
 		delete chunkBuilder;
 		delete chunkRenderer;
+		delete camera;
 	}
 	void load() {
 
@@ -66,10 +77,10 @@ public:
 	void draw() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		//glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-		chunkRenderer->render(*chunkBuilder->model, Material());
+		chunkRenderer->render(camera, *chunkBuilder->model, Material());
 	}
 	void update() {
-
+		camera->update();
 	}
 
 };

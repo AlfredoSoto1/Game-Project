@@ -9,6 +9,9 @@
 
 #include "Utils/Geometry/Mesh.h"
 #include "Utils/Geometry/Model.h"
+
+#include "UraniumApi.h"
+
 using namespace Uranium;
 
 class ChunkBuilder {
@@ -39,6 +42,7 @@ public:
 		model = new Model();
 
 		IndexBuffer ibo(model, GL_STATIC_DRAW, mesh->indexCount(), mesh->getIndices());
+		//IndexBuffer ibo(model, GL_STATIC_DRAW, 12, indices);
 
 		VertexBuffer vbo(model, GL_STATIC_DRAW, mesh->vertexSize(), mesh->vertexCount(), mesh->getVertices());
 		vbo.push_Layout(0, 3, GL_FLOAT, 0);
@@ -49,13 +53,13 @@ public:
 	}
 
 	void buildMesh() {
-		mesh->pushBack({ vec3(-0.5f, -0.5f, -1.0f), vec4(1.0, 0.0, 0.0, 1.0) , vec2(0.0, 0.0) });
-		mesh->pushBack({ vec3( 0.5f, -0.5f, -1.0f), vec4(0.0, 1.0, 0.0, 1.0) , vec2(1.0, 0.0) });
-		mesh->pushBack({ vec3( 0.5f,  0.5f, -1.0f), vec4(0.0, 0.0, 1.0, 1.0) , vec2(1.0, 1.0) });
+		mesh->pushBack({ vec3(-0.5f, -0.5f, .0f), vec4(1.0, 0.0, 0.0, 1.0) , vec2(0.0, 0.0) });
+		mesh->pushBack({ vec3( 0.5f, -0.5f, .0f), vec4(0.0, 1.0, 0.0, 1.0) , vec2(1.0, 0.0) });
+		mesh->pushBack({ vec3( 0.5f,  0.5f, .0f), vec4(0.0, 0.0, 1.0, 1.0) , vec2(1.0, 1.0) });
 
-		mesh->pushBack({ vec3( 0.5f,  0.5f, -1.0f), vec4(1.0, 0.0, 0.0, 1.0) , vec2(1.0, 1.0) });
-		mesh->pushBack({ vec3(-0.5f,  0.5f, -1.0f), vec4(0.0, 1.0, 0.0, 1.0) , vec2(0.0, 1.0) });
-		mesh->pushBack({ vec3(-0.5f, -0.5f, -1.0f), vec4(0.0, 0.0, 1.0, 1.0) , vec2(0.0, 0.0) });
+		mesh->pushBack({ vec3( 0.5f,  0.5f, .0f), vec4(1.0, 0.0, 0.0, 1.0) , vec2(1.0, 1.0) });
+		mesh->pushBack({ vec3(-0.5f,  0.5f, .0f), vec4(0.0, 1.0, 0.0, 1.0) , vec2(0.0, 1.0) });
+		mesh->pushBack({ vec3(-0.5f, -0.5f, .0f), vec4(0.0, 0.0, 1.0, 1.0) , vec2(0.0, 0.0) });
 
 		mesh->fit();
 	}

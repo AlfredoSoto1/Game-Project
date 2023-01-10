@@ -9,14 +9,13 @@
 
 using namespace std;
 
-#include "Uranium/Application/Application.h"
-#include "Uranium/Application/Devices/Window.h"
-#include "Uranium/Application/Settings/WindowSettings.h"
-#include "Uranium/Application/Listeners/WindowListener.h"
+#include "Core/Application.h"
+#include "Events/WindowListener.h"
+
+#include "Window.h"
+#include "WindowSettings.h"
 
 using namespace Uranium;
-
-#define TO_APPLICATION(x) *static_cast<Application*>(glfwGetWindowUserPointer(x));
 
 Window::Window(const char* _title, unsigned int _width, unsigned int _height) 
 {
@@ -107,8 +106,6 @@ void Window::init() {
 	}
 	glViewport(0, 0, settings->getWidth(), settings->getHeight());
 
-	glfwSetWindowUserPointer(winPtr, &Application::get());
-
 	initCallback();
 }
 
@@ -117,74 +114,57 @@ void Window::init() {
 */
 void Window::dispose() {
 	glfwDestroyWindow(winPtr);
-	glfwTerminate(); 
 }
 
 void Window::initCallback() {
 	auto positionCallback = [](GLFWwindow* winPtr, int xpos, int ypos) {
-		Application& app = TO_APPLICATION(winPtr);
-		app.getWindow().getSettings().changePosition(xpos, ypos);
-
-		if (app.getWindow().listener != nullptr) {
-			app.getWindow().listener->windowMoved(xpos, ypos);
-		}
+		Window& window = Application::get().getWindow();
+		window.getSettings().changePosition(xpos, ypos);
+		if (window.listener != nullptr)
+			window.listener->windowMoved(xpos, ypos);
 	};
 
 	auto sizeCallback = [](GLFWwindow* winPtr, int width, int height) {
-		Application& app = TO_APPLICATION(winPtr);
-		app.getWindow().getSettings().changeSize(width, height);
-
-		if (app.getWindow().listener != nullptr) {
-			app.getWindow().listener->windowSize(width, height);
-		}
+		Window& window = Application::get().getWindow();
+		window.getSettings().changeSize(width, height);
+		if (window.listener != nullptr)
+			window.listener->windowSize(width, height);
 	};
 
 	auto closeCallback = [](GLFWwindow* winPtr) {
-		Application& app = TO_APPLICATION(winPtr);
-
-		if (app.getWindow().listener != nullptr) {
-			app.getWindow().listener->windowClosed();
-		}
+		Window& window = Application::get().getWindow();
+		if (window.listener != nullptr)
+			window.listener->windowClosed();
 	};
 
 	auto focusCallback = [](GLFWwindow* winPtr, int isFocused) {
-		Application& app = TO_APPLICATION(winPtr);
-
-		if (app.getWindow().listener != nullptr) {
-			app.getWindow().listener->windowFocused(isFocused > 0 ? true : false);
-		}
+		Window& window = Application::get().getWindow();
+		if (window.listener != nullptr)
+			window.listener->windowFocused(isFocused > 0 ? true : false);
 	};
 
 	auto iconifyCallback = [](GLFWwindow* winPtr, int isIconified) {
-		Application& app = TO_APPLICATION(winPtr);
-
-		if (app.getWindow().listener != nullptr) {
-			app.getWindow().listener->windowIconified(isIconified > 0 ? true : false);
-		}
+		Window& window = Application::get().getWindow();
+		if (window.listener != nullptr)
+			window.listener->windowIconified(isIconified > 0 ? true : false);
 	};
 
 	auto maximizeCallback = [](GLFWwindow* winPtr, int isMaximized) {
-		Application& app = TO_APPLICATION(winPtr);
-
-		if (app.getWindow().listener != nullptr) {
-			app.getWindow().listener->windowMaximized(isMaximized > 0 ? true : false);
-		}
+		Window& window = Application::get().getWindow();
+		if (window.listener != nullptr)
+			window.listener->windowMaximized(isMaximized > 0 ? true : false);
 	};
 
 	auto refreshCallback = [](GLFWwindow* winPtr) {
-		Application& app = TO_APPLICATION(winPtr);
-
-		if (app.getWindow().listener != nullptr) {
-			app.getWindow().listener->windowRefresh();
-		}
+		Window& window = Application::get().getWindow();
+		if (window.listener != nullptr)
+			window.listener->windowRefresh();
 	};
 
 	auto frameBufferSizeCallback = [](GLFWwindow* winPtr, int width, int height) {
-		Application& app = TO_APPLICATION(winPtr);
-
-		if (app.getWindow().listener != nullptr) {
-			app.getWindow().listener->windowFrameBufferSize(width, height);
-		}
+		Window& window = Application::get().getWindow();
+		if (window.listener != nullptr)
+			window.listener->windowFrameBufferSize(width, height);
 	};
 
 	//sets the corresponding callback to GLFW

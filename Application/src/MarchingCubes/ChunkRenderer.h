@@ -2,18 +2,22 @@
 
 #define UR_OPENGL
 #include "Engine.h"
+#include "UraniumApi.h"
 
-#include "Application/Application.h"
+#include "Core/Application.h"
 
-#include "Application/Settings/WindowSettings.h"
-#include "Application/Devices/Window.h"
+#include "Gui/Window.h"
+#include "Gui/WindowSettings.h"
 
 #include "Scenes/OverworldScene.h"
-#include "RenderEngine/SceneControl/Scene.h"
-#include "RenderEngine/ShaderControl/Shader.h"
-#include "RenderEngine/Graphics/Renderer.h"
+#include "Scene/Camera.h"
+#include "Scene/Scene.h"
+#include "Renderer/Shader.h"
+#include "Renderer/ShaderProgram.h"
+#include "Renderer/Renderer.h"
 
-#include "Utils/Materials/Texture.h"
+#include "Renderer/Texture.h"
+#include "Utils/Maths/Operation.h"
 
 using namespace Uranium;
 
@@ -21,28 +25,48 @@ class ChunkRenderer : public Renderer {
 private:
 	Texture* texture;
 
+	Sampler2D sampler;
+
 	Uniform color;
+	Uniform viewMatrix;
+	Uniform projectionMatrix;
+	Uniform transformationMatrix;
+
+	mat4 transformMat;
 public:
 	ChunkRenderer()
 		: Renderer(Shader(GL_VERTEX_SHADER, "src/testV.glsl"), Shader(GL_FRAGMENT_SHADER, "src/testF.glsl"))
 	{
 
 		texture = new Texture("src/Texture.png");
+		
+		shader->bind();
+		preProcessShader();
+		shader->unbind();
+
+		transform(&transformMat, vec3(0.0, 0.0, 0.0), vec3(0.0), vec3(1.0));
+
 	}
 
 	~ChunkRenderer() {
 		delete texture;
 	}
 
-	void preProcessShader() override {
+	void preProcessShader() {
 		color = getUniform("u_Color");
+		viewMatrix = getUniform("viewMatrix");
+		projectionMatrix = getUniform("projectionMatrix");
+		transformationMatrix = getUniform("transformationMatrix");
 
-		Sampler2D sampler = getSampler2D("grass");
+		sampler = getSampler2D("grass");
 		bindSampler2D(sampler, 0);
 	}
 
-	void updateModifierUniforms() {
+	void updateModifierUniforms(Camera* _camera) {
 		setVec4(color, { 1.0, 0.0, 0.0, 1.0 });
+		setMat4(viewMatrix, _camera->getViewMatrix());
+		setMat4(projectionMatrix, _camera->getProjectionMatrix());
+		setMat4(transformationMatrix, transformMat);
 	}
 
 	void processShader(const Model& _model, const Material& _material) {

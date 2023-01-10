@@ -9,6 +9,8 @@
 #define print_status(status) std::cout << status  << std::endl
 
 
+#ifdef OPENGL_DEBUG
+
 #define GLEW_STATIC
 #include <GL/glew.h>
 
@@ -29,6 +31,8 @@ static bool check_OpenGL_error() {
 #define clear_OpenGLError() clear_OpenGL_error()
 #define check_OpenGLError() check_OpenGL_error()
 //#define check_OpenGLError() if (check_OpenGL_error(__FILE__, __LINE__)) {__debugbreak();}
+
+#endif
 
 #else
 

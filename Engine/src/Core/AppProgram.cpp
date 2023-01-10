@@ -2,7 +2,7 @@
 
 #include <string>
 #include "UraniumApi.h"
-#include "RenderEngine/SceneControl/Scene.h"
+#include "Scene/Scene.h"
 using namespace Uranium;
 
 AppProgram::AppProgram()

@@ -2,7 +2,7 @@
 #include <GL/glew.h>
 
 #include "Texture.h"
-#include "stb_image.h"
+#include "vendor/stb_image.h"
 
 using namespace Uranium;
 

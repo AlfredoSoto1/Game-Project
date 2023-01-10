@@ -1,6 +1,6 @@
 //#shader fragment
-#version 460 core
-//#version 330 core
+//#version 460 core
+#version 330 core
 
 layout(location = 0) out vec4 color;
 
@@ -18,4 +18,6 @@ void main(void) {
 	color = pass_color;
 
 	color = textColor;
+
+//	color = u_Color;
 }

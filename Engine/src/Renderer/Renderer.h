@@ -13,20 +13,20 @@ namespace Uranium {
 
 	class Model;
 	class Shader;
+	class Camera;
 	class Material;
 	class ShaderProgram;
 
 	class Renderer {
 	private:
-		ShaderProgram* shader;
 
 		bool isWireframe;
 
 	protected:
-		virtual void updateModifierUniforms() = 0;
+		virtual void updateModifierUniforms(Camera* _camera) = 0;
 		virtual void processShader(const Model& _model, const Material& _material) = 0;
 
-		virtual void preProcessShader();
+		virtual void preProcessShader() = 0;
 
 		void draw(const Model& _model);
 
@@ -47,9 +47,10 @@ namespace Uranium {
 		void setMat4(Uniform _uniform, mat4& _mat4) const;
 
 	public:
+		ShaderProgram* shader;
 		Renderer(const Shader& _vert, const Shader& _frag);
 		virtual ~Renderer();
 
-		void render(const Model& _model, const Material& _material);
+		void render(Camera* _camera, const Model& _model, const Material& _material);
 	};
 }

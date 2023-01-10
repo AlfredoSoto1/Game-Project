@@ -13,19 +13,16 @@
 
 #include "Renderer.h"
 #include "Utils/Geometry/Model.h"
-#include "Utils/Materials/Material.h"
-#include "RenderEngine/ShaderControl/Shader.h"
-#include "RenderEngine/ShaderControl/ShaderProgram.h"
+#include "Renderer/Material.h"
+#include "Scene/Camera.h"
+#include "Renderer/Shader.h"
+#include "Renderer/ShaderProgram.h"
 using namespace Uranium;
 
 Renderer::Renderer(const Shader& _vert, const Shader& _frag) {
 	isWireframe = false;
 
 	shader = new ShaderProgram(_vert, _frag);
-
-	shader->bind();
-	preProcessShader();
-	shader->unbind();
 }
 
 Renderer::~Renderer() {
@@ -38,10 +35,6 @@ void Renderer::showWireframe() {
 
 void Renderer::hideWireframe() {
 	isWireframe = false;
-}
-
-void Renderer::preProcessShader() {
-
 }
 
 void Renderer::draw(const Model& _model) {
@@ -59,15 +52,16 @@ void Renderer::draw(const Model& _model) {
 	glDisable(GL_DEPTH_TEST);
 }
 
-void Renderer::render(const Model& _model, const Material& _material) {
+void Renderer::render(Camera* _camera, const Model& _model, const Material& _material) {
 	// bind Shader Program
-	glUseProgram(*shader);
+	shader->bind();
 	
 	// update uniforms
-	updateModifierUniforms();
+	updateModifierUniforms(_camera);
 
 	// render
 	processShader(_model, _material);
+	shader->unbind();
 }
 
 Sampler2D Renderer::getSampler2D(const_string _name) const {

@@ -36,6 +36,8 @@ namespace Uranium {
 		virtual void reset();
 
 		bool isWaiting();
+		bool hasToChangeScene();
+		void changeScene(bool _changeScene_Requested);
 
 		void wait();
 		void resume();
@@ -46,16 +48,13 @@ namespace Uranium {
 		Scene(const std::string& _name);
 		virtual ~Scene();
 
-		bool hasToChangeScene();
 		inline short unlimitedFramerate();
+		volatile double getTimeInstance();
 
 		std::string& getName();
 		std::string& getNextScene();
 
-		void changeScene(bool _changeScene_Requested);
-		void setNextScene(const std::string& _sceneID);
-
 		void setTargetFPS(short _FPS);
-		
+		void setNextScene(const std::string& _sceneID);
 	};
 }

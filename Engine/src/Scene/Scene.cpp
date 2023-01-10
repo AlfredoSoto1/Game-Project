@@ -32,6 +32,10 @@ short Scene::unlimitedFramerate() {
 	return 0;
 }
 
+volatile double Scene::getTimeInstance() {
+	return lastTimeDifference;
+}
+
 std::string& Scene::getNextScene() {
 	return nextScene;
 }

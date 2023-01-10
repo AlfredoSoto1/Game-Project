@@ -7,12 +7,13 @@
 #include <iostream>
 using namespace std;
 
+#include "AppProgram.h"
 #include "Application.h"
-#include "Devices/Window.h"
+#include "Gui/Window.h"
+#include "Gui/WindowSettings.h"
+#include "Scene/Scene.h"
 #include "Devices/Mouse.h"
-#include "Settings/WindowSettings.h"
-#include "RenderEngine/SceneControl/Scene.h"
-#include "Application/AppProgram.h"
+#include "Devices/Keyboard.h"
 
 using namespace Uranium;
 
@@ -60,8 +61,9 @@ Application::~Application() {
 		return;
 	isRunning = false;
 
-	delete window;
 	delete mouse;
+	delete keyboard;
+	delete window;
 	delete appProgram;
 
 	glfwTerminate();
@@ -74,8 +76,11 @@ void Application::run() {
 	window = new Window("Default", 1280, 720);
 	window->init();
 
+	glfwSetWindowUserPointer(getWindow(), this);
+
 	// init external devices
-	mouse = new Mouse();
+	mouse = new Mouse(window);
+	keyboard = new Keyboard(window);
 	
 	// init application program
 	appProgram->init();
@@ -102,7 +107,9 @@ void Application::run() {
 
 		// poll events
 		glfwPollEvents();
+
 		mouse->update();
+		keyboard->update();
 	}
 	// closes the application
 	appProgram->dispose();
@@ -117,5 +124,9 @@ Window& Application::getWindow() {
 
 Mouse& Application::getMouse() {
 	return *mouse;
+}
+
+Keyboard& Application::getKeyboard() {
+	return *keyboard;
 }
 
