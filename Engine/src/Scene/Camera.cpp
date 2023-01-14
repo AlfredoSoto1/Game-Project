@@ -31,24 +31,20 @@ Camera::~Camera() {
 
 }
 
-mat4& Camera::getViewMatrix() {
+const mat4& Camera::getViewMatrix() const {
 	return viewMatrix;
 }
 
-mat4& Camera::getProjectionMatrix() {
+const mat4& Camera::getProjectionMatrix() const {
 	return projectionMatrix;
 }
 
-vec3& Camera::getRotation() {
+const vec3& Camera::getRotation() const {
 	return rotation;
 }
 
-vec3& Camera::getPosition() {
+const vec3& Camera::getPosition() const {
 	return position;
-}
-
-vec3& Camera::getDirection() {
-	return direction;
 }
 
 void Camera::setViewMatrix(const mat4& _matrix) {
@@ -65,10 +61,6 @@ void Camera::setRotation(const vec3& _rotation) {
 
 void Camera::setPosition(const vec3& _position) {
 	position = _position;
-}
-
-void Camera::setDirection(const vec3& _direction) {
-	direction = _direction;
 }
 
 void Camera::updateViewport(unsigned int _x, unsigned int _y, unsigned int _width, unsigned int _height) {
@@ -90,4 +82,14 @@ void Camera::updateViewMatrix() {
 	rotate(viewMatrix, &viewMatrix, toRadians(rotation.y), vec3(0, 1, 0));
 	//translate matrix relative to camera position
 	translate(viewMatrix, &viewMatrix, -position);
+}
+
+void Camera::staticUniforms(unsigned int _program) {
+	u_view = getUniform(_program, "viewMatrix");
+	u_projection = getUniform(_program, "projectionMatrix");
+}
+
+void Camera::updateUniforms(unsigned int _program) {
+	setMat4(u_view, viewMatrix);
+	setMat4(u_projection, projectionMatrix);
 }

@@ -1,16 +1,38 @@
 #pragma once
 
-#define UR_CONTENT_API
-#include "Engine.h"
+#include "UraniumApi.h"
 
 namespace Uranium {
 
-	class Shader;
-	class Renderer;
+	struct vec2;
+	struct vec3;
+	struct vec4;
 
-	class ShaderProgram { 
+	struct mat2;
+	struct mat3;
+	struct mat4;
+
+	class Camera;
+
+	class ShaderProgram {
+	public:
+		ShaderProgram(const char* _vertexPath, const char* _fragmentPath);
+		virtual ~ShaderProgram();
+
+		operator unsigned int() const;
+
+		void bind() const;
+		void unbind() const;
+
+	protected:
+		virtual void updateUniforms(Camera* _camera) = 0;
+		virtual void initStaticUniforms() = 0;
+		
+		void dispatchCompute(unsigned int _groupX, unsigned int _groupY, unsigned int _groupZ, unsigned int _barrier) const;
+
 	private:
-		friend class Renderer;
+		friend class ModelRenderer;
+		friend class BatchRenderer;
 
 		unsigned int program;
 		unsigned int compShader;
@@ -22,17 +44,9 @@ namespace Uranium {
 		int workGroupMaxSize[3];
 		int workGroupMaxCount[3];
 
-	public:
-		ShaderProgram(const Shader& _compShader);
-		ShaderProgram(const Shader& _vertShader, const Shader& _fragShader);
+		void source_toString(const char* _path, std::string* shaderSource);
 
-		virtual ~ShaderProgram();
-
-		operator unsigned int() const;
-
-		void bind() const;
-		void unbind() const;
-
-		void dispatchCompute(unsigned int _groupX, unsigned int _groupY, unsigned int _groupZ, unsigned int _barrier) const;
+		unsigned int compile(unsigned int _shaderType, std::string& _shaderSource);
+		unsigned int createShader(unsigned int _shaderType, const char* _path);
 	};
 }

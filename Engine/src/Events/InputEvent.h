@@ -8,12 +8,7 @@ namespace Uranium {
 	class InputEvent {
 	private:
 
-	protected:
-		InputEvent();
-
 	public:
-		virtual ~InputEvent();
-
 		Mouse& getMouse();
 		Keyboard& getKeyboard();
 		

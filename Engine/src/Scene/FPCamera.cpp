@@ -18,6 +18,10 @@ FPCamera::FPCamera(Scene* _currentScene)
 	: Camera(_currentScene)
 {
 	timeFactor = 0.0;
+
+	xTraslation = 0.0;
+	yTraslation = 0.0;
+
 	responceTime = 1000.0; // miliseconds
 	xSensitivity = 15.; // 100%
 	ySensitivity = 15.; // 100%

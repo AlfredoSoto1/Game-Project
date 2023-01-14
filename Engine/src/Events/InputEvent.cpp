@@ -4,14 +4,6 @@
 
 using namespace Uranium;
 
-InputEvent::InputEvent() {
-
-}
-
-InputEvent::~InputEvent() {
-
-}
-
 Mouse& InputEvent::getMouse() {
 	return Application::get().getMouse();
 }

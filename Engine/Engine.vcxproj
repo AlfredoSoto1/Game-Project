@@ -57,7 +57,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);UR_API_CONTENT;UR_API_CONTENT</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\x64\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Engine\src</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>UraniumPch.h</PrecompiledHeaderFile>
@@ -75,7 +75,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);UR_API_CONTENT;UR_API_CONTENT</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\x64\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Engine\src</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>UraniumPch.h</PrecompiledHeaderFile>
@@ -88,19 +88,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Core\Loader.h" />
     <ClInclude Include="src\Devices\Keyboard.h" />
-    <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Events\InputEvent.h" />
     <ClInclude Include="src\Gui\Cursor.h" />
-    <ClInclude Include="src\Uranium.h" />
+    <ClInclude Include="src\Renderer\AccesibleShader.h" />
+    <ClInclude Include="src\Renderer\Asset.h" />
+    <ClInclude Include="src\Renderer\BatchRenderer.h" />
+    <ClInclude Include="src\Renderer\Image.h" />
+    <ClInclude Include="src\Renderer\ModelRenderer.h" />
+    <ClInclude Include="src\Scene\RigidBody.h" />
+    <ClInclude Include="src\Scene\Entity.h" />
     <ClInclude Include="src\Scene\FPCamera.h" />
     <ClInclude Include="src\Scene\Camera.h" />
     <ClInclude Include="src\UraniumApi.h" />
-    <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Renderer\ComputeShader.h" />
-    <ClInclude Include="src\Renderer\Shader.h" />
     <ClInclude Include="src\Renderer\ShaderProgram.h" />
-    <ClInclude Include="src\Events\MouseListener.h" />
     <ClInclude Include="src\Events\WindowListener.h" />
     <ClInclude Include="src\UraniumPch.h" />
     <ClInclude Include="src\Vendor\stb_image.h" />
@@ -126,19 +129,25 @@
     <ClInclude Include="src\Utils\Maths\vec4.h" />
     <ClInclude Include="src\Gui\WindowSettings.h" />
     <ClInclude Include="src\Core\Application.h" />
+    <ClInclude Include="src\Vendor\stb_image_write.h" />
+    <ClInclude Include="src\Vendor\stb_perlin.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Devices\Keyboard.cpp" />
     <ClCompile Include="src\Events\InputEvent.cpp" />
     <ClCompile Include="src\Gui\Cursor.cpp" />
-    <ClCompile Include="src\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Renderer\AccesibleShader.cpp" />
+    <ClCompile Include="src\Renderer\Asset.cpp" />
+    <ClCompile Include="src\Renderer\BatchRenderer.cpp" />
+    <ClCompile Include="src\Renderer\ModelRenderer.cpp" />
+    <ClCompile Include="src\Scene\Entity.cpp" />
     <ClCompile Include="src\Scene\FPCamera.cpp" />
     <ClCompile Include="src\Scene\Camera.cpp" />
     <ClCompile Include="src\Renderer\ComputeShader.cpp" />
     <ClCompile Include="src\Renderer\Material.cpp" />
-    <ClCompile Include="src\Renderer\Shader.cpp" />
     <ClCompile Include="src\Renderer\ShaderProgram.cpp" />
     <ClCompile Include="src\Devices\Mouse.cpp" />
+    <ClCompile Include="src\Scene\RigidBody.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\Core\AppProgram.cpp" />
     <ClCompile Include="src\Gui\Window.cpp" />

@@ -1,6 +1,8 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
+#include "UraniumApi.h"
+
 #include "Model.h"
 #include "Utils/Buffers/IndexBuffer.h"
 #include "Utils/Buffers/VertexBuffer.h"

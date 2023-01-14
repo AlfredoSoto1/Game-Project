@@ -1,8 +1,5 @@
 #pragma once
 
-#define UR_CONTENT_API
-#include "Engine.h"
-
 namespace Uranium {
 	class Model;
 

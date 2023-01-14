@@ -57,7 +57,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>Default</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\x64\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Engine\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>UraniumPch.h</PrecompiledHeaderFile>
@@ -78,7 +78,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>Default</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\x64\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Engine\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>UraniumPch.h</PrecompiledHeaderFile>
@@ -109,6 +109,7 @@
   <ItemGroup>
     <ClInclude Include="src\MarchingCubes\ChunkBuilder.h" />
     <ClInclude Include="src\MarchingCubes\ChunkRenderer.h" />
+    <ClInclude Include="src\MarchingCubes\ChunkShader.h" />
     <ClInclude Include="src\MarchingCubes\ComputeShader.h" />
     <ClInclude Include="src\Scenes\OverworldScene.h" />
   </ItemGroup>

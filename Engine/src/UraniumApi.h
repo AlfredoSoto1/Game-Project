@@ -8,17 +8,15 @@
 #define compile_error(message) static_assert(false, message)
 #define print_status(status) std::cout << status  << std::endl
 
+#define print_warning(condition, message) if(condition) std::cout << message << std::endl
 
-#ifdef OPENGL_DEBUG
+#ifdef CATCH_OPENGL_ERROR
 
-#define GLEW_STATIC
-#include <GL/glew.h>
-
-static void clear_OpenGL_error() {
+static void removePreviousErrors() {
 	while (glGetError() != GL_NO_ERROR);
 }
 
-static bool check_OpenGL_error() {
+static bool printGLIfAnyError() {
 	bool hadError = false;
 	while (GLenum error = glGetError()) {
 		print_status("[OPENGL ERROR]: <" << error << ">");
@@ -28,10 +26,12 @@ static bool check_OpenGL_error() {
 	return hadError;
 }
 
-#define clear_OpenGLError() clear_OpenGL_error()
-#define check_OpenGLError() check_OpenGL_error()
-//#define check_OpenGLError() if (check_OpenGL_error(__FILE__, __LINE__)) {__debugbreak();}
+#define clearGLErrors() removePreviousErrors()
+#define throw_GL_Errors() if (printGLIfAnyError(__FILE__, __LINE__)) {__debugbreak();}
 
+#else
+#define clearGLErrors()
+#define throw_GL_Errors()
 #endif
 
 #else
@@ -39,7 +39,14 @@ static bool check_OpenGL_error() {
 #define throw_error(condition, message)
 #define compile_error(message)
 #define print_status(status)
-#define check_OpenGLError()
-#define clear_OpenGLError()
+
+#define print_warning(condition, message)
+
+#define clearGLErrors()
+#define throw_GL_Errors()
 
 #endif
+
+typedef int Sampler;
+typedef int Uniform;
+
