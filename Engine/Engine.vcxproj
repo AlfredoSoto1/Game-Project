@@ -94,7 +94,7 @@
     <ClInclude Include="src\Gui\Cursor.h" />
     <ClInclude Include="src\Renderer\AccesibleShader.h" />
     <ClInclude Include="src\Renderer\Asset.h" />
-    <ClInclude Include="src\Renderer\BatchRenderer.h" />
+    <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Renderer\Image.h" />
     <ClInclude Include="src\Renderer\ModelRenderer.h" />
     <ClInclude Include="src\Scene\RigidBody.h" />
@@ -138,7 +138,7 @@
     <ClCompile Include="src\Gui\Cursor.cpp" />
     <ClCompile Include="src\Renderer\AccesibleShader.cpp" />
     <ClCompile Include="src\Renderer\Asset.cpp" />
-    <ClCompile Include="src\Renderer\BatchRenderer.cpp" />
+    <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Renderer\ModelRenderer.cpp" />
     <ClCompile Include="src\Scene\Entity.cpp" />
     <ClCompile Include="src\Scene\FPCamera.cpp" />

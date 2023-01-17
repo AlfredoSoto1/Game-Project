@@ -14,7 +14,7 @@ namespace Uranium {
 
 	public:
 		Texture(const char* _path);
-		~Texture();
+		virtual ~Texture();
 
 		void bind(unsigned int _slot = 0) const;
 		void unbind() const;

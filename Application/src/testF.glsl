@@ -9,15 +9,15 @@ in vec2 pass_position;
 
 uniform vec4 u_Color;
 
-uniform sampler2D grass;
+uniform sampler2D albedo;
 
 void main(void) {
 	
-	vec4 textColor = texture(grass, pass_position);
+	vec4 textColor = texture(albedo, pass_position);
 
 	color = pass_color;
 
-	color = textColor;
+//	color = textColor;
 
 //	color = u_Color;
 }

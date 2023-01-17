@@ -129,7 +129,7 @@
     <ClInclude Include="src\Renderer\ModelRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\BatchRenderer.h">
+    <ClInclude Include="src\Renderer\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\Entity.h">
@@ -233,7 +233,7 @@
     <ClCompile Include="src\Renderer\ModelRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\BatchRenderer.cpp">
+    <ClCompile Include="src\Renderer\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\Entity.cpp">

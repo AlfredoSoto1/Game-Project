@@ -31,19 +31,19 @@ Camera::~Camera() {
 
 }
 
-const mat4& Camera::getViewMatrix() const {
+mat4& Camera::getViewMatrix() {
 	return viewMatrix;
 }
 
-const mat4& Camera::getProjectionMatrix() const {
+mat4& Camera::getProjectionMatrix() {
 	return projectionMatrix;
 }
 
-const vec3& Camera::getRotation() const {
+vec3& Camera::getRotation() {
 	return rotation;
 }
 
-const vec3& Camera::getPosition() const {
+vec3& Camera::getPosition() {
 	return position;
 }
 
@@ -82,14 +82,4 @@ void Camera::updateViewMatrix() {
 	rotate(viewMatrix, &viewMatrix, toRadians(rotation.y), vec3(0, 1, 0));
 	//translate matrix relative to camera position
 	translate(viewMatrix, &viewMatrix, -position);
-}
-
-void Camera::staticUniforms(unsigned int _program) {
-	u_view = getUniform(_program, "viewMatrix");
-	u_projection = getUniform(_program, "projectionMatrix");
-}
-
-void Camera::updateUniforms(unsigned int _program) {
-	setMat4(u_view, viewMatrix);
-	setMat4(u_projection, projectionMatrix);
 }

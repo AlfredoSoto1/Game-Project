@@ -45,13 +45,19 @@ using namespace Uranium;
 ShaderProgram::ShaderProgram(const char* _vertexPath, const char* _fragmentPath)
 	: compShader(0)
 {
+	// create shader program
 	program = glCreateProgram();
 
+	// create individual shaders
 	vertShader = createShader(GL_VERTEX_SHADER, _vertexPath);
 	fragShader = createShader(GL_FRAGMENT_SHADER, _fragmentPath);
 
+	// link and validate program
 	glLinkProgram(program);
 	glValidateProgram(program);
+
+	// prepare uniforms automatically
+	prepareUniforms();
 }
 
 ShaderProgram::~ShaderProgram() {
@@ -73,16 +79,16 @@ ShaderProgram::~ShaderProgram() {
 	glDeleteProgram(program);
 }
 
-unsigned int ShaderProgram::createShader(unsigned int _shaderType, const char* _path) {
-	std::string shaderSourceCode;
-	source_toString(_path, &shaderSourceCode);
-	unsigned int shaderId = compile(_shaderType, shaderSourceCode);
-	glAttachShader(program, shaderId);
-	return shaderId;
-}
-
 ShaderProgram::operator unsigned int() const {
 	return program;
+}
+
+std::unordered_map<std::string, std::pair<int, unsigned int>>& ShaderProgram::getUniformFlags() {
+	return uniformFlags;
+}
+
+std::unordered_map<std::string, std::pair<int, unsigned int>>& ShaderProgram::getUniformSamplers() {
+	return uniformSamplers;
 }
 
 void ShaderProgram::bind() const {
@@ -104,7 +110,15 @@ void ShaderProgram::dispatchCompute(unsigned int _groupX, unsigned int _groupY, 
 	unbind();
 }
 
-void ShaderProgram::source_toString(const char* _path, std::string* _shaderSource) {
+unsigned int ShaderProgram::createShader(unsigned int _shaderType, const char* _path) {
+	std::string shaderSourceCode;
+	sourceToString(_path, &shaderSourceCode);
+	unsigned int shaderId = compile(_shaderType, shaderSourceCode);
+	glAttachShader(program, shaderId);
+	return shaderId;
+}
+
+void ShaderProgram::sourceToString(const char* _path, std::string* _shaderSource) {
 	std::ifstream file;
 	file.open(_path, std::ios::in);
 
@@ -162,4 +176,31 @@ unsigned int ShaderProgram::compile(unsigned int _shaderType, std::string& _shad
 	glDeleteShader(shaderId);
 
 	return 0; // default shader bound ID (0) error
+}
+
+void ShaderProgram::prepareUniforms() {
+
+	// get current active uniforms
+	int uniformCount;
+	glGetProgramiv(program, GL_ACTIVE_UNIFORMS, &uniformCount);
+
+	// gets max length of uniform name in program
+	int maxCharLength;
+	glGetProgramiv(program, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxCharLength);
+
+	char* name = (char*)alloca(maxCharLength * sizeof(char));
+	int size;
+	int length;
+	unsigned int type;
+
+	// get uniform location, uniform name and type
+	for (int i = 0; i < uniformCount; i++) {
+		glGetActiveUniform(program, (unsigned int)i, maxCharLength, &length, &size, &type, name);
+		if (type == GL_SAMPLER_2D) {
+			uniformSamplers[name] = { glGetUniformLocation(program, name), type };
+		}
+		else {
+			uniformFlags[name] = { glGetUniformLocation(program, name), type };
+		}
+	}
 }

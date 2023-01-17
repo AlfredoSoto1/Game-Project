@@ -27,7 +27,7 @@ static bool printGLIfAnyError() {
 }
 
 #define clearGLErrors() removePreviousErrors()
-#define throw_GL_Errors() if (printGLIfAnyError(__FILE__, __LINE__)) {__debugbreak();}
+#define throw_GL_Errors() if (printGLIfAnyError()) {__debugbreak();}
 
 #else
 #define clearGLErrors()

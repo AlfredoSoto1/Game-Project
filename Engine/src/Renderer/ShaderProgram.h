@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+#include <unordered_map>
 #include "UraniumApi.h"
 
 namespace Uranium {
@@ -24,29 +26,35 @@ namespace Uranium {
 		void bind() const;
 		void unbind() const;
 
+		std::unordered_map<std::string, std::pair<int, unsigned int>>& getUniformFlags();
+		std::unordered_map<std::string, std::pair<int, unsigned int>>& getUniformSamplers();
+
 	protected:
-		virtual void updateUniforms(Camera* _camera) = 0;
+		virtual void updateUniforms() = 0;
 		virtual void initStaticUniforms() = 0;
 		
 		void dispatchCompute(unsigned int _groupX, unsigned int _groupY, unsigned int _groupZ, unsigned int _barrier) const;
 
 	private:
-		friend class ModelRenderer;
-		friend class BatchRenderer;
-
 		unsigned int program;
 		unsigned int compShader;
 		unsigned int vertShader;
 		unsigned int fragShader;
+
+		std::unordered_map<std::string, std::pair<int, unsigned int>> uniformFlags;
+		std::unordered_map<std::string, std::pair<int, unsigned int>> uniformSamplers;
 
 		int workGroupInvocations;
 
 		int workGroupMaxSize[3];
 		int workGroupMaxCount[3];
 
-		void source_toString(const char* _path, std::string* shaderSource);
+		void sourceToString(const char* _path, std::string* shaderSource);
 
 		unsigned int compile(unsigned int _shaderType, std::string& _shaderSource);
 		unsigned int createShader(unsigned int _shaderType, const char* _path);
+
+		void prepareUniforms();
+
 	};
 }

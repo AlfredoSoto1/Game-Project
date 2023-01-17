@@ -1,27 +1,18 @@
 #include "Asset.h"
 
+using namespace std;
 using namespace Uranium;
 
-void Asset::setModel(std::shared_ptr<Model> _model) {
-	model = _model;
+Asset::Asset(shared_ptr<Model> _model, shared_ptr<Material> _material)
+	: model(_model), material(_material)
+{
+
 }
 
-void Asset::setMaterial(std::shared_ptr<Material> _material) {
-	material = _material;
-}
-
-void Asset::setShader(std::shared_ptr<ShaderProgram> _shader) {
-	shaderProgram = _shader;
-}
-
-std::shared_ptr<Model>& Asset::getModel() {
+const shared_ptr<Model>& Asset::getModel() const {
 	return model;
 }
 
-std::shared_ptr<Material>& Asset::getMaterial() {
+const shared_ptr<Material>& Asset::getMaterial() const {
 	return material;
-}
-
-std::shared_ptr<ShaderProgram>& Asset::getShader() {
-	return shaderProgram;
 }

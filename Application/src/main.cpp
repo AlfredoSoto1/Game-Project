@@ -21,13 +21,16 @@
 #include "Renderer/Asset.h"
 #include "Renderer/Texture.h"
 #include "Renderer/Material.h"
-#include "Renderer/BatchRenderer.h"
+#include "Renderer/Renderer.h"
+#include "Renderer/ShaderProgram.h"
 
 #include "MarchingCubes/ChunkShader.h"
 #include "MarchingCubes/ChunkBuilder.h"
 #include "MarchingCubes/ChunkRenderer.h"
 
 using namespace Uranium;
+
+//https://ffainelli.github.io/openal-example/
 
 /*
 * TODO
@@ -45,48 +48,43 @@ class OverworldScene : public Scene {
 private:
 	ChunkBuilder* chunkBuilder;
 
-	std::shared_ptr<Asset> asset;
-	std::shared_ptr<Material> material;
-	std::shared_ptr<ShaderProgram> shader;
-
-	std::shared_ptr<Texture> texture;
-	
 	std::vector<Entity> entities;
+	
+	std::shared_ptr<Asset> asset;
+	std::shared_ptr<Texture> texture;
+	std::shared_ptr<Material> material;
+	
 
 	FPCamera* camera;
-	BatchRenderer* batchRenderer;
+	ChunkShader* shader;
+	Renderer* batchRenderer;
 
 public:
 	OverworldScene()
 		: Scene("Overworld")
 	{
-		// create camera in curent scene
-		camera = new FPCamera(this);
-
-		// create a simple albedo texture
-		texture = std::make_shared<Texture>("src/Texture.png");
-
-		// create and load material
-		material = std::make_shared<Material>();
-
-		material->setAlbedo("grass", texture);
-
-		// create ShaderProgram
-		shader = std::make_shared<ShaderProgram>();
-
-		// load to asset
-		asset = std::make_shared<Asset>();
-
-		asset->setMaterial(material);
-
-		// create renderer
-		batchRenderer = new BatchRenderer();
-
 		// create mesh
 		chunkBuilder = new ChunkBuilder();
 		chunkBuilder->create();
 
+		// create camera in curent scene
+		camera = new FPCamera(this);
 
+		// create material
+		texture = std::make_shared<Texture>("src/Texture.png");
+
+		material = std::make_shared<Material>();
+		material->setAlbedo(texture);
+
+		// load to asset
+		asset = std::make_shared<Asset>(chunkBuilder->model, material);
+
+		// create shader
+
+		shader = new ChunkShader();
+
+		// create renderer
+		batchRenderer = new Renderer(shader);
 
 		for (int i = 0; i < 2; i++) {
 
@@ -105,6 +103,7 @@ public:
 			// pass entities to renderer
 			batchRenderer->submit(&entities[i]);
 		}
+		
 	}
 	~OverworldScene() {
 		delete camera;
@@ -113,6 +112,8 @@ public:
 		//delete chunkRenderer;
 
 		delete batchRenderer;
+
+		delete shader;
 
 		entities.clear();
 	}

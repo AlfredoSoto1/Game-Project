@@ -15,7 +15,7 @@ ModelRenderer::ModelRenderer(ShaderProgram* _shader)
 	isWireframe = false;
 
 	shader->bind();
-	shader->initStaticUniforms();
+	//shader->initStaticUniforms();
 	shader->unbind();
 }
 
@@ -35,7 +35,7 @@ void ModelRenderer::technicalRender(const Model& _model, const Material& _materi
 	_model.bind();
 	_model.enableAttribs();
 
-	_material.bind();
+	//_material.bind();
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -60,7 +60,7 @@ void ModelRenderer::draw(unsigned int _indexCount, unsigned int _indexType) {
 
 void ModelRenderer::render(Camera* _camera, const Model& _model, const Material& _material) {
 	shader->bind();
-	shader->updateUniforms(_camera);
+	//shader->updateUniforms(_camera);
 	technicalRender(_model, _material);
 	shader->unbind();
 }

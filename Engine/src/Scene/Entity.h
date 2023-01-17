@@ -7,7 +7,6 @@
 namespace Uranium {
 
 	class Asset;
-	class RigidBody;
 
 	class Entity {
 	public:

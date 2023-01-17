@@ -6,22 +6,16 @@ namespace Uranium {
 
 	class Model;
 	class Material;
-	class ShaderProgram;
 
-	class Asset	{
+	class Asset {
 	public:
-		std::shared_ptr<Model>& getModel();
-		std::shared_ptr<Material>& getMaterial();
-		std::shared_ptr<ShaderProgram>& getShader();
+		Asset(std::shared_ptr<Model> _model, std::shared_ptr<Material> _material);
 
-		void setModel(std::shared_ptr<Model> _model);
-		void setMaterial(std::shared_ptr<Material> _material);
-		void setShader(std::shared_ptr<ShaderProgram> _shader);
+		const std::shared_ptr<Model>& getModel() const;
+		const std::shared_ptr<Material>& getMaterial() const;
 
 	private:
 		std::shared_ptr<Model> model;
 		std::shared_ptr<Material> material;
-		std::shared_ptr<ShaderProgram> shaderProgram;
-
 	};
 }
