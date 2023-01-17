@@ -16,7 +16,7 @@ namespace Uranium {
 		Renderer(ShaderProgram* _shader);
 		virtual ~Renderer();
 
-		void submit(Entity* _entity);
+		void submit(std::shared_ptr<Entity> _entity);
 
 		void render(Camera* _camera);
 
@@ -25,6 +25,6 @@ namespace Uranium {
 
 		ShaderProgram* defaultShader;
 
-		std::unordered_map<std::shared_ptr<Asset>, std::vector<Entity*>> renderEntityStack;
+		std::unordered_map<std::shared_ptr<Asset>, std::vector<std::shared_ptr<Entity>>> mappedEntities;
 	};
 }

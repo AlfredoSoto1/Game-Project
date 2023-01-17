@@ -193,6 +193,7 @@ void ShaderProgram::prepareUniforms() {
 	int length;
 	unsigned int type;
 
+	bind();
 	// get uniform location, uniform name and type
 	for (int i = 0; i < uniformCount; i++) {
 		glGetActiveUniform(program, (unsigned int)i, maxCharLength, &length, &size, &type, name);
@@ -203,4 +204,5 @@ void ShaderProgram::prepareUniforms() {
 			uniformFlags[name] = { glGetUniformLocation(program, name), type };
 		}
 	}
+	unbind();
 }

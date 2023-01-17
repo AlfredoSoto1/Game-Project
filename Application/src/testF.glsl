@@ -17,7 +17,7 @@ void main(void) {
 
 	color = pass_color;
 
-//	color = textColor;
+	color = textColor;
 
 //	color = u_Color;
 }

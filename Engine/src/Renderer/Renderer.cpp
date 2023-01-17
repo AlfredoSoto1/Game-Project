@@ -23,15 +23,15 @@ Renderer::Renderer(ShaderProgram* _shader)
 {
 	isWireframe = false;
 
-	renderEntityStack.reserve(2);
+	mappedEntities.reserve(2);
 }
 
 Renderer::~Renderer() {
-	renderEntityStack.clear();
+	mappedEntities.clear();
 }
 
-void Renderer::submit(Entity* _entity) {
-	renderEntityStack[_entity->getAsset()].push_back(_entity);
+void Renderer::submit(std::shared_ptr<Entity> _entity) {
+	mappedEntities[_entity->getAsset()].push_back(_entity);
 }
 
 void Renderer::render(Camera* _camera) {
@@ -45,8 +45,7 @@ void Renderer::render(Camera* _camera) {
 	}
 
 	// iterate per batch instance
-	for (const std::pair<std::shared_ptr<Asset>, const std::vector<Entity*>&>& pair : renderEntityStack) {
-
+	for (const std::pair<std::shared_ptr<Asset>, const std::vector<std::shared_ptr<Entity>>&>& pair : mappedEntities) {
 		// retain Asset
 		std::shared_ptr<Asset> entityAsset = pair.first;
 
@@ -61,8 +60,7 @@ void Renderer::render(Camera* _camera) {
 		material.getAlbedo()->bind(0);
 
 		// draw models
-		for (Entity* entity : pair.second) {
-
+		for (std::shared_ptr<Entity> entity : pair.second) {
 			entity->getRigidBody().update();
 			for (const std::pair<const std::string&, const std::pair<int, unsigned int>&>& uniformFlags : defaultShader->getUniformFlags()) {
 				if (uniformFlags.first == "projectionMatrix") {
@@ -75,6 +73,9 @@ void Renderer::render(Camera* _camera) {
 				}
 				else if (uniformFlags.first == "transformationMatrix") {
 					glUniformMatrix4fv(uniformFlags.second.first, 1, GL_TRUE, entity->getRigidBody().getTransformation());
+				}
+				else if (uniformFlags.first == "u_Color") {
+					glUniform4f(uniformFlags.second.first, 1.0, 1.0, 1.0, 1.0);
 				}
 			}
 

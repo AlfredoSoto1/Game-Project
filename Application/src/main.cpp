@@ -32,6 +32,10 @@ using namespace Uranium;
 
 //https://ffainelli.github.io/openal-example/
 
+//https://stackoverflow.com/questions/440144/in-opengl-is-there-a-way-to-get-a-list-of-all-uniforms-attribs-used-by-a-shade
+
+//https://registry.khronos.org/OpenGL-Refpages/gl4/html/glGetActiveUniform.xhtml
+
 /*
 * TODO
 *	+ Basic Marching cube algorithm / Displaying
@@ -48,7 +52,7 @@ class OverworldScene : public Scene {
 private:
 	ChunkBuilder* chunkBuilder;
 
-	std::vector<Entity> entities;
+	std::vector<std::shared_ptr<Entity>> entities;
 	
 	std::shared_ptr<Asset> asset;
 	std::shared_ptr<Texture> texture;
@@ -87,21 +91,11 @@ public:
 		batchRenderer = new Renderer(shader);
 
 		for (int i = 0; i < 2; i++) {
-
-			entities.emplace_back(Entity(asset, "Entity"));
-
-			float x = rand() % 50;
-			float y = rand() % 50;
-			float z = rand() % 50;
-
-			vec3& pos = entities[i].getRigidBody().getPosition();
-
-			pos.x = x;
-			pos.y = y;
-			pos.z = z;
-
-			// pass entities to renderer
-			batchRenderer->submit(&entities[i]);
+			entities.push_back(std::make_shared<Entity>(asset, "Entity"));
+			entities[i]->getRigidBody().getPosition().x = i;
+			entities[i]->getRigidBody().getPosition().y = i;
+			entities[i]->getRigidBody().getPosition().z = i;
+			batchRenderer->submit(entities[i]);
 		}
 		
 	}

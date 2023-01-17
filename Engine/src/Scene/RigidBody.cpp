@@ -4,7 +4,9 @@
 
 using namespace Uranium;
 
-RigidBody::RigidBody() {
+RigidBody::RigidBody() 
+	: scale(1.0), position(0.0), rotation(0.0)
+{
 
 }
 
