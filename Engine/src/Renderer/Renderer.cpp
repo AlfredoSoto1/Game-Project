@@ -44,6 +44,10 @@ void Renderer::render(Camera* _camera) {
 		}
 	}
 
+	// set projection and view matrix
+	glUniformMatrix4fv(uniformID, 1, GL_TRUE, _camera->getViewMatrix());
+	glUniformMatrix4fv(uniformID, 1, GL_TRUE, _camera->getProjectionMatrix());
+
 	// iterate per batch instance
 	for (const std::pair<std::shared_ptr<Asset>, const std::vector<std::shared_ptr<Entity>>&>& pair : mappedEntities) {
 		// retain Asset
@@ -58,10 +62,22 @@ void Renderer::render(Camera* _camera) {
 
 		// bind material
 		material.getAlbedo()->bind(0);
+		// set dynamic Samplers
+		glUniform1i(samplerId, bindingId); // albedo
+
+		defaultShader->setAlbedoSampler(material.getAlbedo());
 
 		// draw models
 		for (std::shared_ptr<Entity> entity : pair.second) {
+
+			// update transformation matrix here
 			entity->getRigidBody().update();
+
+
+			// set transformation matrix
+			glUniformMatrix4fv(uniformID, 1, GL_TRUE, entity->getRigidBody().getTransformation());
+
+
 			for (const std::pair<const std::string&, const std::pair<int, unsigned int>&>& uniformFlags : defaultShader->getUniformFlags()) {
 				if (uniformFlags.first == "projectionMatrix") {
 					glUniformMatrix4fv(uniformFlags.second.first, 1, GL_TRUE, _camera->getProjectionMatrix());

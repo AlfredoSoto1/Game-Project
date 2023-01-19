@@ -4,7 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <malloc.h>
-#include <iostream>
+#include <memory>
 
 #include "Utils/Maths/vec2.h"
 #include "Utils/Maths/vec3.h"
@@ -17,6 +17,7 @@
 #define CATCH_OPENGL_ERROR
 #include "UraniumApi.h"
 #include "ShaderProgram.h"
+#include "Texture.h"
 
 using namespace Uranium;
 
@@ -56,8 +57,8 @@ ShaderProgram::ShaderProgram(const char* _vertexPath, const char* _fragmentPath)
 	glLinkProgram(program);
 	glValidateProgram(program);
 
-	// prepare uniforms automatically
-	prepareUniforms();
+	// get uniform name and Id
+	retrieveUniforms();
 }
 
 ShaderProgram::~ShaderProgram() {
@@ -98,17 +99,17 @@ void ShaderProgram::bind() const {
 void ShaderProgram::unbind() const {
 	glUseProgram(0);
 }
-
-void ShaderProgram::dispatchCompute(unsigned int _groupX, unsigned int _groupY, unsigned int _groupZ, unsigned int _barrier) const {
-	//GL_SHADER_IMAGE_ACCESS_BARRIER_BIT | GL_SHADER_STORAGE_BARRIER_BIT <-- barrier
-	bind();
-	glDispatchCompute(
-		_groupX > workGroupMaxCount[0] ? workGroupMaxCount[0] : _groupX,
-		_groupY > workGroupMaxCount[1] ? workGroupMaxCount[1] : _groupY,
-		_groupZ > workGroupMaxCount[2] ? workGroupMaxCount[2] : _groupZ);
-	glMemoryBarrier(_barrier);
-	unbind();
-}
+//
+//void ShaderProgram::dispatchCompute(unsigned int _groupX, unsigned int _groupY, unsigned int _groupZ, unsigned int _barrier) const {
+//	//GL_SHADER_IMAGE_ACCESS_BARRIER_BIT | GL_SHADER_STORAGE_BARRIER_BIT <-- barrier
+//	bind();
+//	glDispatchCompute(
+//		_groupX > workGroupMaxCount[0] ? workGroupMaxCount[0] : _groupX,
+//		_groupY > workGroupMaxCount[1] ? workGroupMaxCount[1] : _groupY,
+//		_groupZ > workGroupMaxCount[2] ? workGroupMaxCount[2] : _groupZ);
+//	glMemoryBarrier(_barrier);
+//	unbind();
+//}
 
 unsigned int ShaderProgram::createShader(unsigned int _shaderType, const char* _path) {
 	std::string shaderSourceCode;
@@ -178,7 +179,7 @@ unsigned int ShaderProgram::compile(unsigned int _shaderType, std::string& _shad
 	return 0; // default shader bound ID (0) error
 }
 
-void ShaderProgram::prepareUniforms() {
+void ShaderProgram::retrieveUniforms() {
 
 	// get current active uniforms
 	int uniformCount;
@@ -205,4 +206,36 @@ void ShaderProgram::prepareUniforms() {
 		}
 	}
 	unbind();
+}
+
+void ShaderProgram::setAlbedoSampler(std::shared_ptr<Texture> _texture) {
+
+}
+
+void ShaderProgram::setSampler(const Sampler& _sampler, unsigned int _samplerId) const {
+	glUniform1i(_sampler, _samplerId);
+}
+
+void ShaderProgram::setVec2(Uniform _uniform, const vec2& _vec2) const {
+	glUniform2f(_uniform, _vec2.x, _vec2.y);
+}
+
+void ShaderProgram::setVec3(Uniform _uniform, const vec3& _vec3) const {
+	glUniform3f(_uniform, _vec3.x, _vec3.y, _vec3.z);
+}
+
+void ShaderProgram::setVec4(Uniform _uniform, const vec4& _vec4) const {
+	glUniform4f(_uniform, _vec4.x, _vec4.y, _vec4.z, _vec4.w);
+}
+
+void ShaderProgram::setMat2(Uniform _uniform, mat2& _mat2) const {
+	glUniformMatrix2fv(_uniform, 1, GL_TRUE, _mat2);
+}
+
+void ShaderProgram::setMat3(Uniform _uniform, mat3& _mat3) const {
+	glUniformMatrix3fv(_uniform, 1, GL_TRUE, _mat3);
+}
+
+void ShaderProgram::setMat4(Uniform _uniform, mat4& _mat4) const {
+	glUniformMatrix4fv(_uniform, 1, GL_TRUE, _mat4);
 }

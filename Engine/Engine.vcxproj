@@ -97,6 +97,7 @@
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Renderer\Image.h" />
     <ClInclude Include="src\Renderer\ModelRenderer.h" />
+    <ClInclude Include="src\Renderer\ShaderUniforms.h" />
     <ClInclude Include="src\Scene\RigidBody.h" />
     <ClInclude Include="src\Scene\Entity.h" />
     <ClInclude Include="src\Scene\FPCamera.h" />

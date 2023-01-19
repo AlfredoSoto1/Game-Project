@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <unordered_map>
 #include "UraniumApi.h"
 
@@ -26,14 +27,29 @@ namespace Uranium {
 		void bind() const;
 		void unbind() const;
 
+		std::vector<int> getSamplers();
+		std::vector<int> getMatrices();
+		std::vector<int> getVectors();
+
 		std::unordered_map<std::string, std::pair<int, unsigned int>>& getUniformFlags();
 		std::unordered_map<std::string, std::pair<int, unsigned int>>& getUniformSamplers();
 
+		void setAlbedoSampler(int _albedoSampler);
+		void setNormalSampler(int _normalSampler);
+		void setSpecularSampler(int _specularSampler);
+
+		void setSampler(const Sampler& _sampler, unsigned int _samplerId) const;
+
+		void setMat2(Uniform _uniform, mat2& _mat2) const;
+		void setMat3(Uniform _uniform, mat3& _mat3) const;
+		void setMat4(Uniform _uniform, mat4& _mat4) const;
+
+		void setVec2(Uniform _uniform, const vec2& _vec2) const;
+		void setVec3(Uniform _uniform, const vec3& _vec3) const;
+		void setVec4(Uniform _uniform, const vec4& _vec4) const;
+
 	protected:
-		virtual void updateUniforms() = 0;
-		virtual void initStaticUniforms() = 0;
-		
-		void dispatchCompute(unsigned int _groupX, unsigned int _groupY, unsigned int _groupZ, unsigned int _barrier) const;
+		//void dispatchCompute(unsigned int _groupX, unsigned int _groupY, unsigned int _groupZ, unsigned int _barrier) const;
 
 	private:
 		unsigned int program;
@@ -54,7 +70,7 @@ namespace Uranium {
 		unsigned int compile(unsigned int _shaderType, std::string& _shaderSource);
 		unsigned int createShader(unsigned int _shaderType, const char* _path);
 
-		void prepareUniforms();
+		void retrieveUniforms();
 
 	};
 }
