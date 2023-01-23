@@ -1,0 +1,25 @@
+{
+  "ShaderTokens": {
+    "Uniform_Flags": {
+      "VertexShader": [
+        "viewMatrix",
+        "projectionMatrix",
+        "transformationMatrix"
+      ],
+
+      "FragmentShader": [
+        "u_Color"
+      ]
+    },
+
+    "Uniform_Samplers": {
+      "VertexShader": [],
+
+      "FragmentShader": [
+        "albedo",
+        "normal",
+        "specular"
+      ]
+    }
+
+  }

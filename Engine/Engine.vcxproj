@@ -97,7 +97,7 @@
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Renderer\Image.h" />
     <ClInclude Include="src\Renderer\ModelRenderer.h" />
-    <ClInclude Include="src\Renderer\ShaderUniforms.h" />
+    <ClInclude Include="src\Renderer\Shader.h" />
     <ClInclude Include="src\Scene\RigidBody.h" />
     <ClInclude Include="src\Scene\Entity.h" />
     <ClInclude Include="src\Scene\FPCamera.h" />
@@ -141,6 +141,7 @@
     <ClCompile Include="src\Renderer\Asset.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Renderer\ModelRenderer.cpp" />
+    <ClCompile Include="src\Renderer\Shader.cpp" />
     <ClCompile Include="src\Scene\Entity.cpp" />
     <ClCompile Include="src\Scene\FPCamera.cpp" />
     <ClCompile Include="src\Scene\Camera.cpp" />
