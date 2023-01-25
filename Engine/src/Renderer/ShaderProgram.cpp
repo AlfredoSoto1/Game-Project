@@ -8,10 +8,18 @@
 
 #include "Shader.h"
 
+#include "Utils/Maths/vec2.h"
+#include "Utils/Maths/vec3.h"
+#include "Utils/Maths/vec4.h"
+
+#include "Utils/Maths/mat2.h"
+#include "Utils/Maths/mat3.h"
+#include "Utils/Maths/mat4.h"
+
 using namespace Uranium;
 
 ShaderProgram::ShaderProgram(std::shared_ptr<Shader> _computeShader) 
-	: vertShader(0), fragShader(0)
+	: vertShader(0), fragShader(0), availableUniformCount(0)
 {
 	program = glCreateProgram();
 
@@ -35,7 +43,7 @@ ShaderProgram::ShaderProgram(std::shared_ptr<Shader> _computeShader)
 }
 
 ShaderProgram::ShaderProgram(std::shared_ptr<Shader> _vertexShader, std::shared_ptr<Shader> _fragmentShader) 
-	: compShader(0)
+	: compShader(0), availableUniformCount(0)
 {
 	program = glCreateProgram();
 
@@ -48,6 +56,12 @@ ShaderProgram::ShaderProgram(std::shared_ptr<Shader> _vertexShader, std::shared_
 	// link and validate program
 	glLinkProgram(program);
 	glValidateProgram(program);
+
+	viewMatrix = -1;
+	projectionMatrix = -1;
+	transformationMatrix = -1;
+
+	readAvailableUniforms();
 }
 
 ShaderProgram::~ShaderProgram() {
@@ -69,24 +83,68 @@ ShaderProgram::~ShaderProgram() {
 	glDeleteProgram(program);
 }
 
-unsigned int ShaderProgram::getMaxCharUniform() {
-	return maxCharUniform;
-}
-
-unsigned int ShaderProgram::getAvailableUniformCount() {
-	return availableUniformCount;
-}
-
 ShaderProgram::operator unsigned int() const {
 	return program;
 }
 
-std::unordered_map<std::string, std::pair<int, unsigned int>>& ShaderProgram::getUniformFlags() {
-	return uniformFlags;
+std::unordered_map<std::string, std::pair<int, unsigned int>>& ShaderProgram::getVec2_fs() {
+	return vec2_f;
 }
 
-std::unordered_map<std::string, std::pair<int, unsigned int>>& ShaderProgram::getUniformSamplers() {
-	return uniformSamplers;
+std::unordered_map<std::string, std::pair<int, unsigned int>>& ShaderProgram::getVec3_fs() {
+	return vec3_f;
+}
+
+std::unordered_map<std::string, std::pair<int, unsigned int>>& ShaderProgram::getVec4_fs() {
+	return vec4_f;
+}
+
+std::unordered_map<std::string, std::pair<int, unsigned int>>& ShaderProgram::getMat2_fs() {
+	return mat2_f;
+}
+
+std::unordered_map<std::string, std::pair<int, unsigned int>>& ShaderProgram::getMat3_fs() {
+	return mat3_f;
+}
+
+std::unordered_map<std::string, std::pair<int, unsigned int>>& ShaderProgram::getMat4_fs() {
+	return mat4_f;
+}
+
+std::unordered_map<std::string, std::pair<int, unsigned int>>& ShaderProgram::getSampler_2ds() {
+	return sampler_2d;
+}
+
+std::unordered_map<std::string, std::pair<int, unsigned int>>& ShaderProgram::getSampler_3ds() {
+	return sampler_3d;
+}
+
+void ShaderProgram::setViewMatrix(mat4& _mat4) const {
+	if (viewMatrix < 0) {
+		print_warning(true, "No view matrix in shader to set value to.");
+		return;
+	}
+	glUniformMatrix4fv(viewMatrix, 1, GL_TRUE, _mat4);
+}
+
+void ShaderProgram::setProjectionMatrix(mat4& _mat4) const {
+	
+}
+
+void ShaderProgram::setColor(const vec4& _color) {
+	
+}
+
+void ShaderProgram::setAlbedoSampler(std::shared_ptr<Texture> _albedo) {
+	
+}
+
+void ShaderProgram::setNormalSampler(std::shared_ptr<Texture> _normal) {
+	
+}
+
+void ShaderProgram::setSpecularSampler(std::shared_ptr<Texture> _specular) {
+	
 }
 
 void ShaderProgram::bind() const {
@@ -131,11 +189,23 @@ void ShaderProgram::readAvailableUniforms() {
 	// get uniform location, uniform name and type
 	for (GLuint i = 0; i < uniformCount; i++) {
 		glGetActiveUniform(program, i, maxCharLength, &length, &size, &type, name);
-		if (type == GL_SAMPLER_2D) {
-			uniformSamplers[name] = { glGetUniformLocation(program, name), type };
-		}
-		else {
-			uniformFlags[name] = { glGetUniformLocation(program, name), type };
+
+		Uniform location = glGetUniformLocation(program, name);
+
+		switch (type) {
+		case GL_FLOAT_VEC2: 
+			vec2_f[name] = { location, type }; 
+			if (name == "viewMatrix") {
+				viewMatrix = location;
+			}
+			break;
+		case GL_FLOAT_VEC3: vec3_f[name] = { location, type }; break;
+		case GL_FLOAT_VEC4: vec4_f[name] = { location, type }; break;
+		case GL_FLOAT_MAT2: mat2_f[name] = { location, type }; break;
+		case GL_FLOAT_MAT3: mat3_f[name] = { location, type }; break;
+		case GL_FLOAT_MAT4: mat4_f[name] = { location, type }; break;
+		case GL_SAMPLER_2D: sampler_2d[name] = { location, type }; break;
+		case GL_SAMPLER_3D: sampler_3d[name] = { location, type }; break;
 		}
 	}
 	unbind();

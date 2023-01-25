@@ -62,6 +62,12 @@ namespace Uranium {
 
 		void drawModel(const Model& _model);
 
+		void bindModel();
+		void unbindModel();
+
+		void bindMaterial();
+		void unbindMaterial();
+
 		void joinShader();
 
 		void loadAssets(std::shared_ptr<Asset> _asset);

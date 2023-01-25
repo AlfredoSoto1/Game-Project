@@ -50,3 +50,15 @@ static bool printGLIfAnyError() {
 typedef int Sampler;
 typedef int Uniform;
 
+#define interface class
+
+#define extends public
+#define implements public
+#define abstract_class class
+
+#define abstract virtual
+
+#define declare_class class
+
+#define link_class friend class
+

@@ -3,11 +3,14 @@
 #include "Utils/Maths/vec3.h"
 #include "Utils/Maths/mat4.h"
 
+#include "Renderer/AccesibleShader.h"
+
 namespace Uranium {
 
 	class Scene;
+	class ShaderProgram;
 
-	class Camera {
+	abstract_class Camera : implements AccesibleShader {
 	public:
 		Camera(Scene* _currentScene);
 		virtual ~Camera();
@@ -26,6 +29,9 @@ namespace Uranium {
 		void setPosition(const vec3& _position);
 		void setRotation(const vec3& _rotation);
 	
+		void updateUniform();
+		void updateUniform();
+
 	protected:
 		vec3 position;
 		vec3 rotation;

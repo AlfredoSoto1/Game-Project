@@ -46,7 +46,29 @@ void Renderer::joinShader() {
 
 }
 
+void Renderer::bindModel(std::shared_ptr<Asset>& _asset) {
+	// bind model and attributes
+	_asset->getModel()->bind();
+	_asset->getModel()->enableAttribs();
+}
+
+void Renderer::unbindModel(std::shared_ptr<Asset>& _asset) {
+
+	// unbind model
+	_asset->getModel()->disableAttribs();
+	_asset->getModel()->unbind();
+}
+
+void Renderer::bindMaterial() {
+
+}
+void Renderer::unbindMaterial() {
+	// unbind material
+	_asset->getMaterial()->getAlbedo()->unbind();
+}
+
 void Renderer::loadCameraSettings(std::shared_ptr<Camera> _camera) {
+	// load all camera settings here
 	if (shaderHas_ViewMatrix) {
 		setMat4(shader->getViewU(), _camera->getViewMatrix());
 	}
@@ -56,10 +78,6 @@ void Renderer::loadCameraSettings(std::shared_ptr<Camera> _camera) {
 }
 
 void Renderer::loadAssets(std::shared_ptr<Asset> _asset) {
-
-	// bind model and attributes
-	_asset->getModel()->bind();
-	_asset->getModel()->enableAttribs();
 
 	// bind material	
 	if (shaderHas_albedo && _asset->getMaterial()->getAlbedo() != nullptr) {
@@ -73,12 +91,7 @@ void Renderer::loadAssets(std::shared_ptr<Asset> _asset) {
 }
 
 void Renderer::flushAssets(std::shared_ptr<Asset> _asset) {
-	// unbind material
-	_asset->getMaterial()->getAlbedo()->unbind();
-
-	// unbind model
-	_asset->getModel()->disableAttribs();
-	_asset->getModel()->unbind();
+	
 }
 
 void Renderer::loadEntityAsset(std::shared_ptr<Entity> _entity) {
@@ -96,6 +109,9 @@ void Renderer::disableRendererAttribs() {
 }
 
 void Renderer::drawModel(const Model& _model) {
+
+	enableRendererAttribs();
+
 	if (isWireframe) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glDrawElements(GL_TRIANGLES, _model.getIndexCount(), GL_UNSIGNED_INT, nullptr);
@@ -104,10 +120,11 @@ void Renderer::drawModel(const Model& _model) {
 	else {
 		glDrawElements(GL_TRIANGLES, _model.getIndexCount(), GL_UNSIGNED_INT, nullptr);
 	}
+
+	disableRendererAttribs();
 }
 
 void Renderer::render(std::shared_ptr<Camera> _camera) {
-	// bind shader
 	shader->bind();
 
 	loadCameraSettings(_camera);
@@ -118,6 +135,8 @@ void Renderer::render(std::shared_ptr<Camera> _camera) {
 
 		const Model& model = *entityAsset->getModel();
 
+		bindModel();
+
 		// load assets to shader renderer
 		loadAssets(entityAsset);
 
@@ -127,12 +146,10 @@ void Renderer::render(std::shared_ptr<Camera> _camera) {
 
 			loadEntityAsset(entity);
 
-			enableRendererAttribs();
-
 			drawModel(model);
-
-			disableRendererAttribs();
 		}
+
+		unbindModel();
 		flushAssets(entityAsset);
 	}
 	// unbind shader

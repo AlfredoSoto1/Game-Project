@@ -4,13 +4,18 @@
 #include <cmath>
 #include "UraniumApi.h"
 
-#include "Scene.h"
 #include "Core/Application.h"
+
 #include "Gui/Window.h"
 #include "Gui/WindowSettings.h"
+
+#include "Utils/Maths/Operation.h"
+
 #include "Devices/Mouse.h"
 #include "Devices/Keyboard.h"
-#include "Utils/Maths/Operation.h"
+
+#include "Scene.h"
+#include "Renderer/ShaderProgram.h"
 
 using namespace Uranium;
 
@@ -115,5 +120,10 @@ float FPCamera::getDirectionFromKey(int key1, int key2) {
 	else if (getKeyboard().isKeyDown(key2))
 		return -1.0f;
 	return 0.0f;
+}
+
+void FPCamera::updateUniforms(std::shared_ptr<ShaderProgram> _shaderProgram) {
+	_shaderProgram->setViewMatrix(viewMatrix);
+	_shaderProgram->setProjectionMatrix(projectionMatrix);
 }
 

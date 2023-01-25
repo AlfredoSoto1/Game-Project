@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+#include "UraniumApi.h"
 #include "Camera.h"
 #include "Events/InputEvent.h"
 
@@ -7,7 +9,7 @@ namespace Uranium {
 	
 	class Scene;
 
-	class FPCamera : public Camera, public InputEvent {
+	class FPCamera : extends Camera, implements InputEvent {
 	private:
 		double timeFactor;
 		double responceTime;
@@ -21,6 +23,8 @@ namespace Uranium {
 		float cameraSpeed;
 	
 		bool grabOnCommand;
+
+		void updateUniforms(std::shared_ptr<ShaderProgram> _shaderProgram);
 
 		void calcCameraRotation();
 		void calcMovementDirection();

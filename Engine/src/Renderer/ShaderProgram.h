@@ -9,38 +9,62 @@
 
 namespace Uranium {
 
+	struct mat2;
+	struct mat3;
+	struct mat4;
+
+	struct vec2;
+	struct vec3;
+	struct vec4;
+
 	class Shader;
+	class Texture;
 
 	class ShaderProgram {
 	public:
 		ShaderProgram(std::shared_ptr<Shader> _computeShader);
 		ShaderProgram(std::shared_ptr<Shader> _vertexShader, std::shared_ptr<Shader> _fragmentShader);
 		virtual ~ShaderProgram();
-
+		
+		// getters
 		operator unsigned int() const;
 
+		std::unordered_map<std::string, std::pair<int, unsigned int>>& getVec2_fs();
+		std::unordered_map<std::string, std::pair<int, unsigned int>>& getVec3_fs();
+		std::unordered_map<std::string, std::pair<int, unsigned int>>& getVec4_fs();
+
+		std::unordered_map<std::string, std::pair<int, unsigned int>>& getMat2_fs();
+		std::unordered_map<std::string, std::pair<int, unsigned int>>& getMat3_fs();
+		std::unordered_map<std::string, std::pair<int, unsigned int>>& getMat4_fs();
+
+		std::unordered_map<std::string, std::pair<int, unsigned int>>& getSampler_2ds();
+		std::unordered_map<std::string, std::pair<int, unsigned int>>& getSampler_3ds();
+
+		// setters
+		void setViewMatrix(mat4& _mat4) const;
+		void setProjectionMatrix(mat4& _mat4) const;
+		
+		void setColor(const vec4& _color);
+		void setAlbedoSampler(std::shared_ptr<Texture> _albedo);
+		void setNormalSampler(std::shared_ptr<Texture> _normal);
+		void setSpecularSampler(std::shared_ptr<Texture> _specular);
+
+		// methods
 		void bind() const;
 		void unbind() const;
 
-		unsigned int getMaxCharUniform();
-		unsigned int getAvailableUniformCount();
+		Uniform getUniform(unsigned int _program, const char* _name) const;
+		Sampler getSampler(unsigned int _program, const char* _name) const;
 
-		Uniform getViewU();
-		Uniform getProjectionU();
-		Uniform getTransformationU();
+		void setSampler(const Sampler& _sampler, unsigned int _samplerId) const;
 
-		Uniform getColorU();
-		Uniform getAlbedoU();
-		Uniform getNormalU();
-		Uniform getSpecularU();
+		void setMat2(Uniform _uniform, mat2& _mat2) const;
+		void setMat3(Uniform _uniform, mat3& _mat3) const;
+		void setMat4(Uniform _uniform, mat4& _mat4) const;
 
-		std::unordered_map<std::string, std::pair<int, unsigned int>>& getUniformFlags();
-		std::unordered_map<std::string, std::pair<int, unsigned int>>& getUniformSamplers();
-	
-		std::unordered_map<std::string, std::pair<int, unsigned int>>& getUniformVectors();
-		std::unordered_map<std::string, std::pair<int, unsigned int>>& getUniformMatrices();
-		std::unordered_map<std::string, std::pair<int, unsigned int>>& getUniformSamplers2D();
-		std::unordered_map<std::string, std::pair<int, unsigned int>>& getUniformSamplers3D();
+		void setVec2(Uniform _uniform, const vec2& _vec2) const;
+		void setVec3(Uniform _uniform, const vec3& _vec3) const;
+		void setVec4(Uniform _uniform, const vec4& _vec4) const;
 
 	protected:
 		//void dispatchCompute(unsigned int _groupX, unsigned int _groupY, unsigned int _groupZ, unsigned int _barrier) const;
@@ -54,13 +78,25 @@ namespace Uranium {
 		unsigned int maxCharUniform;
 		unsigned int availableUniformCount;
 
-		std::unordered_map<std::string, std::pair<int, unsigned int>> uniformFlags;
-		std::unordered_map<std::string, std::pair<int, unsigned int>> uniformSamplers;
-
 		int workGroupInvocations;
 
 		int workGroupMaxSize[3];
 		int workGroupMaxCount[3];
+
+		Uniform viewMatrix;
+		Uniform projectionMatrix;
+		Uniform transformationMatrix;
+
+		std::unordered_map<std::string, std::pair<int, unsigned int>> vec2_f;
+		std::unordered_map<std::string, std::pair<int, unsigned int>> vec3_f;
+		std::unordered_map<std::string, std::pair<int, unsigned int>> vec4_f;
+
+		std::unordered_map<std::string, std::pair<int, unsigned int>> mat2_f;
+		std::unordered_map<std::string, std::pair<int, unsigned int>> mat3_f;
+		std::unordered_map<std::string, std::pair<int, unsigned int>> mat4_f;
+		
+		std::unordered_map<std::string, std::pair<int, unsigned int>> sampler_2d;
+		std::unordered_map<std::string, std::pair<int, unsigned int>> sampler_3d;
 
 		void readAvailableUniforms();
 

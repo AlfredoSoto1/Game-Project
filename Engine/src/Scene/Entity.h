@@ -2,7 +2,10 @@
 
 #include <string>
 #include <memory>
+#include "UraniumApi.h"
+
 #include "RigidBody.h"
+#include "Renderer/AccesibleShader.h"
 
 namespace Uranium {
 
