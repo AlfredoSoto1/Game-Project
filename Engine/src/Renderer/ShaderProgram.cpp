@@ -128,7 +128,11 @@ void ShaderProgram::setViewMatrix(mat4& _mat4) const {
 }
 
 void ShaderProgram::setProjectionMatrix(mat4& _mat4) const {
-	
+	if (projectionMatrix < 0) {
+		print_warning(true, "No projection matrix in shader to set value to.");
+		return;
+	}
+	glUniformMatrix4fv(projectionMatrix, 1, GL_TRUE, _mat4);
 }
 
 void ShaderProgram::setColor(const vec4& _color) {
