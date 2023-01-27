@@ -7,6 +7,7 @@
 #include "UraniumApi.h"
 
 #include "Shader.h"
+#include "Texture.h"
 
 #include "Utils/Maths/vec2.h"
 #include "Utils/Maths/vec3.h"
@@ -136,19 +137,35 @@ void ShaderProgram::setProjectionMatrix(mat4& _mat4) const {
 }
 
 void ShaderProgram::setColor(const vec4& _color) {
-	
+	if (color < 0) {
+		print_warning(true, "No Color in shader to set value to.");
+		return;
+	}
+	glUniform4f(color, _color.x, _color.y, _color.z, _color.w);
 }
 
 void ShaderProgram::setAlbedoSampler(std::shared_ptr<Texture> _albedo) {
-	
+	if (albedoSampler < 0) {
+		print_warning(true, "No projection matrix in shader to set value to.");
+		return;
+	}
+	glUniform1i(color, *_albedo);
 }
 
 void ShaderProgram::setNormalSampler(std::shared_ptr<Texture> _normal) {
-	
+	if (normalSampler < 0) {
+		print_warning(true, "No projection matrix in shader to set value to.");
+		return;
+	}
+	glUniform1i(color, *_normal);
 }
 
 void ShaderProgram::setSpecularSampler(std::shared_ptr<Texture> _specular) {
-	
+	if (specularSampler < 0) {
+		print_warning(true, "No projection matrix in shader to set value to.");
+		return;
+	}
+	glUniform1i(color, *_specular);
 }
 
 void ShaderProgram::bind() const {

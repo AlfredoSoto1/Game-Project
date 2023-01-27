@@ -35,6 +35,10 @@ Texture::~Texture() {
 	glDeleteTextures(1, &texture);
 }
 
+Texture::operator unsigned int() {
+	return texture;
+}
+
 void Texture::bind(unsigned int _slot) const {
 	glActiveTexture(GL_TEXTURE0 + _slot);
 	glBindTexture(GL_TEXTURE_2D, texture);

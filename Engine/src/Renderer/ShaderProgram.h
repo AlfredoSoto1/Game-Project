@@ -87,6 +87,12 @@ namespace Uranium {
 		Uniform projectionMatrix;
 		Uniform transformationMatrix;
 
+		Uniform color;
+
+		Sampler albedoSampler;
+		Sampler normalSampler;
+		Sampler specularSampler;
+
 		std::unordered_map<std::string, std::pair<int, unsigned int>> vec2_f;
 		std::unordered_map<std::string, std::pair<int, unsigned int>> vec3_f;
 		std::unordered_map<std::string, std::pair<int, unsigned int>> vec4_f;
