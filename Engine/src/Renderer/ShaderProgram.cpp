@@ -146,7 +146,7 @@ void ShaderProgram::setColor(const vec4& _color) {
 
 void ShaderProgram::setAlbedoSampler(std::shared_ptr<Texture> _albedo) {
 	if (albedoSampler < 0) {
-		print_warning(true, "No projection matrix in shader to set value to.");
+		print_warning(true, "No Albedo in shader to set value to.");
 		return;
 	}
 	glUniform1i(color, *_albedo);
@@ -154,7 +154,7 @@ void ShaderProgram::setAlbedoSampler(std::shared_ptr<Texture> _albedo) {
 
 void ShaderProgram::setNormalSampler(std::shared_ptr<Texture> _normal) {
 	if (normalSampler < 0) {
-		print_warning(true, "No projection matrix in shader to set value to.");
+		print_warning(true, "No Normal in shader to set value to.");
 		return;
 	}
 	glUniform1i(color, *_normal);
@@ -162,7 +162,7 @@ void ShaderProgram::setNormalSampler(std::shared_ptr<Texture> _normal) {
 
 void ShaderProgram::setSpecularSampler(std::shared_ptr<Texture> _specular) {
 	if (specularSampler < 0) {
-		print_warning(true, "No projection matrix in shader to set value to.");
+		print_warning(true, "No Sampler in shader to set value to.");
 		return;
 	}
 	glUniform1i(color, *_specular);
@@ -216,16 +216,39 @@ void ShaderProgram::readAvailableUniforms() {
 		switch (type) {
 		case GL_FLOAT_VEC2: 
 			vec2_f[name] = { location, type }; 
+			break;
+		case GL_FLOAT_VEC3:
+			vec3_f[name] = { location, type };
+			break;
+		case GL_FLOAT_VEC4: 
+			vec4_f[name] = { location, type }; 
+			if (name == "color") {
+				color = location;
+			}
+			break;
+		case GL_FLOAT_MAT2: mat2_f[name] = { location, type }; break;
+		case GL_FLOAT_MAT3: mat3_f[name] = { location, type }; break;
+		case GL_FLOAT_MAT4: 
+			mat4_f[name] = { location, type }; 
 			if (name == "viewMatrix") {
 				viewMatrix = location;
 			}
+			if (name == "projectionMatrix") {
+				projectionMatrix = location;
+			}
 			break;
-		case GL_FLOAT_VEC3: vec3_f[name] = { location, type }; break;
-		case GL_FLOAT_VEC4: vec4_f[name] = { location, type }; break;
-		case GL_FLOAT_MAT2: mat2_f[name] = { location, type }; break;
-		case GL_FLOAT_MAT3: mat3_f[name] = { location, type }; break;
-		case GL_FLOAT_MAT4: mat4_f[name] = { location, type }; break;
-		case GL_SAMPLER_2D: sampler_2d[name] = { location, type }; break;
+		case GL_SAMPLER_2D: 
+			sampler_2d[name] = { location, type }; 
+			if (name == "albedoSampler") {
+				albedoSampler = location;
+			}
+			if (name == "normalSampler") {
+				normalSampler = location;
+			}
+			if (name == "specularSampler") {
+				specularSampler = location;
+			}
+			break;
 		case GL_SAMPLER_3D: sampler_3d[name] = { location, type }; break;
 		}
 	}
