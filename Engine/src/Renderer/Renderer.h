@@ -25,28 +25,17 @@ namespace Uranium {
 
 	class Renderer { 
 	public:
-		Renderer(ShaderProgram* _shader);
+		Renderer(std::shared_ptr<ShaderProgram> _shader);
 		virtual ~Renderer();
 
 		void push(std::shared_ptr<Entity> _entity);
 
 		void render(std::shared_ptr<Camera> _camera);
 
-	protected:
-		void setMat2(Uniform _uniform, mat2& _mat2) const;
-		void setMat3(Uniform _uniform, mat3& _mat3) const;
-		void setMat4(Uniform _uniform, mat4& _mat4) const;
-
-		void setVec2(Uniform _uniform, const vec2& _vec2) const;
-		void setVec3(Uniform _uniform, const vec3& _vec3) const;
-		void setVec4(Uniform _uniform, const vec4& _vec4) const;
-
-		void setSampler(const Sampler& _sampler, unsigned int _samplerId) const;
-
 	private:
 		bool isWireframe;
 
-		ShaderProgram* shader;
+		std::shared_ptr<ShaderProgram> shader;
 
 		std::unordered_map<std::shared_ptr<Asset>, std::vector<std::shared_ptr<Entity>>> mappedEntities;
 
@@ -62,16 +51,7 @@ namespace Uranium {
 
 		void drawModel(const Model& _model);
 
-		void bindModel();
-		void unbindModel();
-
-		void bindMaterial();
-		void unbindMaterial();
-
 		void joinShader();
-
-		void loadAssets(std::shared_ptr<Asset> _asset);
-		void flushAssets(std::shared_ptr<Asset> _asset);
 
 		void loadEntityAsset(std::shared_ptr<Entity> _entity);
 		void loadCameraSettings(std::shared_ptr<Camera> _camera);

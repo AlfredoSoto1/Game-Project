@@ -62,6 +62,14 @@ ShaderProgram::ShaderProgram(std::shared_ptr<Shader> _vertexShader, std::shared_
 	projectionMatrix = -1;
 	transformationMatrix = -1;
 
+	containsViewMatrix = false;
+	containsProjectionMatrix = false;
+	containsTransformationMatrix = false;
+	constainsColor = false;
+	containsAlbedoSampler = false;
+	containsNormalSampler = false;
+	containsSpecularSampler = false;
+
 	readAvailableUniforms();
 }
 
@@ -120,51 +128,59 @@ std::unordered_map<std::string, std::pair<int, unsigned int>>& ShaderProgram::ge
 	return sampler_3d;
 }
 
+bool ShaderProgram::hasViewMatrix() {
+	return containsViewMatrix;
+}
+
+bool ShaderProgram::hasProjectionMatrix() {
+	return containsProjectionMatrix;
+}
+
+bool ShaderProgram::hasTransformationMatrix() {
+	return containsTransformationMatrix;
+}
+
+bool ShaderProgram::hasColor() {
+	return constainsColor;
+}
+
+bool ShaderProgram::hasAlbedoSampler() {
+	return containsAlbedoSampler;
+}
+
+bool ShaderProgram::hasNormalSampler() {
+	return containsNormalSampler;
+}
+
+bool ShaderProgram::hasSpecularSampler() {
+	return containsSpecularSampler;
+}
+
 void ShaderProgram::setViewMatrix(mat4& _mat4) const {
-	if (viewMatrix < 0) {
-		print_warning(true, "No view matrix in shader to set value to.");
-		return;
-	}
 	glUniformMatrix4fv(viewMatrix, 1, GL_TRUE, _mat4);
 }
 
 void ShaderProgram::setProjectionMatrix(mat4& _mat4) const {
-	if (projectionMatrix < 0) {
-		print_warning(true, "No projection matrix in shader to set value to.");
-		return;
-	}
 	glUniformMatrix4fv(projectionMatrix, 1, GL_TRUE, _mat4);
 }
 
+void ShaderProgram::setTransformationMatrix(mat4& _mat4) const {
+	glUniformMatrix4fv(transformationMatrix, 1, GL_TRUE, _mat4);
+}
+
 void ShaderProgram::setColor(const vec4& _color) {
-	if (color < 0) {
-		print_warning(true, "No Color in shader to set value to.");
-		return;
-	}
 	glUniform4f(color, _color.x, _color.y, _color.z, _color.w);
 }
 
-void ShaderProgram::setAlbedoSampler(std::shared_ptr<Texture> _albedo) {
-	if (albedoSampler < 0) {
-		print_warning(true, "No Albedo in shader to set value to.");
-		return;
-	}
-	glUniform1i(color, *_albedo);
+void ShaderProgram::setAlbedoSampler(std::shared_ptr<Texture> _albedo, int _bindingId) {
+	glUniform1i(albedoSampler, _bindingId);
 }
 
-void ShaderProgram::setNormalSampler(std::shared_ptr<Texture> _normal) {
-	if (normalSampler < 0) {
-		print_warning(true, "No Normal in shader to set value to.");
-		return;
-	}
+void ShaderProgram::setNormalSampler(std::shared_ptr<Texture> _normal, int _bindingId) {
 	glUniform1i(color, *_normal);
 }
 
-void ShaderProgram::setSpecularSampler(std::shared_ptr<Texture> _specular) {
-	if (specularSampler < 0) {
-		print_warning(true, "No Sampler in shader to set value to.");
-		return;
-	}
+void ShaderProgram::setSpecularSampler(std::shared_ptr<Texture> _specular, int _bindingId) {
 	glUniform1i(color, *_specular);
 }
 
@@ -224,32 +240,44 @@ void ShaderProgram::readAvailableUniforms() {
 			vec4_f[name] = { location, type }; 
 			if (name == "color") {
 				color = location;
+				constainsColor = true;
 			}
 			break;
-		case GL_FLOAT_MAT2: mat2_f[name] = { location, type }; break;
-		case GL_FLOAT_MAT3: mat3_f[name] = { location, type }; break;
+		case GL_FLOAT_MAT2:
+			mat2_f[name] = { location, type }; 
+			break;
+		case GL_FLOAT_MAT3: 
+			mat3_f[name] = { location, type }; 
+			break;
 		case GL_FLOAT_MAT4: 
 			mat4_f[name] = { location, type }; 
 			if (name == "viewMatrix") {
 				viewMatrix = location;
+				containsViewMatrix = true;
 			}
-			if (name == "projectionMatrix") {
+			else if (name == "projectionMatrix") {
 				projectionMatrix = location;
+				containsProjectionMatrix = true;
 			}
 			break;
 		case GL_SAMPLER_2D: 
 			sampler_2d[name] = { location, type }; 
 			if (name == "albedoSampler") {
 				albedoSampler = location;
+				containsAlbedoSampler = true;
 			}
-			if (name == "normalSampler") {
+			else if (name == "normalSampler") {
 				normalSampler = location;
+				containsNormalSampler = true;
 			}
-			if (name == "specularSampler") {
+			else if (name == "specularSampler") {
 				specularSampler = location;
+				containsSpecularSampler = true;
 			}
 			break;
-		case GL_SAMPLER_3D: sampler_3d[name] = { location, type }; break;
+		case GL_SAMPLER_3D: 
+			sampler_3d[name] = { location, type };
+			break;
 		}
 	}
 	unbind();
@@ -257,3 +285,30 @@ void ShaderProgram::readAvailableUniforms() {
 	delete[] name;
 }
 
+void ShaderProgram::setSampler(const Sampler& _sampler, unsigned int _samplerId) const {
+	glUniform1i(_sampler, _samplerId);
+}
+
+void ShaderProgram::setVec2(Uniform _uniform, const vec2& _vec2) const {
+	glUniform2f(_uniform, _vec2.x, _vec2.y);
+}
+
+void ShaderProgram::setVec3(Uniform _uniform, const vec3& _vec3) const {
+	glUniform3f(_uniform, _vec3.x, _vec3.y, _vec3.z);
+}
+
+void ShaderProgram::setVec4(Uniform _uniform, const vec4& _vec4) const {
+	glUniform4f(_uniform, _vec4.x, _vec4.y, _vec4.z, _vec4.w);
+}
+
+void ShaderProgram::setMat2(Uniform _uniform, mat2& _mat2) const {
+	glUniformMatrix2fv(_uniform, 1, GL_TRUE, _mat2);
+}
+
+void ShaderProgram::setMat3(Uniform _uniform, mat3& _mat3) const {
+	glUniformMatrix3fv(_uniform, 1, GL_TRUE, _mat3);
+}
+
+void ShaderProgram::setMat4(Uniform _uniform, mat4& _mat4) const {
+	glUniformMatrix4fv(_uniform, 1, GL_TRUE, _mat4);
+}

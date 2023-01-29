@@ -59,9 +59,9 @@ private:
 	std::shared_ptr<Material> material;
 	
 
-	FPCamera* camera;
-	ChunkShader* shader;
 	Renderer* batchRenderer;
+	std::shared_ptr<FPCamera> camera;
+	std::shared_ptr<ChunkShader> shader;
 
 public:
 	OverworldScene()
@@ -72,7 +72,7 @@ public:
 		chunkBuilder->create();
 
 		// create camera in curent scene
-		camera = new FPCamera(this);
+		camera = std::make_shared<FPCamera>(this);
 
 		// create material
 		texture = std::make_shared<Texture>("src/Texture.png");
@@ -85,7 +85,7 @@ public:
 
 		// create shader
 
-		shader = new ChunkShader();
+		shader = std::make_shared<FPCamera>();
 
 		// create renderer
 		batchRenderer = new Renderer(shader);
@@ -95,19 +95,13 @@ public:
 			entities[i]->getRigidBody().getPosition().x = i;
 			entities[i]->getRigidBody().getPosition().y = i;
 			entities[i]->getRigidBody().getPosition().z = i;
-			batchRenderer->submit(entities[i]);
+			batchRenderer->push(entities[i]);
 		}
 		
 	}
 	~OverworldScene() {
-		delete camera;
-		//delete chunkShader;
 		delete chunkBuilder;
-		//delete chunkRenderer;
-
 		delete batchRenderer;
-
-		delete shader;
 
 		entities.clear();
 	}
