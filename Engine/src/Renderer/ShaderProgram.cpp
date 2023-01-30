@@ -222,12 +222,6 @@ void ShaderProgram::readAvailableUniforms() {
 
 	GLchar* name = new GLchar[maxCharLength];
 
-
-	//TODO
-	// Fix GLchar to string when looking for uniforms in shader
-	//
-
-
 	bind();
 	// get uniform location, uniform name and type
 	for (GLuint i = 0; i < uniformCount; i++) {
@@ -244,7 +238,7 @@ void ShaderProgram::readAvailableUniforms() {
 			break;
 		case GL_FLOAT_VEC4: 
 			vec4_f[name] = { location, type }; 
-			if (name == "u_Color") {
+			if (strcmp(name, "u_Color") == 0) {
 				color = location;
 				constainsColor = true;
 			}
@@ -257,30 +251,30 @@ void ShaderProgram::readAvailableUniforms() {
 			break;
 		case GL_FLOAT_MAT4: 
 			mat4_f[name] = { location, type }; 
-			if (name == "viewMatrix") {
+			if (strcmp(name, "viewMatrix") == 0) {
 				viewMatrix = location;
 				containsViewMatrix = true;
 			}
-			else if (name == "projectionMatrix") {
+			else if (strcmp(name, "projectionMatrix") == 0) {
 				projectionMatrix = location;
 				containsProjectionMatrix = true;
 			}
-			else if (name == "transformationMatrix") {
+			else if (strcmp(name, "transformationMatrix") == 0) {
 				transformationMatrix = location;
 				containsTransformationMatrix = true;
 			}
 			break;
 		case GL_SAMPLER_2D: 
 			sampler_2d[name] = { location, type }; 
-			if (name == "albedoSampler") {
+			if (strcmp(name, "albedoSampler") == 0) {
 				albedoSampler = location;
 				containsAlbedoSampler = true;
 			}
-			else if (name == "normalSampler") {
+			else if (strcmp(name, "normalSampler") == 0) {
 				normalSampler = location;
 				containsNormalSampler = true;
 			}
-			else if (name == "specularSampler") {
+			else if (strcmp(name, "specularSampler") == 0) {
 				specularSampler = location;
 				containsSpecularSampler = true;
 			}
