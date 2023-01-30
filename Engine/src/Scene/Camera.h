@@ -14,10 +14,12 @@ namespace Uranium {
 
 	class Camera : implements AccesibleShader {
 	public:
-		Camera(Scene* _currentScene);
+		Camera(Scene* _parentScene);
 		virtual ~Camera();
 
 		virtual void update() = 0;
+
+		Scene* getParentScene();
 
 		mat4& getViewMatrix();
 		mat4& getProjectionMatrix();
@@ -31,6 +33,10 @@ namespace Uranium {
 		void setPosition(const vec3& _position);
 		void setRotation(const vec3& _rotation);
 	
+		void updateViewMatrix();
+		void updateProjectionMatrix();
+
+		void updateViewport(unsigned int _x = 0, unsigned int _y = 0, unsigned int _width = 0, unsigned int _height = 0);
 	protected:
 		vec3 position;
 		vec3 rotation;
@@ -39,7 +45,7 @@ namespace Uranium {
 		mat4 viewMatrix;
 		mat4 projectionMatrix;
 
-		Scene* currentScene;
+		Scene* parentScene;
 
 		double fov;
 		double nearPlane;
@@ -47,11 +53,6 @@ namespace Uranium {
 
 		double xSensitivity;
 		double ySensitivity;
-
-		void updateViewMatrix();
-		void updateProjectionMatrix();
-
-		void updateViewport(unsigned int _x = 0, unsigned int _y = 0, unsigned int _width = 0, unsigned int _height = 0);
 
 	private:
 		friend class Renderer;

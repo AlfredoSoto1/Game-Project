@@ -11,8 +11,8 @@
 
 using namespace Uranium;
 
-Camera::Camera(Scene* _currentScene)
-	: currentScene(_currentScene)
+Camera::Camera(Scene* _parentScene)
+	: parentScene(_parentScene)
 {
 	isCameraLocked = false;
 
@@ -29,6 +29,10 @@ Camera::Camera(Scene* _currentScene)
 
 Camera::~Camera() {
 
+}
+
+Scene* Camera::getParentScene() {
+	return parentScene;
 }
 
 mat4& Camera::getViewMatrix() {
