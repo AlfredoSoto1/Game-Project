@@ -11,6 +11,8 @@ namespace Uranium {
 
 	class Material {
 	public:
+		Material();
+
 		void setAlbedo(std::shared_ptr<Texture> _albedoTexture);
 		void setNormal(std::shared_ptr<Texture> _normalTexture);
 		void setSpecular(std::shared_ptr<Texture> _specularTexture);

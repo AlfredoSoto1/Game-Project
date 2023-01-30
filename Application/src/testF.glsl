@@ -9,11 +9,11 @@ in vec2 pass_position;
 
 uniform vec4 u_Color;
 
-uniform sampler2D albedo;
+uniform sampler2D albedoSampler;
 
 void main(void) {
 	
-	vec4 textColor = texture(albedo, pass_position);
+	vec4 textColor = texture(albedoSampler, pass_position);
 
 	color = pass_color;
 

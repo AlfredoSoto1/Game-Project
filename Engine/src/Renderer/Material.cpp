@@ -4,6 +4,12 @@
 
 using namespace Uranium;
 
+Material::Material() {
+	albedo = nullptr;
+	normal = nullptr;
+	specular = nullptr;
+}
+
 void Material::setAlbedo(std::shared_ptr<Texture> _albedoTexture) {
 	albedo = _albedoTexture;
 }

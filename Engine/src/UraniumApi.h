@@ -54,7 +54,6 @@ typedef int Uniform;
 
 #define extends public
 #define implements public
-#define abstract_class class
 
 #define abstract virtual
 

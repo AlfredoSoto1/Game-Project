@@ -46,17 +46,9 @@ void Renderer::joinShader() {
 
 }
 
-void Renderer::enableRendererAttribs() {
-	glEnable(GL_DEPTH_TEST);
-}
-
-void Renderer::disableRendererAttribs() {
-	glDisable(GL_DEPTH_TEST);
-}
-
 void Renderer::drawModel(const Model& _model) {
 
-	enableRendererAttribs();
+	glEnable(GL_DEPTH_TEST);
 
 	if (isWireframe) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -67,19 +59,14 @@ void Renderer::drawModel(const Model& _model) {
 		glDrawElements(GL_TRIANGLES, _model.getIndexCount(), GL_UNSIGNED_INT, nullptr);
 	}
 
-	disableRendererAttribs();
+	glDisable(GL_DEPTH_TEST);
 }
 
 void Renderer::render(std::shared_ptr<Camera> _camera) {
 	shader->bind();
 
 	// load all camera settings here
-	if (shader->hasViewMatrix()) {
-		shader->setViewMatrix(_camera->getViewMatrix());
-	}
-	if (shader->hasProjectionMatrix()) {
-		shader->setProjectionMatrix(_camera->getProjectionMatrix());
-	}
+	_camera->bindToShader(shader);
 
 	// iterate per batch instance
 	for (const std::pair<std::shared_ptr<Asset>, const std::vector<std::shared_ptr<Entity>>&>& pair : mappedEntities) {

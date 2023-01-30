@@ -9,6 +9,7 @@ namespace Uranium {
 
 	interface AccesibleShader {
 	protected:
-		virtual void updateUniforms(std::shared_ptr<ShaderProgram> _shaderProgram) = 0;
+		virtual void bindToShader(std::shared_ptr<ShaderProgram> _shader) = 0;
+
 	};
 }

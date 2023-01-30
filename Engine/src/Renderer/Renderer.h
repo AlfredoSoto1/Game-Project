@@ -29,7 +29,6 @@ namespace Uranium {
 		virtual ~Renderer();
 
 		void push(std::shared_ptr<Entity> _entity);
-
 		void render(std::shared_ptr<Camera> _camera);
 
 	private:
@@ -52,12 +51,5 @@ namespace Uranium {
 		void drawModel(const Model& _model);
 
 		void joinShader();
-
-		void loadEntityAsset(std::shared_ptr<Entity> _entity);
-		void loadCameraSettings(std::shared_ptr<Camera> _camera);
-
-		void enableRendererAttribs();
-		void disableRendererAttribs();
-
 	};
 }

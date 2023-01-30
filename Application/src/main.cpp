@@ -23,10 +23,9 @@
 #include "Renderer/Material.h"
 #include "Renderer/Renderer.h"
 #include "Renderer/ShaderProgram.h"
+#include "Renderer/Shader.h"
 
-#include "MarchingCubes/ChunkShader.h"
 #include "MarchingCubes/ChunkBuilder.h"
-#include "MarchingCubes/ChunkRenderer.h"
 
 using namespace Uranium;
 
@@ -61,7 +60,9 @@ private:
 
 	Renderer* batchRenderer;
 	std::shared_ptr<FPCamera> camera;
-	std::shared_ptr<ChunkShader> shader;
+	std::shared_ptr<ShaderProgram> shader;
+	std::shared_ptr<Shader> vertexShader;
+	std::shared_ptr<Shader> fragmentShader;
 
 public:
 	OverworldScene()
@@ -84,8 +85,9 @@ public:
 		asset = std::make_shared<Asset>(chunkBuilder->model, material);
 
 		// create shader
-
-		shader = std::make_shared<FPCamera>();
+		vertexShader = std::make_shared<Shader>("src/testV.glsl", GL_VERTEX_SHADER);
+		fragmentShader = std::make_shared<Shader>("src/testF.glsl", GL_FRAGMENT_SHADER);
+		shader = std::make_shared<ShaderProgram>(vertexShader, fragmentShader);
 
 		// create renderer
 		batchRenderer = new Renderer(shader);

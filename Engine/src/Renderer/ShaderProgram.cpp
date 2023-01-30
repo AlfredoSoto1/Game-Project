@@ -222,6 +222,12 @@ void ShaderProgram::readAvailableUniforms() {
 
 	GLchar* name = new GLchar[maxCharLength];
 
+
+	//TODO
+	// Fix GLchar to string when looking for uniforms in shader
+	//
+
+
 	bind();
 	// get uniform location, uniform name and type
 	for (GLuint i = 0; i < uniformCount; i++) {
@@ -238,7 +244,7 @@ void ShaderProgram::readAvailableUniforms() {
 			break;
 		case GL_FLOAT_VEC4: 
 			vec4_f[name] = { location, type }; 
-			if (name == "color") {
+			if (name == "u_Color") {
 				color = location;
 				constainsColor = true;
 			}
@@ -258,6 +264,10 @@ void ShaderProgram::readAvailableUniforms() {
 			else if (name == "projectionMatrix") {
 				projectionMatrix = location;
 				containsProjectionMatrix = true;
+			}
+			else if (name == "transformationMatrix") {
+				transformationMatrix = location;
+				containsTransformationMatrix = true;
 			}
 			break;
 		case GL_SAMPLER_2D: 

@@ -122,8 +122,12 @@ float FPCamera::getDirectionFromKey(int key1, int key2) {
 	return 0.0f;
 }
 
-void FPCamera::updateUniforms(std::shared_ptr<ShaderProgram> _shaderProgram) {
-	_shaderProgram->setViewMatrix(viewMatrix);
-	_shaderProgram->setProjectionMatrix(projectionMatrix);
+void FPCamera::bindToShader(std::shared_ptr<ShaderProgram> _shader) {
+	if (_shader->hasViewMatrix()) {
+		_shader->setViewMatrix(viewMatrix);
+	}
+	if (_shader->hasProjectionMatrix()) {
+		_shader->setProjectionMatrix(projectionMatrix);
+	}
 }
 
