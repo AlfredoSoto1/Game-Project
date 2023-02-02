@@ -11,7 +11,7 @@ namespace Uranium {
 
 	class Asset;
 
-	class Entity {
+	class Entity : implements AccesibleShader {
 	public:
 		Entity(Entity&& _move) noexcept;
 		Entity(const Entity& _copy);
@@ -29,6 +29,9 @@ namespace Uranium {
 		void setName(const std::string& _name);
 		void setRigidBody(const RigidBody& _rigidBody);
 		void setAsset(const std::shared_ptr<Asset>& _asset);
+
+		void bindUniforms(std::shared_ptr<ShaderProgram> _shader);
+		void preBindUniforms(std::shared_ptr<ShaderProgram> _shader);
 
 	private:
 		static unsigned int universal_entity_id_counter;

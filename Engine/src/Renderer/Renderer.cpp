@@ -88,9 +88,7 @@ void Renderer::render(std::shared_ptr<Camera> _camera) {
 			entity->getRigidBody().update();
 	
 			// load entity uniform
-			if (shader->hasTransformationMatrix()) {
-				shader->setTransformationMatrix(entity->getRigidBody().getTransformation());
-			}
+			entity->bindUniforms(shader);
 
 			drawModel(model);
 		}

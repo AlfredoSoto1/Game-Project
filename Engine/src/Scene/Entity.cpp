@@ -2,6 +2,7 @@
 
 #include "UraniumApi.h"
 #include "Renderer/Asset.h"
+#include "Renderer/ShaderProgram.h"
 
 using namespace Uranium;
 
@@ -59,4 +60,15 @@ void Entity::setRigidBody(const RigidBody& _rigidBody) {
 void Entity::setAsset(const std::shared_ptr<Asset>& _asset) {
 	asset = _asset;
 }
+
+void Entity::bindUniforms(std::shared_ptr<ShaderProgram> _shader) {
+	if (_shader->hasTransformationMatrix()) {
+		_shader->setTransformationMatrix(getRigidBody().getTransformation());
+	}
+}
+
+void Entity::preBindUniforms(std::shared_ptr<ShaderProgram> _shader) {
+
+}
+
 
