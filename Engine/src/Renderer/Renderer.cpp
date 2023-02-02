@@ -66,7 +66,7 @@ void Renderer::render(std::shared_ptr<Camera> _camera) {
 	shader->bind();
 
 	// load all camera settings here
-	_camera->bindToShader(shader);
+	_camera->bindUniforms(shader);
 
 	// iterate per batch instance
 	for (const std::pair<std::shared_ptr<Asset>, const std::vector<std::shared_ptr<Entity>>&>& pair : mappedEntities) {

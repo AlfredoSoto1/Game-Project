@@ -16,7 +16,8 @@ namespace Uranium {
 
 		void update();
 	protected:
-		void bindToShader(std::shared_ptr<ShaderProgram> _shader);
+		void bindUniforms(std::shared_ptr<ShaderProgram> _shader);
+		void preBindUniforms(std::shared_ptr<ShaderProgram> _shader);
 
 	private:
 		double timeFactor;

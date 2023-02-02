@@ -44,7 +44,7 @@ FPCamera::~FPCamera() {
 
 void FPCamera::update() {
 
-	timeFactor = currentScene->getTimeInstance() / responceTime;//miliseconds
+	timeFactor = parentScene->getTimeInstance() / responceTime;//miliseconds
 
 	//update projection matrix
 	if (Application::get().getWindow().getSettings().hasResized()) {
@@ -122,12 +122,16 @@ float FPCamera::getDirectionFromKey(int key1, int key2) {
 	return 0.0f;
 }
 
-void FPCamera::bindToShader(std::shared_ptr<ShaderProgram> _shader) {
+void FPCamera::bindUniforms(std::shared_ptr<ShaderProgram> _shader) {
 	if (_shader->hasViewMatrix()) {
 		_shader->setViewMatrix(viewMatrix);
 	}
 	if (_shader->hasProjectionMatrix()) {
 		_shader->setProjectionMatrix(projectionMatrix);
 	}
+}
+
+void FPCamera::preBindUniforms(std::shared_ptr<ShaderProgram> _shader) {
+
 }
 
