@@ -3,21 +3,21 @@
 #include <memory>
 #include "UraniumApi.h"
 #include "Camera.h"
+#include "Updatable.h"
 #include "Events/InputEvent.h"
 
 namespace Uranium {
 	
 	class Scene;
 
-	class FPCamera : extends Camera, implements InputEvent {
+	class FPCamera : extends Camera, implements InputEvent, implements Updatable {
 	public:
 		FPCamera(Scene* _currentScene);
 		virtual ~FPCamera();
 
 		void update();
 	protected:
-		void bindUniforms(std::shared_ptr<ShaderProgram> _shader);
-		void preBindUniforms(std::shared_ptr<ShaderProgram> _shader);
+		void processShaderInstructions(std::shared_ptr<ShaderProgram> _shader);
 
 	private:
 		double timeFactor;

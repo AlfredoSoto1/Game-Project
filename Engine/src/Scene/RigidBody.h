@@ -16,7 +16,7 @@ namespace Uranium {
 
 		mat4& getTransformation();
 
-		void update();
+		void updateTransformationMatrix();
 
 	private:
 		vec3 scale;

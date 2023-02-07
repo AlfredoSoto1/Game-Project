@@ -135,9 +135,6 @@
     <ClInclude Include="src\Scene\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\AccesibleShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Scene\RigidBody.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -147,10 +144,13 @@
     <ClInclude Include="src\Renderer\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\Renderable.h">
+    <ClInclude Include="src\Renderer\RenderInstructor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\Runnable.h">
+    <ClInclude Include="src\Renderer\ShaderProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Updatable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

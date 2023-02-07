@@ -5,14 +5,14 @@
 #include "Utils/Maths/vec3.h"
 #include "Utils/Maths/mat4.h"
 
-#include "Renderer/AccesibleShader.h"
+#include "Renderer/ShaderProcessor.h"
 
 namespace Uranium {
 
 	class Scene;
 	class ShaderProgram;
 
-	class Camera : implements AccesibleShader {
+	class Camera : implements ShaderProcessor {
 	public:
 		Camera(Scene* _parentScene);
 		virtual ~Camera();

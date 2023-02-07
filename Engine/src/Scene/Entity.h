@@ -5,19 +5,20 @@
 #include "UraniumApi.h"
 
 #include "RigidBody.h"
-#include "Renderer/Runnable.h"
-#include "Renderer/Renderable.h"
-#include "Renderer/AccesibleShader.h"
+#include "Scene/Updatable.h"
+#include "Renderer/ShaderProcessor.h"
 
 namespace Uranium {
 
 	class Asset;
 
-	class Entity : implements AccesibleShader, implements Renderable, implements Runnable {
+	class Entity : implements ShaderProcessor, implements Updatable {
 	public:
-		Entity(Entity&& _move) noexcept;
+		// copy constructor
 		Entity(const Entity& _copy);
-
+		// move constructor
+		Entity(Entity&& _move) noexcept;
+		// default entity constructor
 		Entity(const std::shared_ptr<Asset>& _asset, const std::string& _name);
 		virtual ~Entity();
 		
@@ -30,13 +31,9 @@ namespace Uranium {
 
 		void setAsset(const std::shared_ptr<Asset>& _asset);
 
-		void bindUniforms(std::shared_ptr<ShaderProgram> _shader);
-		void preBindUniforms(std::shared_ptr<ShaderProgram> _shader);
-
-		void run();
+		// TODO temp: remove when abstraction is used
 		void update();
-		void render();
-		void dispose();
+		void processShaderInstructions(std::shared_ptr<ShaderProgram> _shader);
 
 	private:
 		static unsigned int universal_entity_id_counter;

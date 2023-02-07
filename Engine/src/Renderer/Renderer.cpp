@@ -66,7 +66,7 @@ void Renderer::render(std::shared_ptr<Camera> _camera) {
 	shader->bind();
 
 	// load all camera settings here
-	_camera->bindUniforms(shader);
+	_camera->processShaderInstructions(shader);
 
 	// iterate per batch instance
 	for (const std::pair<std::shared_ptr<Asset>, const std::vector<std::shared_ptr<Entity>>&>& pair : mappedEntities) {
@@ -84,12 +84,8 @@ void Renderer::render(std::shared_ptr<Camera> _camera) {
 		material.bind(shader);
 
 		for (std::shared_ptr<Entity> entity : pair.second) {
-			// update transformation matrix here
-			entity->getRigidBody().update();
-	
-			// load entity uniform
-			entity->bindUniforms(shader);
-
+			// renders anything that has entity to the shader
+			entity->processShaderInstructions(shader);
 			drawModel(model);
 		}
 

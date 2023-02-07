@@ -122,6 +122,11 @@ public:
 	}
 	void update() {
 		camera->update();
+
+		// update all entities
+		for (std::shared_ptr<Entity> entity : entities) {
+			entity->update();
+		}
 	}
 
 };

@@ -30,6 +30,6 @@ mat4& RigidBody::getTransformation() {
 	return transformationMatrix;
 }
 
-void RigidBody::update() {
+void RigidBody::updateTransformationMatrix() {
 	transform(&transformationMatrix, position, rotation, scale);
 }

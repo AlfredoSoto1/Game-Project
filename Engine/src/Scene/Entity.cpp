@@ -54,30 +54,15 @@ void Entity::setAsset(const std::shared_ptr<Asset>& _asset) {
 	asset = _asset;
 }
 
-void Entity::bindUniforms(std::shared_ptr<ShaderProgram> _shader) {
+void Entity::update() {
+	// update transformation matrix
+	rigidBody.updateTransformationMatrix();
+}
+
+void Entity::processShaderInstructions(std::shared_ptr<ShaderProgram> _shader) {
 	if (_shader->hasTransformationMatrix()) {
 		_shader->setTransformationMatrix(getRigidBody().getTransformation());
 	}
-}
-
-void Entity::preBindUniforms(std::shared_ptr<ShaderProgram> _shader) {
-
-}
-
-void Entity::run() {
-	
-}
-
-void Entity::update() {
-	
-}
-
-void Entity::render() {
-	
-}
-
-void Entity::dispose() {
-	
 }
 
 
