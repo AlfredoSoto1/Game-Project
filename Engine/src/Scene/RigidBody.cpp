@@ -14,22 +14,6 @@ RigidBody::~RigidBody() {
 
 }
 
-void RigidBody::setScale(const vec3& _scale) {
-	scale = _scale;
-}
-
-void RigidBody::setPosition(const vec3& _position) {
-	position = _position;
-}
-
-void RigidBody::setRotation(const vec3& _rotation) {
-	rotation = _rotation;
-}
-
-void RigidBody::setTransformation(const mat4& _transformation) {
-	transformationMatrix = _transformation;
-}
-
 vec3& RigidBody::getScale() {
 	return scale;
 }

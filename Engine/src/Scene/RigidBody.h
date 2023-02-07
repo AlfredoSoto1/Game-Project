@@ -16,12 +16,6 @@ namespace Uranium {
 
 		mat4& getTransformation();
 
-		void setScale(const vec3& _scale);
-		void setPosition(const vec3& _position);
-		void setRotation(const vec3& _rotation);
-
-		void setTransformation(const mat4& _transformation);
-
 		void update();
 
 	private:

@@ -5,13 +5,15 @@
 #include "UraniumApi.h"
 
 #include "RigidBody.h"
+#include "Renderer/Runnable.h"
+#include "Renderer/Renderable.h"
 #include "Renderer/AccesibleShader.h"
 
 namespace Uranium {
 
 	class Asset;
 
-	class Entity : implements AccesibleShader {
+	class Entity : implements AccesibleShader, implements Renderable, implements Runnable {
 	public:
 		Entity(Entity&& _move) noexcept;
 		Entity(const Entity& _copy);
@@ -26,12 +28,15 @@ namespace Uranium {
 		RigidBody& getRigidBody();
 		std::shared_ptr<Asset>& getAsset();
 
-		void setName(const std::string& _name);
-		void setRigidBody(const RigidBody& _rigidBody);
 		void setAsset(const std::shared_ptr<Asset>& _asset);
 
 		void bindUniforms(std::shared_ptr<ShaderProgram> _shader);
 		void preBindUniforms(std::shared_ptr<ShaderProgram> _shader);
+
+		void run();
+		void update();
+		void render();
+		void dispose();
 
 	private:
 		static unsigned int universal_entity_id_counter;

@@ -50,13 +50,6 @@ std::shared_ptr<Asset>& Entity::getAsset() {
 	return asset;
 }
 
-void Entity::setName(const std::string& _name) {
-	name = _name;
-}
-
-void Entity::setRigidBody(const RigidBody& _rigidBody) {
-	rigidBody = _rigidBody;
-}
 void Entity::setAsset(const std::shared_ptr<Asset>& _asset) {
 	asset = _asset;
 }
@@ -69,6 +62,22 @@ void Entity::bindUniforms(std::shared_ptr<ShaderProgram> _shader) {
 
 void Entity::preBindUniforms(std::shared_ptr<ShaderProgram> _shader) {
 
+}
+
+void Entity::run() {
+	
+}
+
+void Entity::update() {
+	
+}
+
+void Entity::render() {
+	
+}
+
+void Entity::dispose() {
+	
 }
 
 
